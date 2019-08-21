@@ -1,0 +1,11 @@
+user: info@myjobo.com
+pass: Myjobo@2019
+url: https://elasticemail.com/account/
+
+api key: 738bc8b0-3950-4fe9-a219-af9c71fdd695
+
+public key: 5b6015ec-0a2f-4a74-95e9-0546837555af
+
+
+
+ALTER TABLE `site_settings` CHANGE `mail_driver` `mail_driver` ENUM('array','log','sparkpost','ses','mandrill','mailgun','sendmail','smtp','mail','elastic_email') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'smtp';
