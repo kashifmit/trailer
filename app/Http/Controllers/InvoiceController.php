@@ -219,11 +219,7 @@ class InvoiceController extends Controller
             'FaultReasonCode' => null !== $request->input('FaultReasonCode') ? $request->input('FaultReasonCode') : NULL,
             'ResolutionCodeId' => null !== $request->input('ResolutionCodeId') ? $request->input('ResolutionCodeId') : NULL,
             'PartsLaborId' => null !== $request->input('PartsLaborId') ? $request->input('PartsLaborId') : NULL,
-            'LaborTotal' => null !== $request->input('LaborTotal') ? $request->input('LaborTotal') : 0,
-            'PartsTotal' => null !== $request->input('PartsTotal') ? $request->input('PartsTotal') : 0,
-            'AccessoriesTotal' => null !== $request->input('AccessoriesTotal') ? $request->input('AccessoriesTotal') : 0,
-            'AnnualInspectionTotal' => null !== $request->input('AnnualInspectionTotal') ? $request->input('AnnualInspectionTotal') : 0,
-            'RegistrationTotal' => null !== $request->input('RegistrationTotal') ? $request->input('RegistrationTotal') : 0,
+            'LineType' => null !== $request->input('LineType') ? $request->input('LineType') : Null,
         ]);
     }
 
@@ -279,5 +275,54 @@ class InvoiceController extends Controller
         ->with('data', $data)
         ->with('invoices', DataArrayHelper::getInvoiceList());
 
+    }
+
+    public function createLineItem($InvoiceNo)
+    {
+        $data = MaintenanceInvoiceModel::select('InvoiceNo', 'InvoiceDate', 'LaborTotal', 'PartsTotal', 'AccessoriesTotal', 'AnnualInspectionTotal', 'RegistrationTotal', 'SalesTax', 'TotalPrice')->where('InvoiceNo', $InvoiceNo)->first()->toArray();
+        $arrayData = [
+            'Labor Total'=> 'LaborTotal', 
+            'Parts Total' => 'PartsTotal',
+            'Accessories Total' => 'AccessoriesTotal',
+            'Annual Inspection Total' => 'AnnualInspectionTotal',
+            'Registration Total' => 'RegistrationTotal',
+            'Tax Total' => 'SalesTax',
+            'Total Invoice Amount' => 'TotalPrice',
+        ];
+        return view('inline_invoice.add')
+        ->with('data', $data)
+        ->with('arrayData', $arrayData)
+        ->with('invoices', DataArrayHelper::getInvoiceList())
+        ->with('getResolutionCode', DataArrayHelper::getResolutionCode())
+        ->with('getAtaCode', DataArrayHelper::getAtaCode())
+        ->with('getFaultCode', DataArrayHelper::getFaultCode());
+    }
+
+    public function storeInlineInvoiceItem($InvoiceNo, Request $request)
+    {
+        try {
+            $this->updateMaintenanceInvoice($InvoiceNo, $request);
+            foreach ($request->input('LineType') as $key => $value) {
+            $invoice_detail = new MaintenanceInvoiceDetailModel();
+            $invoice_detail->InvoiceLine = rand(1,100000);
+            $invoice_detail->InvoiceNo = $InvoiceNo;
+            $invoice_detail->ResolutionDescriptionSE = NULL;
+            $invoice_detail->UnitPrice = $request->input('UnitPrice')[$key];
+            $invoice_detail->LaborHoursQty = $request->input('LaborHoursQty')[$key];
+            $invoice_detail->TotalPrice = ($request->input('UnitPrice')[$key]*$request->input('LaborHoursQty')[$key]);
+            $invoice_detail->SalesTax = 0;
+            $invoice_detail->Rework = "YES";
+            $invoice_detail->RepairComments = NULL;
+            $invoice_detail->ATACodeId = $request->input('ATACodeId')[$key];
+            $invoice_detail->FaultReasonCode = $request->input('FaultReasonCode')[$key];
+            $invoice_detail->ResolutionCodeId = $request->input('ResolutionCodeId')[$key];
+            $invoice_detail->PartsLaborId = null !== $request->input('PartsLaborId') ? $request->input('PartsLaborId') : NULL;
+            $invoice_detail->LineType = $value;
+                $invoice_detail->save();
+            }
+            return Redirect::route('create.line.item', $InvoiceNo);
+        } catch (ModelNotFoundException $e) {
+            return back()->withError($e->getMessage());
+        }
     }
 }

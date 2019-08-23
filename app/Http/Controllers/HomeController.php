@@ -14,7 +14,6 @@ use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use DataTables;
 
 class HomeController extends Controller
 {
@@ -97,68 +96,30 @@ class HomeController extends Controller
         }
     }
 
-    public function usersList()
+    public function usersList(Request $request)
     {
-        return view('users.list')->with('organizations', DataArrayHelper::getOrganizations())
-        ->with('roles', DataArrayHelper::getRoles());
-    }
+        $data = User::with(['organizations', 'roles']);
 
-    public function fetchUsers(Request $request)
-    {
-        $users = User::select([
-                    'users.id',
-                    'users.name',
-                    'users.last_name',
-                    'users.organization_id',
-                    'users.email',
-                    'users.Role_id',
-        ]);
-        return Datatables::of($users)
-                ->filter(function ($query) use ($request) {
-                    if ($request->has('name') && !empty($request->name)) {
-                        $query->where('users.name', 'like', "%{$request->get('name')}%");
-                    }
-                    if ($request->has('last_name') && !empty($request->last_name)) {
-                        $query->where('users.last_name', 'like', "%{$request->get('last_name')}%");
-                    }
-                    if ($request->has('organization') && !empty($request->organization)) {
-                        $query->where('users.organization_id', 'like', "%{$request->get('organization')}%");
-                    }
-                    if ($request->has('email') && !empty($request->email)) {
-                        $query->where('users.email', 'like', "%{$request->get('email')}%");
-                    }
-                    if ($request->has('role') && !empty($request->role)) {
-                        $query->where('users.Role_id', 'like', "%{$request->get('role')}%");
-                    }
-                })
-                ->addColumn('organization_id', function ($users) {
-                    return $users->getOrganizationName('organizationName');
-                })
-                ->addColumn('Role_id', function ($users) {
-                    return $users->getRoleName('Role_name');
-                })
-                ->addColumn('action', function ($users) {
-                    
-                    return '
-        <div class="btn-group">
-            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action
-                <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="' . route('edit.user', ['id' => $users->id]) . '"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
-                </li>
-                
-            </ul>
-        </div>';                       
-                // <li>
-                //     <a href="javascript:void(0);" onclick="deleteUser(' . $users->id . ');" class=""><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
-                // </li>
-                })
-                ->setRowId(function($users) {
-                    return 'userDtRow' . $users->id;
-                })
-                ->make(true);
+        if (!empty($request->query('name'))) {
+              $data = $data->where('name','like', "%{$request->query('name')}%");
+            }
+        if (!empty($request->query('last_name'))) {
+              $data = $data->where('last_name','like', "%{$request->query('last_name')}%");
+            }
+        if (!empty($request->query('email'))) {
+              $data = $data->where('email','like', "%{$request->query('email')}%");
+            }
+        if (!empty($request->query('organization'))) {
+              $data = $data->where('organization','like', "%{$request->query('organization')}%");
+            }
+        if (!empty($request->query('role'))) {
+              $data = $data->where('role','like', "%{$request->query('role')}%");
+            }                
+        $data = $data->paginate(20);
+        return view('users.list')
+        ->with('Alldata', $data)
+        ->with('organizations', DataArrayHelper::getOrganizations())
+        ->with('roles', DataArrayHelper::getRoles());
     }
 
     public function editUser($id)

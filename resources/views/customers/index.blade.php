@@ -20,83 +20,55 @@
         </div>
 
         <div class="card-body">
-            <div class="table-container">
-                <form method="post" role="form" id="customer-search-form">
-                    <table class="table table-striped table-bordered table-hover"  id="customerDatatableAjax">
-                        <thead>
-                            <td>
-                                {!! Form::select('business', ['' => '--Business--']+$buniness, null, array('class'=>'form-control', 'id'=>'business')) !!}
-                            </td>
-                            <td>                    
-                                {!! Form::select('SiteId', ['' => '--Location--']+$sites, null, array('class'=>'form-control', 'id'=>'SiteId')) !!}
-                            </td>
-                            <td colspan="5">
-                                {!! Form::select('CustomerID', ['' => '--Customers--']+$customers, null, array('class'=>'form-control', 'id'=>'CustomerID')) !!}
-                            </td>
-                            <tr role="row" class="heading">
-                                <th>Customer Number</th>
-                                <th>Customer Name</th>
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>Drop Trailer Agreement</th>
-                                <th>Approved Allocation</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>    
-                </form>
+            {!! Form::open(array('method' => 'GET', 'route' => 'customer.list', 'class' => 'form', 'files'=>true)) !!}
+            <div class="row">
+                <div class="col-md-3">
+                    {!! Form::select('business', ['' => '--Business--']+$buniness, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control', 'id'=>'business')) !!}
+                </div>
+                <div class="col-md-3">
+                    {!! Form::select('SiteId', ['' => '--Location--']+$sites, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control', 'id'=>'SiteId')) !!}
+                </div>
+                <div class="col-md-3">
+                    {!! Form::select('CustomerID', ['' => '--Customers--']+$customers, \Request::get('CustomerID') ? \Request::get('CustomerID') : null, array('class'=>'form-control', 'id'=>'CustomerID')) !!}
+                </div>
+                <div class="col-md-3">
+                    {!! Form::button('Find <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                </div>
             </div>
+            {!! Form::close() !!} 
+            <div class="row">&nbsp;</div>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer Number</th>
+                        <th>Customer Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Drop Trailer Agreement</th>
+                        <th>Approved Allocation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($Alldata as $data)
+                        <tr>
+                            <td>{{$data->CustomerID}}</td>
+                            <td>{{$data->ShipToName}}</td>
+                            <td>{{$data->ShipToAddress1}}</td>
+                            <td>{{$data->ShipToCity}}</td>
+                            <td>{{$data->StateAbbreviation}}</td>
+                            <td><input type="checkbox" name="checkbox"></td>
+                            <td>3</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @if($Alldata)
+                <div class="pull-right">{{$Alldata->links()}}</div>
+            @endif
         </div>
     </div>
-<script>
-        $(function () {
 
-        var oTable = $('#customerDatatableAjax').DataTable({
-            processing: true,
-            serverSide: true,
-            stateSave: true,
-            searching: false,
-            ajax: {
-                url: '{!! route('fetch.customer') !!}',
-            }, columns: [
-                {data: 'CustomerID', name: 'CustomerID'},
-                {data: 'ShipToName', name: 'ShipToName'},
-                {data: 'ShipToAddress1', name: 'ShipToAddress1'},
-                {data: 'ShipToCity', name: 'ShipToCity'},
-                {data: 'StateAbbreviation', name: 'StateAbbreviation'},
-                {data: 'ShipToAddress2', name: 'ShipToAddress2'},
-                {data: 'ShipToAddress3', name: 'ShipToAddress3'}
-            ]
-        });
-        $('#business').on('keyup', function (e) {
-            oTable.draw();
-            e.preventDefault();
-        });
-        $('#SiteId').on('change', function (e) {
-            oTable.draw();
-            e.preventDefault();
-        });
-        $('#CustomerID').on('change', function (e) {
-            oTable.draw();
-            e.preventDefault();
-        });
-    });
-        // function deleteTrailer(id, is_default) {
-        // var msg = 'Are you sure?';
-        // if (confirm(msg)) {
-        //     $.post("{{ route('delete.organization') }}", {id: id, _method: 'DELETE', _token: '{{ csrf_token() }}'})
-        //         .done(function (response) {
-        //             if (response == 'ok') {
-        //                 var table = $('#trailerDatatableAjax').DataTable();
-        //                 table.row('trailerDtRow' + id).remove().draw(false);
-        //             } else {
-        //                 alert('Request Failed!');
-        //             }
-        //         });
-        //     }
-        // }
-    </script>
 @endsection
 
     

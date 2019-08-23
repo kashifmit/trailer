@@ -67,65 +67,7 @@
             </div>
         </div>
     </div>
-<script>
-    //     $(function () {
 
-    //     var oTable = $('#trailerDatatableAjax').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         stateSave: true,
-    //         searching: false,
-    //         ajax: {
-    //             url: '{!! route('fetch.trailer') !!}',
-    //         }, columns: [
-    //             {data: 'TrailerSerialNo', name: 'TrailerSerialNo'},
-    //             {data: 'VehicleId_VIN', name: 'VehicleId_VIN'},
-    //             {data: 'etrack_id', name: 'etrack_id'},
-    //             {data: 'ManufacturerId', name: 'ManufacturerId'},
-    //             {data: 'TrackingId', name: 'TrackingId'},
-    //             {data: 'action', name: 'action', orderable: false, searchable: false}
-    //         ]
-    //     });
-    //     $('#trailer-search-form').on('submit', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    //     $('#TrailerSerialNo').on('keyup', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    //     $('#VehicleId_VIN').on('keyup', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    //     $('#etrack_id').on('change', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    //     $('#ManufacturerId').on('change', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    //     $('#TrackingId').on('keyup', function (e) {
-    //         oTable.draw();
-    //         e.preventDefault();
-    //     });
-    // });
-    //     function deleteTrailer(id, is_default) {
-    //     var msg = 'Are you sure?';
-    //     if (confirm(msg)) {
-    //         $.post("{{ route('delete.organization') }}", {id: id, _method: 'DELETE', _token: '{{ csrf_token() }}'})
-    //             .done(function (response) {
-    //                 if (response == 'ok') {
-    //                     var table = $('#trailerDatatableAjax').DataTable();
-    //                     table.row('trailerDtRow' + id).remove().draw(false);
-    //                 } else {
-    //                     alert('Request Failed!');
-    //                 }
-    //             });
-    //         }
-    //     }
-    </script>
 @endsection
 
     

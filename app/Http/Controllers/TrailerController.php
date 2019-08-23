@@ -22,69 +22,47 @@ use DataTables;
 
 class TrailerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $trailerData = EquipmentModel::select([
+            'equipment.TrailerSerialNo',
+            'registration.VehicleId_VIN',
+            'equipment.etrack_id',
+            'equipment.ManufacturerId',
+            'equipment_tracking.TrackingId',
+            'etrack.ETrackDescription',
+            'trailer_manufacturer.MakeName'    
+        ])
+        ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
+        ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
+        ->join('etrack', 'equipment.etrack_id', '=', 'etrack.ETrackId')
+        ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId');
+        
+        if (!empty($request->query('TrailerSerialNo'))) {
+            $trailerData = $trailerData->where('equipment.TrailerSerialNo','like', "%{$request->query('TrailerSerialNo')}%");
+        }
+
+        if (!empty($request->query('VehicleId_VIN'))) {
+            $trailerData = $trailerData->where('registration.VehicleId_VIN', 'like', "%{$request->query('VehicleId_VIN')}%");
+        }
+
+        if (!empty($request->query('etrack_id'))) {
+            $trailerData = $trailerData->where('equipment.etrack_id', 'like', "%{$request->query('etrack_id')}%");
+        }
+
+        if (!empty($request->query('ManufacturerId'))) {
+            $trailerData = $trailerData->where('equipment.ManufacturerId', 'like', "%{$request->query('ManufacturerId')}%");
+        }
+
+        if (!empty($request->query('TrackingId'))) {
+            $trailerData = $trailerData->where('equipment_tracking.TrackingId', 'like', "%{$request->query('TrackingId')}%");
+        }
+
+        $trailerData = $trailerData->paginate(20);
     	return view('trailers.index')
+        ->with('trailerData', $trailerData)
     	->with('getMakes', DataArrayHelper::getMakes())
     	->with('etrack_id', DataArrayHelper::getTrackingsystems());
-    }
-
-    public function fetchTrailer(Request $request)
-    {
-    	$trailerData = EquipmentModel::select([
-    		'equipment.TrailerSerialNo',
-    		'registration.VehicleId_VIN',
-    		'equipment.etrack_id',
-    		'equipment.ManufacturerId',
-    		'equipment_tracking.TrackingId',	
-    	])
-    	->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
-    	->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo');
-        return Datatables::of($trailerData)
-                ->filter(function ($query) use ($request) {
-                    if ($request->has('TrailerSerialNo') && !empty($request->TrailerSerialNo)) {
-                        $query->where('equipment.TrailerSerialNo', 'like', "%{$request->get('TrailerSerialNo')}%");
-                    }
-                    if ($request->has('VehicleId_VIN') && !empty($request->VehicleId_VIN)) {
-                        $query->where('registration.VehicleId_VIN', 'like', "%{$request->get('VehicleId_VIN')}%");
-                    }
-                    if ($request->has('etrack_id') && !empty($request->etrack_id)) {
-                        $query->where('equipment.etrack_id', 'like', "%{$request->get('etrack_id')}%");
-                    }
-                    if ($request->has('ManufacturerId') && !empty($request->ManufacturerId)) {
-                        $query->where('equipment.ManufacturerId', 'like', "%{$request->get('ManufacturerId')}%");
-                    }
-                    if ($request->has('TrackingId') && !empty($request->TrackingId)) {
-                        $query->where('equipment_tracking.TrackingId', 'like', "%{$request->get('TrackingId')}%");
-                    }
-                })
-                ->addColumn('etrack_id', function ($trailerData) {
-            		return $trailerData->getTrackingsystem('ETrackDescription');
-        		})
-        		->addColumn('ManufacturerId', function ($trailerData) {
-                    return $trailerData->getManufacturers('MakeName');
-                })
-                ->addColumn('action', function ($trailerData) {
-                    
-                    return '
-		<div class="btn-group">
-			<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action
-				<i class="fa fa-angle-down"></i>
-			</button>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="' . route('edit.trailer', ['TrailerSerialNo' => $trailerData->TrailerSerialNo]) . '"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
-				</li>						
-				<li>
-					<a href="javascript:void(0);" onclick="deleteTrailer(' . $trailerData->TrailerSerialNo . ');" class=""><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
-				</li>
-			</ul>
-		</div>';
-        })
-        ->setRowId(function($trailerData) {
-            return 'organizationDtRow' . $trailerData->TrailerSerialNo;
-        })
-        ->make(true);
     }
 
     public function createtriler()

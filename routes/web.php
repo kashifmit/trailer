@@ -86,7 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('edit.profile');
 	Route::put('/update-profile', 'HomeController@updateProfile')->name('update.profile');
 	Route::get('/users-list', 'HomeController@usersList')->name('users.list');
-	Route::get('/fetch-users', 'HomeController@fetchUsers')->name('fetch.users');
 	Route::get('create-user', 'HomeController@createUser')->name('create.user');
 	Route::post('store-user', 'HomeController@storeUser')->name('store.user');
 	Route::get('edit-user/{id}', 'HomeController@editUser')->name('edit.user');
@@ -103,7 +102,6 @@ Route::group(['middleware' => 'auth'], function () {
 	*	Trailer Routes
 	**/
 	Route::get('/trailers-list', 'TrailerController@index')->name('trailer.list');
-	Route::get('/fetch-trailer', 'TrailerController@fetchTrailer')->name('fetch.trailer');
 	Route::get('/create-trailor', 'TrailerController@createtriler')->name('create.trailer');
 	Route::post('/store-trailor', 'TrailerController@storetriler')->name('store.trailer');
 	Route::get('/edit-trailor/{TrailerSerialNo}', 'TrailerController@editTrailer')->name('edit.trailer');
@@ -121,11 +119,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('/update-invoice/{InvoiceNo}', 'InvoiceController@updateInvoice')->name('update.invoice');
 	Route::get('/invoice-success/{InvoiceNo}/{TrailerSerialNo}', 'InvoiceController@invoiceSuccess')->name('invoice.success');
 	Route::post('/add-line-item/{InvoiceNo}', 'InvoiceController@addLineItem')->name('add.line.item');
+	Route::get('/create-line-item/{InvoiceNo}', 'InvoiceController@createLineItem')->name('create.line.item');
+	Route::post('store-inline-item/{InvoiceNo}', 'InvoiceController@storeInlineInvoiceItem')->name('store.inline.item');
 	/**
 	*	Customer Routes
 	**/
 	Route::get('/customers-list', 'CustomerController@index')->name('customer.list');
-	Route::get('/fetch-customers', 'CustomerController@fetchCustomers')->name('fetch.customer');
 	Route::get('/export-customers', 'CustomerController@exportCustomer')->name('export.customers');
 	Route::get('/export-DTA', 'CustomerController@exportDTA')->name('export.dta');
 
