@@ -180,7 +180,8 @@ class TrailerController extends Controller
         'SiteId' => $request->input('SiteId'),
         'ConditionStatusId' => $request->input('ConditionStatusId'),
         'etrack_id' => $request->input('etrack_id'),
-        'LastInsepctionDate' => date('Y-m-d', strtotime($request->input('LastInsepctionDate')))
+        'LastInsepctionDate' => date('Y-m-d', strtotime($request->input('LastInsepctionDate'))),
+        'business' => $request->input('business')
         ]);
     }
 
@@ -201,8 +202,7 @@ class TrailerController extends Controller
             'TitleNo' => $request->input('TitleNo'),
             'ExpireDate' => date('Y-m-d', strtotime($request->input('ExpireDate'))),
             'RegistrationDate' => date('Y-m-d', strtotime($request->input('RegistrationDate'))),
-            'Owner' => $request->input('Owner'),
-            'business' => $request->input('business')
+            'Owner' => $request->input('Owner')
         ]);
     }
 
