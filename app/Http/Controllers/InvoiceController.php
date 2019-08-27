@@ -87,7 +87,8 @@ class InvoiceController extends Controller
             // $invoice_detail->save();
             // $this->updateMaintenanceInvoiceDetail($invoice_detail->InvoiceLine, $request);
             $this->uploadFile($request, $invoice->InvoiceNo);
-            return Redirect::route('create.invoice', ['InvoiceNo', $invoice->InvoiceNo, 'TrailerSerialNo', $request->input('TrailerSerialNo')]);
+            // return Redirect::route('create.invoice', ['InvoiceNo', $invoice->InvoiceNo, 'TrailerSerialNo', $request->input('TrailerSerialNo')]);
+            return Redirect::route('invoice.success', [$invoice->InvoiceNo, $request->input('TrailerSerialNo')]);
         } catch (ModelNotFoundException $e) {
             return back()->withError($e->getMessage());
         }
@@ -307,7 +308,8 @@ class InvoiceController extends Controller
             $invoice_detail->InvoiceLine = rand(1,100000);
             $invoice_detail->InvoiceNo = $InvoiceNo;
             $invoice_detail->ResolutionDescriptionSE = NULL;
-            $invoice_detail->UnitPrice = $request->input('UnitPrice')[$key];
+            $invoice_detail->UnitPrice = null !== $request->input('UnitPrice')[$key] ? $request->input('UnitPrice')[$key] : 0;
+            // $request->input('UnitPrice')[$key];
             $invoice_detail->LaborHoursQty = $request->input('LaborHoursQty')[$key];
             $invoice_detail->TotalPrice = ($request->input('UnitPrice')[$key]*$request->input('LaborHoursQty')[$key]);
             $invoice_detail->SalesTax = 0;

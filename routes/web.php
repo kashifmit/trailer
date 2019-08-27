@@ -108,6 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('update-trailer/{TrailerSerialNo}', 'TrailerController@updateTrailer')->name('update.trailer');
 	Route::get('download-file/{id}', 'TrailerController@dowLoadFile')->name('download.file');
 	Route::post('/trailer-owners', 'TrailerController@trailerOwners')->name('trailer.owners');
+	Route::get('/trailer-financials', 'TrailerController@trailerfinancilas')->name('trailer.financilas');
 	/**
 	*	Inovices Routes
 	**/

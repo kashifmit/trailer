@@ -27,6 +27,8 @@ use App\ResolutionCodeModel;
 use App\AtaCodeModel;
 use App\PartsLaborModel;
 use App\MaintenanceInvoiceModel;
+use App\TrailerRentedViaModel;
+use App\RentalModel;
 
 class DataArrayHelper {
 	
@@ -119,5 +121,46 @@ class DataArrayHelper {
 	public static function getInvoiceList()
 	{
 		return MaintenanceInvoiceModel::select('InvoiceNo', 'InvoiceNo')->pluck('InvoiceNo', 'InvoiceNo')->toArray();
+	}
+
+	public static function getfinancials($TrailerSerialNo='', $request)
+	{
+		$total = EquipmentModel::whereNotNull('TrailerSerialNo');
+        $leaseExpense = TrailerRentedViaModel::select([DB::raw('SUM(trailer_rented_via.Price) as Price')])
+        ->join('equipment', 'trailer_rented_via.TrailerSerialNo', '=', 'equipment.TrailerSerialNo');
+
+        $leasedTrailer = RentalModel::whereNotNull('RentalTransId');
+        $data = EquipmentModel::select([
+            DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice')
+        ])
+        ->leftJoin('maintenance_invoice', 'equipment.TrailerSerialNo', '=', 'maintenance_invoice.TrailerSerialNo')
+        ->whereNotNull('maintenance_invoice.TrailerSerialNo');
+        if (!empty($TrailerSerialNo)) {
+        	$total = $total->where('TrailerSerialNo', $TrailerSerialNo);
+        	$leaseExpense = $leaseExpense->where('equipment.TrailerSerialNo', $TrailerSerialNo);
+        	$data = $data->where('maintenance_invoice.TrailerSerialNo', $TrailerSerialNo);
+        }
+        if (!empty($request->query('business_financial'))) {
+            $total = $total->where('business', 'like', "%{$request->query('business_financial')}%");
+            $leaseExpense = $leaseExpense->where('equipment.business', 'like', "%{$request->query('business_financial')}%");
+            $data = $data->where('equipment.business', 'like', "%{$request->query('business_financial')}%");
+        }
+        if (!empty($request->query('SiteId_financial'))) {
+            $total = $total->where('SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+            $leaseExpense = $leaseExpense->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+            $data = $data->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+            $leasedTrailer = $leasedTrailer->where('SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+        }
+        $total = $total->count();
+        $leaseExpense = $leaseExpense->first();
+        $data = $data->first();
+        $leasedTrailer = $leasedTrailer->count();
+        return [
+        	'totalTrailers' => empty($total) ? 0 : $total, 
+        	'leaseExpense' => empty($leaseExpense) ? 0 : $leaseExpense->Price, 
+        	'totalPrice' => empty($data) ? 0 : $data->TotalPrice, 
+        	'leasedTrailer' => empty($leasedTrailer) ? 0 : $leasedTrailer,
+        	'totalLeased_owned' => $total+$leasedTrailer
+        ];
 	}
 }

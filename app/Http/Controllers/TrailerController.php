@@ -65,18 +65,20 @@ class TrailerController extends Controller
     	->with('etrack_id', DataArrayHelper::getTrackingsystems());
     }
 
-    public function createtriler()
+    public function createtriler(Request $request)
     {
     	return view('trailers.add')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
     	->with('make', DataArrayHelper::getMakes())
     	->with('year', DataArrayHelper::getModelYears())
     	->with('state', DataArrayHelper::getState())
-    	->with('size', DataArrayHelper::getTrailerSizes())
+        ->with('size', DataArrayHelper::getTrailerSizes())
+    	->with('getTrailers', DataArrayHelper::getTrailers())
     	->with('locations', DataArrayHelper::getSites())
     	->with('conditions', DataArrayHelper::getCondition())
     	->with('owners', DataArrayHelper::getOrganizations())
-    	->with('business', DataArrayHelper::businessList());
+    	->with('business', DataArrayHelper::businessList())
+        ->with('allData', DataArrayHelper::getfinancials('', $request));
     }
 
     public function storetriler(Request $request)
@@ -123,7 +125,7 @@ class TrailerController extends Controller
     	}
     }
 
-    public function editTrailer($TrailerSerialNo)
+    public function editTrailer($TrailerSerialNo, Request $request)
     {
     	$data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
     	return view('trailers.edit')
@@ -136,7 +138,9 @@ class TrailerController extends Controller
     	->with('locations', DataArrayHelper::getSites())
     	->with('conditions', DataArrayHelper::getCondition())
     	->with('owners', DataArrayHelper::getOrganizations())
-    	->with('business', DataArrayHelper::businessList());
+    	->with('business', DataArrayHelper::businessList())
+        ->with('getTrailers', DataArrayHelper::getTrailers())
+        ->with('allData', DataArrayHelper::getfinancials('', $request));
     }
 
     public function updateTrailer($TrailerSerialNo, Request $request)
@@ -258,5 +262,15 @@ class TrailerController extends Controller
             return response()->json(['success' => 0]);
         }
         
+    }
+
+    public function trailerfinancilas(Request $request)
+    {
+        $TrailerSerialNo = '';
+        if (!empty($request->query('TrailerSerialNo_financial'))) {
+            $TrailerSerialNo = $request->query('TrailerSerialNo_financial');
+        }
+        $allData = DataArrayHelper::getfinancials($TrailerSerialNo, $request);
+        return response()->View('trailers.forms.includes.financilas_data',compact('allData'));
     }
 }

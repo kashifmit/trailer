@@ -8,9 +8,12 @@ use Auth;
 use DB;
 use Input;
 use Redirect;
+use Mapper;
 use Carbon\Carbon;
 use App\User;
 use App\EquipmentModel;
+use App\TrailerRentedViaModel;
+use App\RentalModel;
 use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -35,21 +38,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = EquipmentModel::select([
-            DB::raw('COUNT(equipment.TrailerSerialNo) as TotalTrailer'),
-            DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice')
-        ])
-        ->leftJoin('maintenance_invoice', 'equipment.TrailerSerialNo', '=', 'maintenance_invoice.TrailerSerialNo')
-        ->whereNotNull('maintenance_invoice.TrailerSerialNo');
-        if (!empty($request->query('business'))) {
-            $data = $data->where('equipment.business', 'like', "%{$request->query('business')}%");
-        }
-        if (!empty($request->query('SiteId'))) {
-            $data = $data->where('equipment.SiteId', 'like', "%{$request->query('SiteId')}%");
-        }
-        $data = $data->first();
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $mapper = Mapper::map(30.205931, 71.469821);
         return view('home')
-        ->with('data', $data)
+        ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())
         ->with('business', DataArrayHelper::businessList());
     }

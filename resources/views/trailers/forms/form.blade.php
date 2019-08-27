@@ -1,8 +1,8 @@
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#trailer_details">Detail</a></li>
-    <li><a data-toggle="tab" href="#trailer_documents">Documents</a></li>
-    <li><a data-toggle="tab" href="#trailer_locations">Locations</a></li>
-    <li><a data-toggle="tab" href="#trailer_financials">Financials</a></li>
+    <li class="active"><a class="checkClass" data-toggle="tab" href="#trailer_details">Detail</a></li>
+    <li><a class="checkClass" data-toggle="tab" href="#trailer_documents">Documents</a></li>
+    <li><a class="checkClass" data-toggle="tab" href="#trailer_locations">Locations</a></li>
+    <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
   </ul>
 {!! APFrmErrHelp::showErrorsNotice($errors) !!}
  @if(isset($data))

@@ -49,6 +49,25 @@
                 }
             });
       });
+      $(document).on('change', '.form-submit', function () {
+        var business = $("#business_financial").val();
+        var SiteId = $("#SiteId_financial").val();
+        var TrailerSerialNo = $("#TrailerSerialNo_financial").val();
+        var urlString = 'business_financial='+business+'&SiteId_financial='+SiteId+'&TrailerSerialNo_financial='+TrailerSerialNo;
+            $.ajax({
+                url: "/trailer-financials?"+urlString,
+                method: "GET",
+            }).done(function(response) {
+                $("#get_financial_data").html(response);
+            });
+      });
+      $(document).on('click', '.checkClass', function () {
+          if ( $(this).attr('href') === "#trailer_financials") {
+            $(".form-actions").hide();
+          } else {
+            $(".form-actions").show();
+          }
+      });
     });
 </script>    
 @endsection

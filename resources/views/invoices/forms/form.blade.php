@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md-6 form-group">
       {!! Form::label('VendorName', 'Vendor Name', ['class' => 'bold']) !!}
-      {!! Form::select('VendorName', ['' => 'Select Trailer Number']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control vendor-name', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
+      {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control vendor-name', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
     </div>
     <div class="col-md-6 form-group">
       {!! Form::label('LaborTotal', 'Labor Total', ['class' => 'bold']) !!}
