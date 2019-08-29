@@ -164,6 +164,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Cornford\Googlmapper\MapperServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        RezaAr\Highcharts\Provider::class,
 
         /*
          * Package Service Providers...
@@ -237,6 +238,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Chart' => RezaAr\Highcharts\Facade::class,
     ],
 
 ];

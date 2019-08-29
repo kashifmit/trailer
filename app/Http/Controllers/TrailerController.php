@@ -67,6 +67,16 @@ class TrailerController extends Controller
 
     public function createtriler(Request $request)
     {
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
+        $TotalMaintenanceExpense = DataArrayHelper::getChart(
+            'Total Maintenance Expense', 
+            $allData['totalPrice'], 
+            'Total_Maintenance_Expense');
+        $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
+            'Total Tariler Count Lease & Owned', 
+             $allData['totalLeased_owned'], 
+            'Total_trailer_count_owned');
     	return view('trailers.add')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
     	->with('make', DataArrayHelper::getMakes())
@@ -78,7 +88,10 @@ class TrailerController extends Controller
     	->with('conditions', DataArrayHelper::getCondition())
     	->with('owners', DataArrayHelper::getOrganizations())
     	->with('business', DataArrayHelper::businessList())
-        ->with('allData', DataArrayHelper::getfinancials('', $request));
+        ->with('allData', $allData)
+        ->with('leaseExpenseChart', $leaseExpenseChart)
+        ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
+        ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);
     }
 
     public function storetriler(Request $request)
@@ -128,6 +141,16 @@ class TrailerController extends Controller
     public function editTrailer($TrailerSerialNo, Request $request)
     {
     	$data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
+        $TotalMaintenanceExpense = DataArrayHelper::getChart(
+            'Total Maintenance Expense', 
+            $allData['totalPrice'], 
+            'Total_Maintenance_Expense');
+        $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
+            'Total Tariler Count Lease & Owned', 
+             $allData['totalLeased_owned'], 
+            'Total_trailer_count_owned');
     	return view('trailers.edit')
     	->with('data', $data[0])
     	->with('etracking', DataArrayHelper::getTrackingsystems())
@@ -140,7 +163,10 @@ class TrailerController extends Controller
     	->with('owners', DataArrayHelper::getOrganizations())
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
-        ->with('allData', DataArrayHelper::getfinancials('', $request));
+        ->with('allData', $allData)
+        ->with('leaseExpenseChart', $leaseExpenseChart)
+        ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
+        ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);
     }
 
     public function updateTrailer($TrailerSerialNo, Request $request)
@@ -271,6 +297,29 @@ class TrailerController extends Controller
             $TrailerSerialNo = $request->query('TrailerSerialNo_financial');
         }
         $allData = DataArrayHelper::getfinancials($TrailerSerialNo, $request);
-        return response()->View('trailers.forms.includes.financilas_data',compact('allData'));
+        $leaseExpenseChart = DataArrayHelper::getChart(
+            'Total Lease Expense', 
+            $allData['leaseExpense'], 
+            'lease_expense_chart'
+        );
+        $TotalMaintenanceExpense = DataArrayHelper::getChart(
+            'Total Maintenance Expense', 
+            $allData['totalPrice'], 
+            'Total_Maintenance_Expense'
+        );
+        $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
+            'Total Tariler Count Lease & Owned', 
+             $allData['totalLeased_owned'], 
+            'Total_trailer_count_owned'
+        );
+
+        return response()->View('trailers.forms.includes.financilas_data',
+            compact(
+            'allData', 
+            'leaseExpenseChart', 
+            'TotalMaintenanceExpense', 
+            'TrailerLeasedCountAndOwned'
+            )
+        );
     }
 }

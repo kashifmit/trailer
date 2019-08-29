@@ -64,16 +64,16 @@
         '<div class="col-md-2">&nbsp;</div>'+
         '<div class="col-md-1">&nbsp;</div>'+
         '<div class="col-md-1">&nbsp;</div>'+
-        '<div class="col-md-1"><input class="form-control" id="UnitPrice" placeholder="Unit price" name="UnitPrice[]" type="text"></div>'+
-        '<div class="col-md-1"><input class="form-control" id="LaborHoursQty" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></div>'+
+        '<div class="col-md-1"><input class="'+id[0]+' form-control" id="UnitPrice" placeholder="Unit price" name="UnitPrice[]" type="text"></div>'+
+        '<div class="col-md-1"><input class="'+id[0]+' form-control" id="LaborHoursQty" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></div>'+
         '<div class="col-md-2 faultreason'+count+'"></div>'+
         '<div class="col-md-2 resolutioncode'+count+'"></div>'+
         '<div class="col-md-2 partslabor'+count+'"></div>'+
         '</div><div class="row">&nbsp;</div>';
         $("#"+id[0]+"_div").append(html);
-        $('.FaultReasonCode').first().clone().appendTo(".faultreason"+count);
-        $('.ResolutionCodeId').first().clone().appendTo(".resolutioncode"+count);
-        $('.PartsLaborId').first().clone().appendTo(".partslabor"+count);
+        $('.FaultReasonCode').first().clone().appendTo(".faultreason"+count).val('');
+        $('.ResolutionCodeId').first().clone().appendTo(".resolutioncode"+count).val('');
+        $('.PartsLaborId').first().clone().appendTo(".partslabor"+count).val('');
         count++;
       });
     });

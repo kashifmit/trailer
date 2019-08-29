@@ -9,6 +9,7 @@ use Auth;
 use DB;
 use Input;
 use Redirect;
+use Chart;
 use Carbon\Carbon;
 use App\OrganizationModel;
 use App\RoleModel;
@@ -162,5 +163,49 @@ class DataArrayHelper {
         	'leasedTrailer' => empty($leasedTrailer) ? 0 : $leasedTrailer,
         	'totalLeased_owned' => $total+$leasedTrailer
         ];
+	}
+
+	public static function getChart($title,$data, $id)
+	{
+		$chart1 = Chart::title([
+        'text' => $title,
+    	])
+	    ->chart([
+	        'type'     => 'bar', // pie , columnt ect
+	        'renderTo' => $id, // render the chart into your div with id
+	    ])
+	    ->subtitle([
+	        'text' => $title,
+	    ])
+	    ->colors([
+	        '#0c2959'
+	    ])
+	    ->xaxis([
+	        // 'categories' => [
+	        //     'Lease Expense'
+	        // ],
+	        'labels'     => [
+	            'rotation'  => 0,
+	            'align'     => 'bottom',
+	        ],
+	    ])
+	    // ->yaxis([
+	    //     'text' => 'This Y Axis',
+	    // ])
+	    ->legend([
+	        // 'layout'        => 'vertikal',
+	        // 'align'         => 'left',
+	        'verticalAlign' => 'middle',
+	    ])
+	    ->series(
+	        [
+	            [
+	                'name'  => $title,
+	                'data'  => [$data],
+	            ],
+	        ]
+	    )
+	    ->display();
+	    return $chart1;
 	}
 }
