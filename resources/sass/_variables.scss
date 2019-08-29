@@ -1,10 +1,36 @@
 // Body
-$body-bg: #f8fafc;
+
+
+// stylelint-disable
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
+$font-family-sans-serif: 'Roboto', sans-serif;
 $line-height-base: 1.6;
+
+$font-size-base:              1rem !default;
+$font-size-lg:                ($font-size-base * 1.25) !default;
+$font-size-sm:                ($font-size-base * .875) !default;
+
+$input-btn-font-size:         $font-size-base !default;
+$input-btn-font-size-sm:      $font-size-sm !default;
+$input-btn-font-size-lg:      $font-size-lg !default;
+
+$font-weight-light:           300 !default;
+$font-weight-normal:          400 !default;
+$font-weight-bold:            700 !default;
+
 
 // Colors
 $blue: #3490dc;
@@ -17,3 +43,84 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$light:         $gray-300 !default;
+$dark:          $gray-800 !default;
+
+$primary: #2AA7ff;
+$secondary: #224356;
+
+$text: #617083;
+$text-dark: #224356;
+$text-muted: #6c757d;
+
+$body-color: $text !default;
+
+$border-color:              #dbdde3;
+$border-width:                2px !default;
+
+$border-radius:               .3rem !default;
+$border-radius-lg:            .5rem;
+$border-radius-sm:            .2rem !default;
+
+$btn-disabled-opacity:        .55 !default;
+
+$input-btn-padding-y:         .575rem !default;
+$input-btn-padding-x:         1.75rem !default;
+
+$input-btn-padding-y-sm:      .35rem !default;
+$input-btn-padding-x-sm:      .7rem !default;
+
+$input-btn-padding-y-lg:      .7rem !default;
+$input-btn-padding-x-lg:      1.25rem !default;
+$input-btn-border-width:      $border-width !default;
+
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+$btn-padding-y:               $input-btn-padding-y !default;
+$btn-padding-x:               $input-btn-padding-x !default;
+$btn-font-size:               $input-btn-font-size !default;
+
+$btn-padding-y-sm:            $input-btn-padding-y-sm !default;
+$btn-padding-x-sm:            $input-btn-padding-x-sm !default;
+$btn-font-size-sm:            $input-btn-font-size-sm !default;
+
+$btn-padding-y-lg:            $input-btn-padding-y-lg !default;
+$btn-padding-x-lg:            $input-btn-padding-x-lg !default;
+$btn-font-size-lg:            $input-btn-font-size-lg !default;
+
+
+$btn-font-weight:             $font-weight-bold !default;
+
+
+$input-border-color:          $border-color !default;
+$input-border-width:          $input-btn-border-width !default;
+
+
+
+
+
+
+
+
+$xs: 0;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+
+$sm-max: 540px;
+$md-max: 720px;
+$lg-max: 960px;
+$xl-max: 1140px;
+
+
+
+$assets-root: 'resources/';
+$images-root: $assets-root + 'img/';
+$fonts-root: $assets-root + 'fonts/';
