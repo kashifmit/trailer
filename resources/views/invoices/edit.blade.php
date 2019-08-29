@@ -10,7 +10,16 @@
 </style>
     @include('flash::message')
     <div class="card">
-        <div class="card-header">{{ __('Edit Invoice') }}</div>
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6 pull left">{{ __('Edit Invoice') }}</div>
+            <div class="col-md-6">
+              @if(isset($data)) 
+                <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-large btn-primary pull-right">Edit Line Items</a> 
+              @endif
+            </div>
+          </div>
+        </div>
         <div class="card-body">
             {!! Form::open(array('method' => 'put', 'route' => array('update.invoice', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
             {!! Form::hidden('InvoiceNo', $data->InvoiceNo) !!}

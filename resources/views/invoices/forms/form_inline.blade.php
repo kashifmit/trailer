@@ -33,7 +33,7 @@
       {!! Form::text('LaborTotal', isset($data) ? $data->LaborTotal : 0, array('class'=>'form-control calculate', 'id'=>'LaborTotal', 'placeholder'=>'Labor Total')) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -43,7 +43,7 @@
       {!! Form::text('PartsTotal', isset($data) ? $data->PartsTotal : 0, array('class'=>'form-control calculate', 'id'=>'PartsTotal', 'placeholder'=>'Labor Parts' )) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -53,7 +53,7 @@
       {!! Form::text('AccessoriesTotal',isset($data) ? $data->AccessoriesTotal : 0,  array('class'=>'form-control calculate', 'id'=>'AccessoriesTotal', 'placeholder'=>'Accessories Total')) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -63,7 +63,7 @@
       {!! Form::text('AnnualInspectionTotal',isset($data) ? $data->AnnualInspectionTotal : 0, array('class'=>'form-control calculate', 'id'=>'AnnualInspectionTotal', 'placeholder'=>'Accessories Total')) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -73,7 +73,7 @@
       {!! Form::text('RegistrationTotal',isset($data) ? $data->RegistrationTotal : 0, array('class'=>'form-control calculate', 'id'=>'RegistrationTotal', 'placeholder'=>'Registration Total')) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -83,7 +83,7 @@
       {!! Form::text('SalesTax',isset($data) ? $data->SalesTax : 0, array('class'=>'form-control calculate', 'id'=>'SalesTax', 'placeholder'=>'Tax Total')) !!}
     </div>
     <div class="col-md-3">
-      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary" target="_blank">Add Line Items</a> 
+      <a href="{{route('create.line.item', $data->InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Items</a> 
     </div>
   </div>
   <div class="row">&nbsp;</div>

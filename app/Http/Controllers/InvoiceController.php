@@ -17,10 +17,13 @@ use App\RequestMaintenanceModel;
 use App\RegistrationModel;
 use App\TrailerFilesModel;
 use App\Helpers\DataArrayHelper;
+use App\Exports\HeaderCSV;
+use App\Exports\LineItemCSV;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+// use DataTables;
 
 class InvoiceController extends Controller
 {
@@ -206,21 +209,30 @@ class InvoiceController extends Controller
         ]);
     }
 
-    private function updateMaintenanceInvoiceDetail($InvoiceLine, $request)
+    private function updateMaintenanceInvoiceDetail($InvoiceLine, $request, $index='')
     {
+        $UnitPrice = 0;
+        $LaborHoursQty = 0;
+        if (!empty($request->input('UnitPrice')[$index])) {
+            $UnitPrice = $request->input('UnitPrice')[$index];
+        } 
+        if (!empty($request->input('LaborHoursQty')[$index])) {
+            $LaborHoursQty = $request->input('LaborHoursQty')[$index];
+        } 
+        // echo $index."<<<>>>>".$request->input('UnitPrice')[$index]."<<>>>".$request->input('LaborHoursQty')[$index]."<<<<>>>".$request->input('LineType')[$index]."<br>";
         MaintenanceInvoiceDetailModel::where('InvoiceLine', $InvoiceLine)->update([
-            'ResolutionDescriptionSE' => null !== $request->input('ResolutionDescriptionSE') ? $request->input('ResolutionDescriptionSE') : NULL,
-            'UnitPrice' => null !== $request->input('UnitPrice') ? $request->input('UnitPrice') : 0,
-            'LaborHoursQty' => null !== $request->input('LaborHoursQty') ? $request->input('LaborHoursQty') : 0,
-            'TotalPrice' => null !== $request->input('TotalPrice') ? $request->input('TotalPrice') : 0,
-            'SalesTax' => null !== $request->input('SalesTax') ? $request->input('SalesTax') : 0,
-            'Rework' => null !== $request->input('Rework') ? $request->input('Rework') : "YES",
-            'RepairComments' => null !== $request->input('RepairComments') ? $request->input('RepairComments') : NULL,
-            'ATACodeId' => null !== $request->input('ATACodeId') ? $request->input('ATACodeId') : NULL,
-            'FaultReasonCode' => null !== $request->input('FaultReasonCode') ? $request->input('FaultReasonCode') : NULL,
-            'ResolutionCodeId' => null !== $request->input('ResolutionCodeId') ? $request->input('ResolutionCodeId') : NULL,
-            'PartsLaborId' => null !== $request->input('PartsLaborId') ? $request->input('PartsLaborId') : NULL,
-            'LineType' => null !== $request->input('LineType') ? $request->input('LineType') : Null,
+            'ResolutionDescriptionSE' => null !== $request->input('ResolutionDescriptionSE')[$index] ? $request->input('ResolutionDescriptionSE')[$index] : NULL,
+            'UnitPrice' => $UnitPrice,
+            'LaborHoursQty' => $LaborHoursQty,
+            'TotalPrice' => $UnitPrice*$LaborHoursQty,
+            'SalesTax' => 0,
+            'Rework' => null !== $request->input('Rework')[$index] ? $request->input('Rework')[$index] : "YES",
+            'RepairComments' => null !== $request->input('RepairComments')[$index] ? $request->input('RepairComments')[$index] : NULL,
+            'ATACodeId' => null !== $request->input('ATACodeId')[$index] ? $request->input('ATACodeId')[$index] : NULL,
+            'FaultReasonCode' => null !== $request->input('FaultReasonCode')[$index] ? $request->input('FaultReasonCode')[$index] : NULL,
+            'ResolutionCodeId' => null !== $request->input('ResolutionCodeId')[$index] ? $request->input('ResolutionCodeId')[$index] : NULL,
+            'PartsLaborId' => null !== $request->input('PartsLaborId')[$index] ? $request->input('PartsLaborId')[$index] : NULL,
+            'LineType' => null !== $request->input('LineType')[$index] ? $request->input('LineType')[$index] : Null,
         ]);
     }
 
@@ -309,7 +321,6 @@ class InvoiceController extends Controller
             $invoice_detail->InvoiceNo = $InvoiceNo;
             $invoice_detail->ResolutionDescriptionSE = NULL;
             $invoice_detail->UnitPrice = null !== $request->input('UnitPrice')[$key] ? $request->input('UnitPrice')[$key] : 0;
-            // $request->input('UnitPrice')[$key];
             $invoice_detail->LaborHoursQty = $request->input('LaborHoursQty')[$key];
             $invoice_detail->TotalPrice = ($request->input('UnitPrice')[$key]*$request->input('LaborHoursQty')[$key]);
             $invoice_detail->SalesTax = 0;
@@ -326,5 +337,131 @@ class InvoiceController extends Controller
         } catch (ModelNotFoundException $e) {
             return back()->withError($e->getMessage());
         }
+    }
+
+    public function exportHeadCSV()
+    {
+        return Excel::download(new HeaderCSV, 'headerCSV_'.\Carbon\Carbon::now().'.xlsx');
+    }
+
+    public function exportLineCSV()
+    {
+        return Excel::download(new LineItemCSV, 'LINEITEMCSV_'.\Carbon\Carbon::now().'.xlsx');
+    }
+
+    public function editInvoiceLine($InvoiceNo, Request $request)
+    {
+        $data = MaintenanceInvoiceModel::with(['invoiceLineItems'])->select('InvoiceNo', 'InvoiceDate', 'LaborTotal', 'PartsTotal', 'AccessoriesTotal', 'AnnualInspectionTotal', 'RegistrationTotal', 'SalesTax', 'TotalPrice')->where('InvoiceNo', $InvoiceNo)->first();
+        $arrayData = [
+            'Labor Total'=> 'LaborTotal', 
+            'Parts Total' => 'PartsTotal',
+            'Accessories Total' => 'AccessoriesTotal',
+            'Annual Inspection Total' => 'AnnualInspectionTotal',
+            'Registration Total' => 'RegistrationTotal',
+            'Tax Total' => 'SalesTax',
+            'Total Invoice Amount' => 'TotalPrice',
+        ];
+        $Labor = $Parts = $Accessories = $AnnualInspection = $Registration = $Sales = [];
+        $LaborTotal = $PartsTotal = $AccessoriesTotal = $AnnualInspectionTotal = $RegistrationTotal = $SalesTax = array();
+        foreach ($data->invoiceLineItems as $key => $value) {
+            if (!empty($value->LineType)) {
+                switch ($value->LineType) {
+                case 'LaborTotal':
+                    $Labor['InvoiceLine'] = $value->InvoiceLine;
+                    $Labor['UnitPrice'] = $value->UnitPrice;
+                    $Labor['LaborHoursQty'] = $value->LaborHoursQty;
+                    $Labor['TotalPrice'] = $value->TotalPrice;
+                    $Labor['FaultReasonCode'] = $value->FaultReasonCode;
+                    $Labor['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $Labor['ATACodeId'] = $value->ATACodeId;
+                    array_push($LaborTotal, $Labor);
+                    break;
+                case 'PartsTotal':
+                    $Parts['InvoiceLine'] = $value->InvoiceLine;
+                    $Parts['UnitPrice'] = $value->UnitPrice;
+                    $Parts['LaborHoursQty'] = $value->LaborHoursQty;
+                    $Parts['TotalPrice'] = $value->TotalPrice;
+                    $Parts['FaultReasonCode'] = $value->FaultReasonCode;
+                    $Parts['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $Parts['ATACodeId'] = $value->ATACodeId;
+                    array_push($PartsTotal, $Parts);
+                    break;
+                case 'AccessoriesTotal':
+                    $Accessories['InvoiceLine'] = $value->InvoiceLine;
+                    $Accessories['UnitPrice'] = $value->UnitPrice;
+                    $Accessories['LaborHoursQty'] = $value->LaborHoursQty;
+                    $Accessories['TotalPrice'] = $value->TotalPrice;
+                    $Accessories['FaultReasonCode'] = $value->FaultReasonCode;
+                    $Accessories['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $Accessories['ATACodeId'] = $value->ATACodeId;
+                    array_push($AccessoriesTotal, $Accessories);
+                    break;
+                case 'AnnualInspectionTotal':
+                    $AnnualInspection['InvoiceLine'] = $value->InvoiceLine;
+                    $AnnualInspection['UnitPrice'] = $value->UnitPrice;
+                    $AnnualInspection['LaborHoursQty'] = $value->LaborHoursQty;
+                    $AnnualInspection['TotalPrice'] = $value->TotalPrice;
+                    $AnnualInspection['FaultReasonCode'] = $value->FaultReasonCode;
+                    $AnnualInspection['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $AnnualInspection['ATACodeId'] = $value->ATACodeId;
+                    array_push($AnnualInspectionTotal, $AnnualInspection);
+                    break;
+                case 'RegistrationTotal':
+                    $Registration['InvoiceLine'] = $value->InvoiceLine;
+                    $Registration['UnitPrice'] = $value->UnitPrice;
+                    $Registration['LaborHoursQty'] = $value->LaborHoursQty;
+                    $Registration['TotalPrice'] = $value->TotalPrice;
+                    $Registration['FaultReasonCode'] = $value->FaultReasonCode;
+                    $Registration['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $Registration['ATACodeId'] = $value->ATACodeId;
+                    array_push($RegistrationTotal, $Registration);
+                    break;
+                case 'SalesTax':
+                    $Sales['InvoiceLine'] = $value->InvoiceLine;
+                    $Sales['UnitPrice'] = $value->UnitPrice;
+                    $Sales['LaborHoursQty'] = $value->LaborHoursQty;
+                    $Sales['TotalPrice'] = $value->TotalPrice;
+                    $Sales['FaultReasonCode'] = $value->FaultReasonCode;
+                    $Sales['ResolutionCodeId'] = $value->ResolutionCodeId;
+                    $Sales['ATACodeId'] = $value->ATACodeId;
+                    array_push($SalesTax, $Sales);
+                    break;
+                }
+            }
+        }
+        $ItemArray = [
+            'LaborTotal' => $LaborTotal,
+            'PartsTotal' => $PartsTotal,
+            'AccessoriesTotal' => $AccessoriesTotal,
+            'AnnualInspectionTotal' => $AnnualInspectionTotal,
+            'RegistrationTotal' => $RegistrationTotal,
+            'SalesTax' => $SalesTax
+        ];
+        return View('inline_invoice.edit')
+            ->with('data', $data)
+            ->with('arrayData', $arrayData)
+            ->with('invoices', DataArrayHelper::getInvoiceList())
+            ->with('getResolutionCode', DataArrayHelper::getResolutionCode())
+            ->with('getAtaCode', DataArrayHelper::getAtaCode())
+            ->with('getFaultCode', DataArrayHelper::getFaultCode())
+            ->with('ItemArray', $ItemArray);
+    }
+
+    public function updateInvoiceLine($InvoiceNo, Request $request)
+    {   
+        $this->updateMaintenanceInvoice($InvoiceNo, $request);
+        foreach ($request->input('InvoiceLine') as $key => $value) {
+            if (!empty($value)) {
+                    $this->updateMaintenanceInvoiceDetail($value, $request, $key);
+            } else {
+                $invoice_detail = new MaintenanceInvoiceDetailModel();
+                $invoice_detail->InvoiceLine = rand(1,10000);
+                $invoice_detail->InvoiceNo = $InvoiceNo;
+                $invoice_detail->save();
+                $this->updateMaintenanceInvoiceDetail($invoice_detail->InvoiceLine, $request, $key);
+            }
+        }
+        flash('Invoice Line updated successfully!')->success();
+        return Redirect::route('edit.invoice.line', $InvoiceNo);
     }
 }

@@ -15,7 +15,8 @@
   <div class="row">
     <div class="col-md-3"><label>Invoice Date</label></div>
     <div class="col-md-3">
-      {!! Form::text('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data['InvoiceDate'])) : null,array('class'=>'form-control date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date', 'disabled' => isset($data) )) !!}
+      {!! Form::text('Invoice_Date',isset($data) ? date('m/d/Y', strtotime($data['InvoiceDate'])) : null,array('class'=>'form-control date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date', 'disabled' => isset($data) )) !!}
+      {!! Form::hidden('InvoiceDate', date('Y-m-d', strtotime($data->InvoiceDate)))!!}
     </div>
   </div>
   <div class="row">&nbsp;</div>

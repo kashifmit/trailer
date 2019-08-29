@@ -11,11 +11,11 @@
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Invoice
                     </a>
-                    <a href="{{route('create.trailer')}}" class="btn btn-xs btn-success">
+                    <a href="{{route('export.headCSV')}}" class="btn btn-xs btn-success">
                         <i class="glyphicon glyphicon-plus"></i>
                         Download Header CSV
                     </a>
-                    <a href="{{route('create.trailer')}}" class="btn btn-xs btn-success">
+                    <a href="{{route('export.lineCSV')}}" class="btn btn-xs btn-success">
                         <i class="glyphicon glyphicon-plus"></i>
                         Download Line Item CSV
                     </a>
