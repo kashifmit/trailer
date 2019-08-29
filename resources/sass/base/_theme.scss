@@ -1,0 +1,33 @@
+html {
+    font-size: 16px;
+}
+
+a {
+    color: inherit;
+    transition: all 0.4s ease;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+strong {
+    color: $text-dark;
+    font-weight: 700;
+}
+
+
+
+//
+// Buttons
+// --------------------------------------------------
