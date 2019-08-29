@@ -7,8 +7,12 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4">Total Lease Expense</div>
-	<div class="col-md-4">Total Maintenance Expense</div>
+	<div class="col-md-4" id="lease_expense_chart">
+		{!! $leaseExpenseChart !!}
+	</div>
+	<div class="col-md-4" id="Total_Maintenance_Expense">
+		{!! $TotalMaintenanceExpense !!}
+	</div>
 	<div class="col-md-4">
 		<div class="row">
 	        <div class="col-md-6">Total Lease Expense (All Locations)</div>
@@ -33,4 +37,10 @@
 	        </div>
 	    </div>
 	</div>
+</div>
+<div class="row">
+	<div class="col-md-4" id="Total_trailer_count_owned">
+		{!! $TrailerLeasedCountAndOwned !!}
+	</div>
+	<div class="col-md-8">&nbsp;</div>
 </div>

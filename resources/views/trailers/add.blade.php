@@ -34,20 +34,20 @@
 
       $(document).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
-            {
-                SiteId: $(this).val(), 
-                _method: 'POST', 
-                _token: '{{ csrf_token() }}'
-            })
-            .done(function (response) {
-                console.log(response.Owner);
-                if (response.success == 1) {
-                    $("#Owner").val(response.Owner);
-                    $("#business").val(response.business);
-                } else {
-                    console.log("not found");
-                }
-            });
+          {
+              SiteId: $(this).val(), 
+              _method: 'POST', 
+              _token: '{{ csrf_token() }}'
+          })
+          .done(function (response) {
+              // console.log(response.Owner);
+              if (response.success == 1) {
+                $("#Owner").val(response.Owner);
+                $("#business").val(response.business);
+              } else {
+                console.log("not found");
+              }
+          });
       });
       $(document).on('change', '.form-submit', function () {
         var business = $("#business_financial").val();
@@ -69,6 +69,7 @@
           }
       });
     });
-</script>    
+</script>
+  
 @endsection
 
