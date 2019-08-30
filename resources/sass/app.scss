@@ -1,6 +1,13 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
 
+// Fontawesome
+@import './fonts/fontawesome/scss/fontawesome.scss';
+@import './fonts/fontawesome/scss/regular.scss';
+@import './fonts/fontawesome/scss/solid.scss';
+@import './fonts/fontawesome/scss/brands.scss';
+
+
 // Variables
 @import 'variables';
 @import './base//mixin/mixin';
