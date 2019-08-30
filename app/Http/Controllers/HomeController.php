@@ -119,10 +119,10 @@ class HomeController extends Controller
               $data = $data->where('email','like', "%{$request->query('email')}%");
             }
         if (!empty($request->query('organization'))) {
-              $data = $data->where('organization','like', "%{$request->query('organization')}%");
+              $data = $data->where('organization_id','like', "%{$request->query('organization')}%");
             }
         if (!empty($request->query('role'))) {
-              $data = $data->where('role','like', "%{$request->query('role')}%");
+              $data = $data->where('Role_id','like', "%{$request->query('role')}%");
             }                
         $data = $data->paginate(20);
         return view('users.list')

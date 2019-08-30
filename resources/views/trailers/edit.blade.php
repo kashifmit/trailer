@@ -12,11 +12,11 @@
     <div class="card">
         <div class="card-header">{{ __('Edit Trailer') }}</div>
         <div class="card-body">
-            {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true)) !!}
+            {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
             {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
                 @include('trailers.forms.form')
                 <div class="form-actions">
-                    {!! Form::button('Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                    {!! Form::button('Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary edit-class', 'type'=>'submit')) !!}
                 </div>    
             {!! Form::close() !!}
         </div>
@@ -68,7 +68,10 @@
           } else {
             $(".form-actions").show();
           }
-      })
+      });
+      $(document).on('click', '.edit-class', function() {
+        $("#edit_trailer").submit();
+      });
     });
 </script>    
 @endsection
