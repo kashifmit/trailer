@@ -1,0 +1,11 @@
+// Main Menu
+.menu {
+    @include list-unstyled;
+    margin-bottom: 0;
+
+    a {
+        padding: 10px 20px;
+        display: block;
+    }
+
+}

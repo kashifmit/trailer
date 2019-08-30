@@ -1,0 +1,32 @@
+.site-header {
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+
+    .site-header-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.nav-trigger {
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 1.5em;
+    line-height: 1em;
+    background-color: transparent;
+    border: 0;
+}
+.site-logo {
+    padding: 5px;
+    font-size: $font-size-lg;
+    color: $primary;
+    display: inline-block;
+}
+
+.hd-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

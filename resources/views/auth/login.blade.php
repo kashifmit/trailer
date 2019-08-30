@@ -8,6 +8,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
+                <h2>Hello</h2>
                 <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -57,8 +58,8 @@
                             <i class="fas fa-lock-open"></i>
                             <i class="fas fa-truck-moving"></i>
                             <i class="fas fa-cog"></i>
-                        </p>
-                        <button type="submit" class="btn btn-primary"> -->
+                        </p> -->
+                        <button type="submit" class="btn btn-primary">
                             {{ __('Login') }}
                         </button>
 

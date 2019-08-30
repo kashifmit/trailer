@@ -26,6 +26,12 @@ strong {
     font-weight: 700;
 }
 
+button {
+    &:focus {
+        outline: none;
+    }
+}
+
 
 
 // Form Control

@@ -28,6 +28,51 @@
 </head>
 <body>
     <div id="app">
+        <header class="site-header">
+            <div class="site-header-bar">
+                <div class="hd-left">
+                    <button class="nav-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="site-logo">
+                        <a class="site-logo-text" href="{{ url('/') }}">
+                            {{ config('app.name', 'Trailer App') }}
+                        </a>                    
+                    </div>
+                </div>
+                <div class="hd-right">
+                    <ul class="navbar-nav pull-right">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('view.profile') }}">
+                                    {{ __('View Account') }}
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('edit.profile') }}">
+                                    {{ __('Update Account') }}
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>    
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
