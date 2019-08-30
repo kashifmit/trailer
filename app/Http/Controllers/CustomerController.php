@@ -27,11 +27,11 @@ class CustomerController extends Controller
         $data = new CustomerModel();
 
         if (!empty($request->query('business'))) {
-            $data = $data->where('business','like', "%{$request->query('business')}%");
+            // $data = $data->where('business','like', "%{$request->query('business')}%");
         }
 
         if (!empty($request->query('SiteId'))) {
-            $data = $data->where('SiteId','like', "%{$request->query('SiteId')}%");
+            // $data = $data->where('SiteId','like', "%{$request->query('SiteId')}%");
         }
 
         if (!empty($request->query('CustomerID'))) {

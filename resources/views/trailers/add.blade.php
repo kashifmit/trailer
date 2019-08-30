@@ -12,10 +12,10 @@
     <div class="card">
         <div class="card-header">{{ __('Add New Trailer') }}</div>
         <div class="card-body">
-            {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true)) !!}
+            {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
                 @include('trailers.forms.form')
-                <div class="form-actions">
-        			{!! Form::button('Submit <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+          <div class="form-actions">
+        			{!! Form::button('Submit <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary submit-class', 'type'=>'submit')) !!}
     			</div>
             {!! Form::close() !!}
         </div>
@@ -67,6 +67,9 @@
           } else {
             $(".form-actions").show();
           }
+      });
+      $(document).on('click', '.submit-class', function() {
+        $("#add_trailer").submit();
       });
     });
 </script>

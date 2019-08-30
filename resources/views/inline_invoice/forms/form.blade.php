@@ -16,7 +16,7 @@
     <div class="col-md-3"><label>Invoice Date</label></div>
     <div class="col-md-3">
       {!! Form::text('Invoice_Date',isset($data) ? date('m/d/Y', strtotime($data['InvoiceDate'])) : null,array('class'=>'form-control date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date', 'disabled' => isset($data) )) !!}
-      {!! Form::hidden('InvoiceDate', date('Y-m-d', strtotime($data->InvoiceDate)))!!}
+      {!! Form::hidden('InvoiceDate', date('Y-m-d', strtotime($data['InvoiceDate'])))!!}
     </div>
   </div>
   <div class="row">&nbsp;</div>
@@ -49,10 +49,10 @@
       {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
     </div>
     <div class="col-md-1">
-      {!! Form::text('UnitPrice[]', null, array('class'=>$value' form-control', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
+      {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
     </div>
     <div class="col-md-1">
-      {!! Form::text('LaborHoursQty[]', null, array('class'=>$value' form-control', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+      {!! Form::text('LaborHoursQty[]', null, array('class'=>$value.' form-control', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
     </div>
     <div class="col-md-2">
       {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}

@@ -333,6 +333,7 @@ class InvoiceController extends Controller
             $invoice_detail->LineType = $value;
                 $invoice_detail->save();
             }
+            flash('Invoice Line Added successfully!')->success();
             return Redirect::route('create.line.item', $InvoiceNo);
         } catch (ModelNotFoundException $e) {
             return back()->withError($e->getMessage());

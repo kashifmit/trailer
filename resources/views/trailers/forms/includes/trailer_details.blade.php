@@ -65,8 +65,8 @@
 
 <div class="row">
 	<div class="col-md-4 form-group">
-			{!! Form::label('SiteId', 'Location', ['class' => 'bold']) !!}                    
-        	{!! Form::select('SiteId', ['' => 'Select Location']+$locations, isset($data) ? $data->SiteId : null, array('class'=>'form-control', 'id'=>'SiteId')) !!}
+		{!! Form::label('SiteId', 'Location', ['class' => 'bold']) !!}                    
+    	{!! Form::select('SiteId', ['' => 'Select Location']+$locations, isset($data) ? $data->SiteId : null, array('class'=>'form-control', 'id'=>'SiteId')) !!}
 	</div>
 	<div class="col-md-4 form-group">
 		{!! Form::label('LastInsepctionDate', 'Last Registration', ['class' => 'bold']) !!}
@@ -99,6 +99,6 @@
 <div class="row">
 	<div class="col-md-4 form-group">
 		{!! Form::label('business', 'Business', ['class' => 'bold']) !!}                    
-        	{!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? $data->business  : null, array('class'=>'form-control', 'id'=>'business')) !!}
+        {!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? $data->business  : null, array('class'=>'form-control', 'id'=>'business')) !!}
 	</div>
 </div>
