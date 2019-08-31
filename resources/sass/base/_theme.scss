@@ -2,6 +2,10 @@ html {
     font-size: 16px;
 }
 
+body {
+    @extend .scrollbar;
+}
+
 a {
     color: inherit;
     transition: all 0.4s ease;
@@ -38,5 +42,11 @@ button {
 .form-control {
     &-radius {
         border-radius: 0.8rem;
+    }
+}
+
+.btn {
+    &-min-md {
+        min-width: 200px;
     }
 }

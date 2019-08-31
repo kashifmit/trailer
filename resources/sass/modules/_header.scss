@@ -1,6 +1,12 @@
 .site-header {
+    width: 100%;
     padding: 15px;
     border-bottom: 1px solid $border-color;
+    background-color: $white;
+    z-index: 11;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     .site-header-bar {
         display: flex;
@@ -11,6 +17,7 @@
 }
 
 .nav-trigger {
+    width: 30px;
     padding: 5px;
     margin-right: 10px;
     font-size: 1.5em;
@@ -29,4 +36,30 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.hd-right {
+    padding-right: 15px;
+}
+
+.list-hd {
+    @include list-unstyled;
+    margin-bottom: 0;
+
+    li {
+        display: inline-block;
+    }
+
+    .nav-link {
+        color: $body-color;
+        border-radius: .5rem;
+        background-color: $gray-200;
+
+        &:hover {
+            background-color: darken($gray-200, 6%);
+        }
+        &:active:focus {
+            box-shadow: 0 0 0 0.2rem darken($gray-200, 15%);
+        }
+    }
 }

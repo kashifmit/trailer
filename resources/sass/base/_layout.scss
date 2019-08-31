@@ -1,0 +1,41 @@
+main[role="main"] {
+    padding-top: 120px;
+    padding-bottom: .3rem;
+}
+
+.site-sidebar {
+    width: 250px;
+    height: 100%;
+    padding-top: 75px;
+    background-color: $gray-200;
+    overflow-y: auto;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    @extend .scrollbar;
+
+    .menu-collapsed & {
+        width: 60px;
+
+        .menu a {
+            span {
+                display: none;
+            }
+        }
+    }
+    
+}
+
+.sidebar-nav {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+.site-contents {
+    margin-left: 250px;
+
+    .menu-collapsed & {
+        margin-left: 60px;
+    }
+}
