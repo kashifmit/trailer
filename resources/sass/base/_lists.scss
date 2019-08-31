@@ -9,17 +9,34 @@
 
         &.active {
             a {
+                color: $primary;
                 border-left-width: 4px;
+
+                &::before {
+                    width: 4px;
+                }
             }
         }
     }
     a {
         padding: 6px 20px;
         display: block;
-        border-left: 0px solid $primary;
-
+        position: relative;
+        
         i + span {
             margin-left: 10px;
+        }
+        
+        &::before {
+            width: 0px;
+            height: 100%;
+            display: block;
+            background-color: $primary;
+            content: '';
+            transition: all 0.4s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     }
 }
@@ -27,4 +44,23 @@
 
 .list-unstyled {
     margin-bottom: 0;
+}
+
+.list-home-detail {
+    @include list-unstyled;
+    margin-bottom: 0;
+    
+    li {
+        margin-bottom: 2rem;
+        font-weight: 700;
+
+        mark {
+            padding: 0.6rem 1rem;
+            margin-top: -0.3rem;
+            line-height: 1;
+            border-radius: 0.5rem;
+            background-color: $gray-200;
+            float: right;
+        }
+    }
 }

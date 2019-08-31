@@ -16808,6 +16808,10 @@ body::-webkit-scrollbar-thumb {
   background-color: #224356;
 }
 
+h3 {
+  font-weight: 400;
+}
+
 /*** Heading ***/
 
 .heading {
@@ -16939,26 +16943,63 @@ body::-webkit-scrollbar-thumb {
 }
 
 .menu li.active a {
+  color: #2AA7ff;
   border-left-width: 4px;
+}
+
+.menu li.active a::before {
+  width: 4px;
 }
 
 .menu a {
   padding: 6px 20px;
   display: block;
-  border-left: 0px solid #2AA7ff;
+  position: relative;
 }
 
 .menu a i + span {
   margin-left: 10px;
 }
 
+.menu a::before {
+  width: 0px;
+  height: 100%;
+  display: block;
+  background-color: #2AA7ff;
+  content: "";
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .list-unstyled {
   margin-bottom: 0;
 }
 
+.list-home-detail {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.list-home-detail li {
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.list-home-detail li mark {
+  padding: 0.6rem 1rem;
+  margin-top: -0.3rem;
+  line-height: 1;
+  border-radius: 0.5rem;
+  background-color: #ebecef;
+  float: right;
+}
+
 main[role=main] {
   padding-top: 120px;
-  padding-bottom: 0.3rem;
+  padding-bottom: 2.5rem;
 }
 
 .site-sidebar {
@@ -17061,5 +17102,9 @@ main[role=main] {
 
 .list-hd .nav-link:active:focus {
   box-shadow: 0 0 0 0.2rem #c1c4cd;
+}
+
+.map-block {
+  height: 300px;
 }
 

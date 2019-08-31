@@ -7,7 +7,7 @@
 
                 <header class="heading">
                     <h3 class="title mb-2">{{ __('Register') }}</h3>
-                    <h4 class="title">{{ __('Account Email / Username and Password') }}</h4>
+                    <h5 class="title">{{ __('Account Email / Username and Password') }}</h5>
                 </header>
         
                 <div class="content">

@@ -29,7 +29,7 @@
 <body>
     <div id="app">
         <header class="site-header">
-            <n class="site-header-bar">
+            <div class="site-header-bar">
                 <div class="hd-left">
                     <button class="nav-trigger">
                         <i class="fas fa-bars"></i>
