@@ -1,32 +1,51 @@
-<div class="card-body">
-  <ul class="nav flex-column">
+<nav class="sidebar-nav">
+  <ul class="menu">
     
-    <li class="nav-item">
-      <a class="nav-link nav-toggle active" href="{{ route('customer.list') }}">Customers</a>
+    <li class="active">
+      <a href="{{ route('home') }}">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
     </li>
-    <!-- <li class="nav-item">
+
+    <li>
+      <a href="{{ route('customer.list') }}">
+        <i class="fas fa-user-tie"></i>
+        <span>Customers</span>
+      </a>
+    </li>
+    <!-- <li>
       <a class="nav-link" href="{{ route('organization.list') }}">Organizations</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a class="nav-link" href="{{ route('model.years') }}">Model Year</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a class="nav-link" href="{{ route('manufacturer.list') }}">Manufacturer</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a class="nav-link" href="{{ route('condition.list') }}">Condition Status</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a class="nav-link" href="{{ route('state.list') }}">States</a>
     </li> -->
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('users.list') }}">Users</a>
+    <li>
+      <a class="nav-link" href="{{ route('users.list') }}">
+      <i class="fas fa-users"></i>
+        <span>Users</span>
+      </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{route('trailer.list')}}">Trailers</a>
+    <li>
+      <a class="nav-link" href="{{route('trailer.list')}}">
+        <i class="fas fa-truck-moving"></i>  
+        <span>Trailers Details</span>
+      </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{route('invoice.list')}}">Invoices</a>
+    <li>
+      <a class="nav-link" href="{{route('invoice.list')}}">
+        <i class="fas fa-file-invoice"></i>
+        <span>Invoices</span>
+      </a>
     </li>
   </ul>    
-</div>
+</nav>

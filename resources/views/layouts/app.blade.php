@@ -29,24 +29,20 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Trailer App') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto pull-right">
-                        <!-- Authentication Links -->
+        <header class="site-header">
+            <div class="site-header-bar">
+                <div class="hd-left">
+                    <button class="nav-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="site-logo">
+                        <a class="site-logo-text" href="{{ url('/home') }}">
+                            {{ config('app.name', 'Trailer App') }}
+                        </a>                    
+                    </div>
+                </div>
+                <nav class="hd-right">
+                    <ul class="list-hd">
                         @guest
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -72,23 +68,25 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
+                </nav>
             </div>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-        </nav>
+        </header>
 
-        <main class="py-4">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-md-2">
-                        @include('includes.navigation')
-                    </div>
-                    <div class="col-md-10">
-                        @yield('content')
-                    </div>
+        <main role="main">
+            <div class="site-sidebar">
+                @include('includes.navigation')
+            </div>        
+            <div class="site-contents">
+                <div class="container-fluid">
+                    @yield('content')
                 </div>
             </div>
         </main>
+        
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

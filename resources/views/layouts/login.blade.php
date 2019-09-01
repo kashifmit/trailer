@@ -28,33 +28,108 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Trailer App') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        @yield('content')
+        <header class="site-header">
+            <div class="site-header-bar">
+                <div class="hd-left">
+                    <button class="nav-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="site-logo">
+                        <a class="site-logo-text" href="{{ url('/') }}">
+                            {{ config('app.name', 'Trailer App') }}
+                        </a>                    
                     </div>
+                </div>
+                <nav class="hd-right">
+                    <ul class="list-hd">
+                        @guest
+                            @if (Route::has('register'))
+                                <!-- <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li> -->
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('view.profile') }}">
+                                    {{ __('View Account') }}
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('edit.profile') }}">
+                                    {{ __('Update Account') }}
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>    
+                            </li>
+                        @endguest
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main role="main">
+            <div class="site-sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="menu">
+                        <li class="active">
+                            <a  href="{{ url('/') }}">
+                                <i class="fas fa-user"></i>
+                                <span>Login</span>
+                            </a>
+                        </li>
+                        @guest
+                            @if (Route::has('register'))
+                                <li>
+                                    <a href="{{ route('register') }}">
+                                        <i class="fas fa-user-plus"></i>
+                                        <span>{{ __('Create Account') }}</span>
+                                    </a>
+                                </li>
+                            @endif
+                        @else
+                            <li>
+                                <a href="{{ route('view.profile') }}">
+                                    {{ __('View Account') }}
+                                </a>    
+                            </li>
+                            <li>
+                                <a href="{{ route('edit.profile') }}">
+                                    {{ __('Update Account') }}
+                                </a>    
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>    
+                            </li>
+                        @endguest
+                    </ul>
+                </nav>
+            </div>
+            <div class="site-contents">
+                <div class="container-fluid">
+                    @yield('content')
                 </div>
             </div>
         </main>
     </div>
+
+
+        <!-- Styles -->
+        <script src="{{ asset('js/app.js') }}"></script>
+
+<!-- <p>
+    <i class="fas fa-user"></i>
+    <i class="fas fa-user-tie"></i>
+    <i class="fas fa-user-plus"></i>
+    <i class="fas fa-lock-open"></i>
+    <i class="fas fa-truck-moving"></i>
+    <i class="fas fa-cog"></i>
+</p> -->
+
 </body>
 </html>
