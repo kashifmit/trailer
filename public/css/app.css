@@ -7470,16 +7470,16 @@ pre code {
 .table td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 2px solid #dbdde3;
+  border-top: 2px solid #ebecef;
 }
 
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 4px solid #dbdde3;
+  border-bottom: 4px solid #ebecef;
 }
 
 .table tbody + tbody {
-  border-top: 4px solid #dbdde3;
+  border-top: 4px solid #ebecef;
 }
 
 .table-sm th,
@@ -7488,12 +7488,12 @@ pre code {
 }
 
 .table-bordered {
-  border: 2px solid #dbdde3;
+  border: 2px solid #ebecef;
 }
 
 .table-bordered th,
 .table-bordered td {
-  border: 2px solid #dbdde3;
+  border: 2px solid #ebecef;
 }
 
 .table-bordered thead th,
@@ -7509,12 +7509,12 @@ pre code {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #ebecef;
 }
 
 .table-hover tbody tr:hover {
   color: #617083;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #dee2e6;
 }
 
 .table-primary,
@@ -7696,16 +7696,16 @@ pre code {
 .table-active,
 .table-active > th,
 .table-active > td {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #dee2e6;
 }
 
 .table-hover .table-active:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #cfd5db;
 }
 
 .table-hover .table-active:hover > td,
 .table-hover .table-active:hover > th {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #cfd5db;
 }
 
 .table .thead-dark th {
@@ -7717,7 +7717,7 @@ pre code {
 .table .thead-light th {
   color: #495057;
   background-color: #ebecef;
-  border-color: #dbdde3;
+  border-color: #ebecef;
 }
 
 .table-dark {
@@ -16478,12 +16478,12 @@ a.text-dark:focus {
   .table-dark td,
   .table-dark thead th,
   .table-dark tbody + tbody {
-    border-color: #dbdde3;
+    border-color: #ebecef;
   }
 
   .table .thead-dark th {
     color: inherit;
-    border-color: #dbdde3;
+    border-color: #ebecef;
   }
 }
 
@@ -16525,6 +16525,37 @@ button:focus {
 
 .btn-min-md {
   min-width: 200px;
+}
+
+.btn-action {
+  padding: 5px;
+  display: inline-block;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+  border-top-color: #ebecef;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td {
+  border-bottom-color: #ebecef;
+}
+
+.table.table-striped thead tr {
+  background-color: #ebecef;
+}
+
+.table.table-striped tbody tr:nth-of-type(even) {
+  background-color: #ebecef;
+}
+
+.table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: transparent;
 }
 
 /*** General Styles
@@ -16865,7 +16896,7 @@ h3 {
 }
 
 .text-sm {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .text-md {
@@ -16876,12 +16907,8 @@ h3 {
   font-size: 1.5rem;
 }
 
-.text-xlg {
-  font-size: 3rem;
-}
-
-.text-xxlg {
-  font-size: 4rem;
+.text-right {
+  text-align: right;
 }
 
 .list-inline {
@@ -16992,6 +17019,7 @@ h3 {
   padding: 0.6rem 1rem;
   margin-top: -0.3rem;
   line-height: 1;
+  font-weight: 400;
   border-radius: 0.5rem;
   background-color: #ebecef;
   float: right;
