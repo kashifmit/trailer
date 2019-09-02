@@ -41,21 +41,19 @@
                         Trailer Details
                     </h3>
                 </div>
-
                 <div class="detail-block mb-5">
                     <ul class="list-home-detail">
                         <li>
                             Total Trailers: <small>(All Locations)</small>
-                            <mark>{{$allData['totalTrailers']}}</mark>
-                            <!-- {!! Form::text('TrailerTotal', $allData['totalTrailers'], array('class'=>'fm-control', 'id'=>'TrailerTotal', 'placeholder'=>'Total Trailers', 'readonly' => true)) !!} -->
+                            <mark>{{ $allData['totalTrailers'] ? $allData['totalTrailers'] : 0 }}</mark>
                         </li>
                         <li>
                             Subtotal Trailers Owned: <small>(All Locations)</small>
-                            <mark>{{$allData['totalTrailers']}}</mark>
+                            <mark>{{ $allData['totalTrailers'] ? $allData['totalTrailers'] : 0 }}</mark>
                         </li>
                         <li>
                             Subtotal Trailers Leased: <small>(All Locations)</small>
-                            <mark>{{$allData['leasedTrailer']}}</mark>
+                            <mark>{{ $allData['leasedTrailer'] ? $allData['leasedTrailer'] : 0 }}</mark>
                         </li>
                     </ul>
                 </div>
@@ -68,11 +66,11 @@
                     <ul class="list-home-detail">
                         <li>
                             Total Lease Expense <small>(All Locations)</small>
-                            <mark>{{$allData['leaseExpense']}}</mark>
+                            <mark>{{ $allData['leaseExpense'] ? $allData['leaseExpense'] : 0 }}</mark>
                         </li>
                         <li>
                             Total Maintenance Expense <small>(All Locations)</small>
-                            <mark>{{$allData['totalPrice']}}</mark>
+                            <mark>{{ $allData['totalPrice'] ? $allData['totalPrice'] : 0 }}</mark>
                         </li>
                     </ul>
 

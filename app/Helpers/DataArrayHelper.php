@@ -30,6 +30,7 @@ use App\PartsLaborModel;
 use App\MaintenanceInvoiceModel;
 use App\TrailerRentedViaModel;
 use App\RentalModel;
+use Ixudra\Curl\Facades\Curl;
 
 class DataArrayHelper {
 	
@@ -207,5 +208,35 @@ class DataArrayHelper {
 	    )
 	    ->display();
 	    return $chart1;
+	}
+
+	public static function trailerLocations($assetId = 'ALL')
+	{
+		// $assetId = "0104090";
+		$response = Curl::to('https://xml.skybitz.com:9443/QueryPositions?assetid='.$assetId.'&customer=MauserXmL&password=XmL467&version=1.0&sortby=1')->get();
+        $xml = simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $dataArray = json_decode($json,TRUE);
+        // dd($dataArray['gls']);
+        foreach ($dataArray['gls'] as $key => $value) {
+        	// echo "<pre>";
+        	// print_r($value);
+        	// echo "</pre>";
+        	// echo "<br>";
+        	// echo is_array($value) ? "array" : "rola";
+        	// echo "<br>";
+        	if (is_array($value) && array_key_exists($value['latitude'], $value)) {
+        		echo "In if ".$key."<br>";
+        	} else {
+        		echo "In else ".$key."<br>";
+        	}
+        	// if (is_array($value))
+        	// echo $value['latitude']."<br>";
+        	// if (is_array($value))
+        	// echo $value['latitude']."<<>>>".$value['longitude']."<br>";
+
+        }
+        	exit();
+
 	}
 }

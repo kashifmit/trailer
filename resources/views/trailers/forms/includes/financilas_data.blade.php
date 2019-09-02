@@ -17,14 +17,14 @@
 		<div class="row">
 	        <div class="col-md-6">Total Lease Expense (All Locations)</div>
 	        <div class="col-md-4">
-	            {!! Form::text('leaseExpense', $allData['leaseExpense'], array('class'=>'form-control', 'id'=>'leaseExpense', 'placeholder'=>'Total Lease Expense', 'readonly' => true)) !!}
+	            {!! Form::text('leaseExpense', $allData['leaseExpense'] ? $allData['leaseExpense'] : 0, array('class'=>'form-control', 'id'=>'leaseExpense', 'placeholder'=>'Total Lease Expense', 'readonly' => true)) !!}
 	        </div>
 	    </div>
 	    <div class="row">&nbsp;</div>
 	    <div class="row">
             <div class="col-md-6">Total Maintenance Expense (All Locations)</div>
             <div class="col-md-4">
-                {!! Form::text('totalPrice', $allData['totalPrice'], array('class'=>'form-control', 'id'=>'totalPrice', 'placeholder'=>'Total Maintenance Expense', 'readonly' => true)) !!}
+                {!! Form::text('totalPrice', $allData['totalPrice'] ? $allData['totalPrice'] : 0, array('class'=>'form-control', 'id'=>'totalPrice', 'placeholder'=>'Total Maintenance Expense', 'readonly' => true)) !!}
             </div>
         </div>
         <div class="row">&nbsp;</div>
@@ -33,7 +33,7 @@
 	        	Total Tariler Count Lease & Owned (All Locations)
 	        </div>
 	        <div class="col-md-4">
-	            {!! Form::text('totalLeased_owned', $allData['totalLeased_owned'], array('class'=>'form-control', 'id'=>'totalLeased_owned', 'placeholder'=>'Total Lease Expense', 'readonly' => true)) !!}
+	            {!! Form::text('totalLeased_owned', $allData['totalLeased_owned'] ? $allData['totalLeased_owned'] : 0, array('class'=>'form-control', 'id'=>'totalLeased_owned', 'placeholder'=>'Total Lease Expense', 'readonly' => true)) !!}
 	        </div>
 	    </div>
 	</div>

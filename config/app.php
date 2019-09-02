@@ -165,7 +165,7 @@ return [
         Cornford\Googlmapper\MapperServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         RezaAr\Highcharts\Provider::class,
-
+        Ixudra\Curl\CurlServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -239,6 +239,7 @@ return [
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Chart' => RezaAr\Highcharts\Facade::class,
+        'Curl'  => Ixudra\Curl\Facades\Curl::class,
     ],
 
 ];

@@ -24,18 +24,29 @@ class TrailerController extends Controller
 {
     public function index(Request $request)
     {
-        $trailerData = EquipmentModel::select([
+        $trailerData = '';
+        if (!empty($request->query('TrailerSerialNo')) || 
+            !empty($request->query('VehicleId_VIN')) || 
+            !empty($request->query('SiteId')) || 
+            !empty($request->query('business')) || 
+            !empty($request->query('TrackingId'))
+            ) {
+            $trailerData = EquipmentModel::select([
             'equipment.TrailerSerialNo',
             'registration.VehicleId_VIN',
             'equipment.etrack_id',
             'equipment.ManufacturerId',
             'equipment_tracking.TrackingId',
-            'etrack.ETrackDescription',
-            'trailer_manufacturer.MakeName'    
+            'trailer_manufacturer.MakeName',
+            'registration.PlateNo',
+            'registration.ExpireDate',
+            'equipment.ModelYear',
+            'equipment.business',
+            'site.SiteName'
         ])
         ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
         ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
-        ->join('etrack', 'equipment.etrack_id', '=', 'etrack.ETrackId')
+        ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
         ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId');
         
         if (!empty($request->query('TrailerSerialNo'))) {
@@ -46,23 +57,41 @@ class TrailerController extends Controller
             $trailerData = $trailerData->where('registration.VehicleId_VIN', 'like', "%{$request->query('VehicleId_VIN')}%");
         }
 
-        if (!empty($request->query('etrack_id'))) {
-            $trailerData = $trailerData->where('equipment.etrack_id', 'like', "%{$request->query('etrack_id')}%");
+        if (!empty($request->query('SiteId'))) {
+            $trailerData = $trailerData->where('equipment.SiteId', 'like', "%{$request->query('SiteId')}%");
         }
 
-        if (!empty($request->query('ManufacturerId'))) {
-            $trailerData = $trailerData->where('equipment.ManufacturerId', 'like', "%{$request->query('ManufacturerId')}%");
+        if (!empty($request->query('business'))) {
+            $trailerData = $trailerData->where('equipment.business', 'like', "%{$request->query('business')}%");
         }
 
         if (!empty($request->query('TrackingId'))) {
             $trailerData = $trailerData->where('equipment_tracking.TrackingId', 'like', "%{$request->query('TrackingId')}%");
         }
-
         $trailerData = $trailerData->paginate(20);
+        }
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $leaseExpenseChart = DataArrayHelper::getChart(
+            'Total Lease Expense', 
+            $allData['leaseExpense'] ? $allData['leaseExpense'] : 0, 
+            'lease_expense_chart');
+        $TotalMaintenanceExpense = DataArrayHelper::getChart(
+            'Total Maintenance Expense', 
+            $allData['totalPrice'] ? $allData['totalPrice'] : 0, 
+            'Total_Maintenance_Expense');
+        $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
+            'Total Tariler Count Lease & Owned', 
+             $allData['totalLeased_owned'] ? $allData['totalLeased_owned'] : 0, 
+            'Total_trailer_count_owned');
     	return view('trailers.index')
         ->with('trailerData', $trailerData)
-    	->with('getMakes', DataArrayHelper::getMakes())
-    	->with('etrack_id', DataArrayHelper::getTrackingsystems());
+    	->with('locations', DataArrayHelper::getSites())
+    	->with('business', DataArrayHelper::businessList())
+        ->with('getTrailers', DataArrayHelper::getTrailers())
+        ->with('allData', $allData)
+        ->with('leaseExpenseChart', $leaseExpenseChart)
+        ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
+        ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);
     }
 
     public function createtriler(Request $request)

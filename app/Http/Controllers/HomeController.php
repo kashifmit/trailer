@@ -39,7 +39,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $allData = DataArrayHelper::getfinancials('', $request);
-        $mapper = Mapper::map(30.205931, 71.469821);
+        // DataArrayHelper::trailerLocations();
+        Mapper::map(29.79924, -95.29201);
         return view('home')
         ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())
