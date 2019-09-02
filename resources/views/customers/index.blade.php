@@ -75,7 +75,7 @@
                 </div>
                 
                 @if($Alldata)
-                    <div class="text-right mt-2">{{$Alldata->links()}}</div>
+                    <div class="mt-2">{{$Alldata->links()}}</div>
                 @endif
 
             </div>

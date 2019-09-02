@@ -16527,6 +16527,11 @@ button:focus {
   min-width: 200px;
 }
 
+.btn-action {
+  padding: 5px;
+  display: inline-block;
+}
+
 .table > thead > tr > th,
 .table > thead > tr > td,
 .table > tbody > tr > th,
@@ -16891,7 +16896,7 @@ h3 {
 }
 
 .text-sm {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .text-md {
@@ -16902,12 +16907,8 @@ h3 {
   font-size: 1.5rem;
 }
 
-.text-xlg {
-  font-size: 3rem;
-}
-
-.text-xxlg {
-  font-size: 4rem;
+.text-right {
+  text-align: right;
 }
 
 .list-inline {

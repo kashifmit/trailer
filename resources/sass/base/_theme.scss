@@ -49,6 +49,10 @@ button {
     &-min-md {
         min-width: 200px;
     }
+    &-action {
+        padding: 5px;
+        display: inline-block;
+    }
 }
 
 .table {
