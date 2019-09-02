@@ -51,6 +51,9 @@ class HomeController extends Controller
 
         $validate = $request->validate([
             'name' => 'required',
+            'last_name' => 'required',
+            'organization' => 'required',
+            'role' => 'required',
         ]);
         if (!empty($request->input('password')) && ($request->input('password') != $request->input('c_password')) ) {
             flash('Password and confirm password must be same')->error();
@@ -60,6 +63,9 @@ class HomeController extends Controller
         try {
             $userdata = User::findOrFail(Auth::user()->id);
             $userdata->name = $request->input('name');
+            $userdata->last_name = $request->input('last_name');
+            $userdata->organization_id = $request->input('organization');
+            $userdata->Role_id = $request->input('role');
             if (!empty($request->input('password'))) {
                 $userdata->password = Hash::make($request->input('password'));
             }

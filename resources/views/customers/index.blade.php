@@ -46,6 +46,7 @@
                 </div>
 
                 <div class="table-responsive">
+                    @if($Alldata)
                     <table class="table text-sm table-striped table-hover">
                         <thead>
                             <tr>
@@ -67,15 +68,18 @@
                                     <td>{{$data->ShipToCity}}</td>
                                     <td>{{$data->StateAbbreviation}}</td>
                                     <td><input type="checkbox" name="checkbox"></td>
-                                    <td>3</td>
+                                    <td>{{$data->SiteName}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
                 
                 @if($Alldata)
-                    <div class="mt-2">{{$Alldata->links()}}</div>
+                    <div class="mt-2">
+                        {{ $Alldata->appends(request()->query())->links() }}
+                    </div>
                 @endif
 
             </div>

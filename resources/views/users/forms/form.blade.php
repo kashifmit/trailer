@@ -7,12 +7,12 @@
     <div class="form-group row mb-5 {!! APFrmErrHelp::hasError($errors, 'email') !!}">
         {!! Form::label('email', 'Email Address', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-4">
-            {!! Form::text('email', null, array('class'=>'form-control form-control-radius', 'id'=>'email', 'placeholder'=>'Email Address')) !!}
+            {!! Form::text('email', isset($data) ? $data->email : null, array('class'=>'form-control form-control-radius', 'id'=>'email', 'placeholder'=>'Email Address')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'email') !!}
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <button type="button" class="btn btn-primary">Save Email</button>
-        </div>
+        </div> -->
     </div>
     @endif
 
@@ -48,9 +48,9 @@
             {!! Form::select('role', ['' => 'Select Role']+$roles, isset($data) ? $data->Role_id : null, array('class'=>'form-control form-control-radius', 'id'=>'role')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'role') !!}
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <button type="button" class="btn btn-primary">Save Personal Information</button>
-        </div>
+        </div> -->
     </div>
 
     <header class="heading">
@@ -71,7 +71,7 @@
             {!! APFrmErrHelp::showErrors($errors, 'confirm_password') !!}
         </div>
         <div class="col-md-4">
-            {!! Form::button('Save Password', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+            {!! Form::button('Save', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
         </div>
     </div>
     
