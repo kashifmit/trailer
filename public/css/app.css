@@ -16558,6 +16558,23 @@ button:focus {
   background-color: transparent;
 }
 
+.nav-tabs > li > a {
+  border-width: 0 0 3px 0;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #2AA7ff;
+  border-width: 0 0 3px 0;
+  border-bottom-color: #2AA7ff;
+}
+
+.tab-content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 /*** General Styles
   --------------------------------------------- ***/
 
@@ -16853,6 +16870,13 @@ h3 {
   margin-bottom: 0;
 }
 
+.heading.space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /*** text styles ***/
 
 .text-underline {
@@ -17134,5 +17158,10 @@ main[role=main] {
 
 .map-block {
   height: 300px;
+}
+
+.trailer-contents {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 

@@ -15,16 +15,16 @@
   </div>
  @endif 
   <div class="tab-content">
-  	<div id="trailer_details" class="tab-pane in active">
+  	<div id="trailer_details" class="tab-pane fade show in active">
   		@include('trailers.forms.includes.trailer_details')
   	</div>
-  	<div id="trailer_documents" class="tab-pane">
+  	<div id="trailer_documents" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_documents')
   	</div>
-  	<div id="trailer_locations" class="tab-pane">
+  	<div id="trailer_locations" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_locations')
   	</div>
-  	<div id="trailer_financials" class="tab-pane">
+  	<div id="trailer_financials" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_financials')
   	</div>
   </div>

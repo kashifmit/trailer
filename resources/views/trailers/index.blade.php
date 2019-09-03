@@ -1,38 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-6 pull-left">{{ __('Trailers') }}</div>
-                <div class="col-md-3">&nbsp;</div>
-                <div class="col-md-3 pull-right">
-                    <a href="{{route('create.trailer')}}" class="btn btn-xs btn-success">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        Add Trailer
-                    </a> 
-                </div>
-            </div>
-        </div>
+    <div class="page">
+        <header class="heading space-between mb-2">
+            <h3 class="title">
+                {{ __('Trailers') }}
+            </h3>
+            <a href="{{route('create.trailer')}}" class="btn btn-primary">
+                Add Trailer
+            </a>
+        </header>
 
-        <div class="card-body">
+        <div class="content">
             <ul class="nav nav-tabs">
                 <li class="active"><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
                 <li><a class="checkClass" data-toggle="tab" href="#trailer_locations">Locations</a></li>
                 <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
             </ul>
-            <div class="row">&nbsp;</div>
-            <div class="row">&nbsp;</div>
             <div class="tab-content">
-            <div id="home_details" class="tab-pane in active">
-                @include('trailers.forms.includes.trailer_home')
-            </div>
-            <div id="trailer_locations" class="tab-pane">
-                @include('trailers.forms.includes.trailer_locations')
-            </div>
-            <div id="trailer_financials" class="tab-pane">
-                @include('trailers.forms.includes.trailer_financials')
-            </div>
+                <div id="home_details" class="tab-pane fade show in active">
+                    @include('trailers.forms.includes.trailer_home')
+                </div>
+                <div id="trailer_locations" class="tab-pane fade">
+                    @include('trailers.forms.includes.trailer_locations')
+                </div>
+                <div id="trailer_financials" class="tab-pane fade">
+                    @include('trailers.forms.includes.trailer_financials')
+                </div>
           </div>
         </div>
     </div>
