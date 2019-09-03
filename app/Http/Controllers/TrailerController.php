@@ -7,6 +7,7 @@ use ImgUploader;
 use Auth;
 use DB;
 use Input;
+use Mapper;
 use Redirect;
 use App\EquipmentModel;
 use App\TrailerFilesModel;
@@ -25,6 +26,15 @@ class TrailerController extends Controller
     public function index(Request $request)
     {
         $trailerData = '';
+        $mapData = DataArrayHelper::trailerTracking();
+        if (count($mapData)) {
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            foreach ($mapData as $key => $value) {
+                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
+            }    
+        } else {
+            Mapper::map(38.19788, -85.87415);
+        }
         if (!empty($request->query('TrailerSerialNo')) || 
             !empty($request->query('VehicleId_VIN')) || 
             !empty($request->query('SiteId')) || 
@@ -89,6 +99,7 @@ class TrailerController extends Controller
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $allData)
+        ->with('displayTable', false)
         ->with('leaseExpenseChart', $leaseExpenseChart)
         ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
         ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);
@@ -96,6 +107,15 @@ class TrailerController extends Controller
 
     public function createtriler(Request $request)
     {
+        $mapData = DataArrayHelper::trailerTracking();
+        if (count($mapData)) {
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            foreach ($mapData as $key => $value) {
+                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
+            }    
+        } else {
+            Mapper::map(38.19788, -85.87415);
+        }
         $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
@@ -116,6 +136,7 @@ class TrailerController extends Controller
     	->with('locations', DataArrayHelper::getSites())
     	->with('conditions', DataArrayHelper::getCondition())
     	->with('owners', DataArrayHelper::getOrganizations())
+        ->with('displayTable', false)
     	->with('business', DataArrayHelper::businessList())
         ->with('allData', $allData)
         ->with('leaseExpenseChart', $leaseExpenseChart)
@@ -169,6 +190,12 @@ class TrailerController extends Controller
 
     public function editTrailer($TrailerSerialNo, Request $request)
     {
+        $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo);
+        if (count($mapData)) {
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);    
+        } else {
+            Mapper::map(38.19788, -85.87415);
+        }
     	$data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
         $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
@@ -193,6 +220,8 @@ class TrailerController extends Controller
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $allData)
+        ->with('displayTable', true)
+        ->with('mapData', $mapData)
         ->with('leaseExpenseChart', $leaseExpenseChart)
         ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
         ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);

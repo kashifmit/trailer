@@ -39,8 +39,16 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $allData = DataArrayHelper::getfinancials('', $request);
-        // DataArrayHelper::trailerLocations();
-        Mapper::map(29.79924, -95.29201);
+        
+        $mapData = DataArrayHelper::trailerTracking();
+        if (count($mapData)) {
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            foreach ($mapData as $key => $value) {
+                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
+            }    
+        } else {
+            Mapper::map(38.19788, -85.87415);
+        }
         return view('home')
         ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())
