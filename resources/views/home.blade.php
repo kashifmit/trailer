@@ -37,12 +37,12 @@
 
             <div class="col-md-5">
                 <div class="heading">
-                    <h3 class="title">
+                    <h3 class="title text-right">
                         Trailer Details
                     </h3>
                 </div>
                 <div class="detail-block mb-5">
-                    <ul class="list-home-detail">
+                    <ul class="list-detail">
                         <li>
                             Total Trailers: <small>(All Locations)</small>
                             <mark>{{ $allData['totalTrailers'] ? $allData['totalTrailers'] : 0 }}</mark>
@@ -63,7 +63,7 @@
                         <h3 class="title">Trailer Financials</h3>
                     </header>
                     
-                    <ul class="list-home-detail">
+                    <ul class="list-detail">
                         <li>
                             Total Lease Expense <small>(All Locations)</small>
                             <mark>{{ $allData['leaseExpense'] ? $allData['leaseExpense'] : 0 }}</mark>

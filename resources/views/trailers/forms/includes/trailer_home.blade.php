@@ -1,36 +1,64 @@
 <div class="trailer-contents">
     {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true)) !!}
 
+    <header class="heading">
+        <h3 class="title">Search For a Trailer</h3>
+    </header>
+
     <div class="mb-5">
-        <div class="form-group row">
+        <div class="form-group row mb-0">
             <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Trailer Number') }}</label>
             <div class="col-md-3">
-                <input type="text" class="form-control" name="TrailerSerialNo" id="TrailerSerialNo" autocomplete="off" placeholder="Trailer Number" value="{{\Request::get('TrailerSerialNo')}}">
+                <div class="form-control-wrap search">
+                    <input type="text" class="form-control form-control-radius" name="TrailerSerialNo" id="TrailerSerialNo" autocomplete="off" placeholder="Trailer Number" value="{{\Request::get('TrailerSerialNo')}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mt-4 mb-4">Or</div>
+
+        <div class="form-group row mb-0">
             <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('VIN Number') }}</label>
             <div class="col-md-3">
-                <input type="text" class="form-control" name="VehicleId_VIN" id="VehicleId_VIN" autocomplete="off" placeholder="VIN Number" value="{{\Request::get('VehicleId_VIN')}}">
+                <div class="form-control-wrap search">
+                    <input type="text" class="form-control form-control-radius" name="VehicleId_VIN" id="VehicleId_VIN" autocomplete="off" placeholder="VIN Number" value="{{\Request::get('VehicleId_VIN')}}">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="TrackingId" class="col-md-3 col-form-label text-md-right">{{ __('Tracking Number') }}</label>
             <div class="col-md-3">
-                <input type="text" class="form-control" name="TrackingId" id="TrackingId" autocomplete="off" placeholder="Tracking Number" value="{{\Request::get('TrackingId')}}">
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
             </div>
         </div>
 
+        <div class="mt-4 mb-4">Or</div>
+
+        <div class="form-group row mb-0">
+            <label for="TrackingId" class="col-md-3 col-form-label text-md-right">{{ __('Tracking Number') }}</label>
+            <div class="col-md-3">
+                <div class="form-control-wrap search">
+                    <input type="text" class="form-control form-control-radius" name="TrackingId" id="TrackingId" autocomplete="off" placeholder="Tracking Number" value="{{\Request::get('TrackingId')}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
+            </div>
+        </div>
+
+        <header class="heading mt-5">
+            <h3 class="title">Search For a Trailer by Location & Business</h3>
+        </header>
+
         <div class="form-group row mb-5">
-            <div class="col-md-3  offset-md-3">
-                {!! Form::select('business', ['' => '--All business System--']+$business, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control', 'id'=>'business')) !!}
+            <div class="col-md-4">
+                {!! Form::select('business', ['' => '--All business System--']+$business, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control form-control-radius', 'id'=>'business')) !!}
             </div>
-            <div class="col-md-3">
-                {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control', 'id'=>'SiteId')) !!}
+            <div class="col-md-4">
+                {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}
             </div>
-            <div class="col-md-3">
-                {!! Form::button('Find', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+            <div class="col-md-4">
+                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
             </div>
         </div>
 

@@ -46,12 +46,12 @@
     margin-bottom: 0;
 }
 
-.list-home-detail {
+.list-detail {
     @include list-unstyled;
     margin-bottom: 0;
     
     li {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         font-weight: 700;
 
         mark {
