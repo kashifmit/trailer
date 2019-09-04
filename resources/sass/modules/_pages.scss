@@ -6,3 +6,31 @@
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+.trailer-block {
+    label {
+        text-transform: none;
+        font-weight: 400;
+        font-size: 1em;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .form-control {
+            width: 120px;
+
+            &.sm {
+                width: 100px;
+            }
+        }
+    }
+
+    &-bg {
+        padding: 20px;
+        background-color: $gray-200;
+        border-radius: .5em;
+    }
+}

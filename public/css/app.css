@@ -16523,6 +16523,24 @@ button:focus {
   border-radius: 0.8rem;
 }
 
+.form-control-wrap.search {
+  position: relative;
+}
+
+.form-control-wrap.search::before {
+  font-family: "FontAwesome";
+  content: "\F002";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+label {
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
 .btn-min-md {
   min-width: 200px;
 }
@@ -16538,6 +16556,7 @@ button:focus {
 .table > tbody > tr > td,
 .table > tfoot > tr > th,
 .table > tfoot > tr > td {
+  padding: 15px 10px;
   border-top-color: #ebecef;
 }
 
@@ -16857,7 +16876,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 h3 {
-  font-weight: 400;
+  font-weight: 300;
 }
 
 /*** Heading ***/
@@ -17028,18 +17047,18 @@ h3 {
   margin-bottom: 0;
 }
 
-.list-home-detail {
+.list-detail {
   padding-left: 0;
   list-style: none;
   margin-bottom: 0;
 }
 
-.list-home-detail li {
-  margin-bottom: 2rem;
+.list-detail li {
+  margin-bottom: 1.5rem;
   font-weight: 700;
 }
 
-.list-home-detail li mark {
+.list-detail li mark {
   padding: 0.6rem 1rem;
   margin-top: -0.3rem;
   line-height: 1;
@@ -17163,5 +17182,32 @@ main[role=main] {
 .trailer-contents {
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.trailer-block label {
+  text-transform: none;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.trailer-block .form-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trailer-block .form-group .form-control {
+  width: 120px;
+}
+
+.trailer-block .form-group .form-control.sm {
+  width: 100px;
+}
+
+.trailer-block-bg {
+  padding: 20px;
+  background-color: #ebecef;
+  border-radius: 0.5em;
 }
 

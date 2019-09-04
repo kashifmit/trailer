@@ -1,25 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.image-button {
-    color: white;
-    background-color: green;
-    font-weight: bold;
-}
-</style>
+
     @include('flash::message')
-    <div class="card">
-        <div class="card-header">{{ __('Add New Trailer') }}</div>
-        <div class="card-body">
-            {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
-                @include('trailers.forms.form')
-          <div class="form-actions">
-        			{!! Form::button('Submit <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary submit-class', 'type'=>'submit')) !!}
-    			</div>
-            {!! Form::close() !!}
+    <div class="page">
+
+      <header class="heading">
+        <h3 class="title">
+          {{ __('Add New Trailer') }}
+        </h3>
+      </header>
+      <div class="content">
+          {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
+              @include('trailers.forms.form')
+        <div class="form-actions">
+            {!! Form::button('Save', array('class'=>'btn btn-min-md btn-primary submit-class', 'type'=>'submit')) !!}
         </div>
+          {!! Form::close() !!}        
+      </div>
+
     </div>
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
       var date_input=$('.date-picker');

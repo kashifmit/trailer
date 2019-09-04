@@ -43,7 +43,28 @@ button {
     &-radius {
         border-radius: 0.8rem;
     }
+
+    &-wrap {
+        &.search {
+            position: relative;
+
+            &::before {
+                font-family:'FontAwesome';
+                content: '\f002';
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
 }
+
+label {
+    font-size: .9em;
+    text-transform: uppercase;
+}
+
 
 .btn {
     &-min-md {
@@ -64,6 +85,7 @@ button {
         > tr {
             > th,
             > td {
+                padding: 15px 10px;
                 border-top-color: $gray-200;
             }
         }
