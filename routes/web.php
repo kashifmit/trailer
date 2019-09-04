@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('download-file/{id}', 'TrailerController@dowLoadFile')->name('download.file');
 	Route::post('/trailer-owners', 'TrailerController@trailerOwners')->name('trailer.owners');
 	Route::get('/trailer-financials', 'TrailerController@trailerfinancilas')->name('trailer.financilas');
+	Route::get('/view-trailor/{TrailerSerialNo}', 'TrailerController@viewTrailer')->name('view.trailer');
 	/**
 	*	Inovices Routes
 	**/

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
+                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'button')) !!}
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
             </div>
         </div>
 
@@ -86,7 +86,7 @@
             @foreach($trailerData as $data)
             <tr>
                 <td>
-                    <a href="{{route('edit.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
+                    <a href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
                         {{$data->TrailerSerialNo}}
                     </a>    
                     </td>

@@ -74,7 +74,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('ExpireDate', 'Last Registration Expire', ['class' => 'bold']) !!}
-						{!! Form::text('ExpireDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null, array('class'=>'form-control form-control-radius sm date-picker', 'id'=>'ExpireDate', 'placeholder'=>'Last Registration Expire')) !!}
+						{!! Form::date('ExpireDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null, array('class'=>'form-control form-control-radius sm date-picker', 'id'=>'ExpireDate', 'placeholder'=>'Last Registration Expire')) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label('RegistrationDate', 'Date Acquire', ['class' => 'bold']) !!}

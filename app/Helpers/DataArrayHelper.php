@@ -39,6 +39,12 @@ class DataArrayHelper {
 		return OrganizationModel::select('OrgName', 'VendorId')->pluck('OrgName', 'VendorId')->toArray();
 	}
 
+	public static function getOrganizationName($VendorId)
+	{
+		$data = OrganizationModel::select('OrgName')->where('VendorId', $VendorId)->first();
+		return $data->OrgName;
+	}
+
 	public static function getRoles()
 	{
 		return RoleModel::select('Role_name', 'roleId')->pluck('Role_name', 'roleId')->toArray();
@@ -54,9 +60,21 @@ class DataArrayHelper {
 		return SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, "") ) AS SiteName'), 'SiteId')->pluck('SiteName', 'SiteId')->toArray();
 	}
 
+	public static function getSiteName($SiteId)
+	{
+		$data = SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, "") ) AS SiteName'))->where('SiteId', $SiteId)->first();
+		return $data->SiteName;
+	}
+
 	public static function getMakes()
 	{
 		return ManufacturerModel::select('MakeName', 'MakeId')->pluck('MakeName', 'MakeId')->toArray();
+	}
+
+	public static function getMakeName($MakeId)
+	{
+		$data = ManufacturerModel::select('MakeName')->where('MakeId', $MakeId)->first();
+		return $data->MakeName;
 	}
 
 	public static function getModelYears()
@@ -69,14 +87,31 @@ class DataArrayHelper {
 		return conditionModel::select('ConditionType', 'ConditionStatusId')->pluck('ConditionType', 'ConditionStatusId')->toArray();
 	}
 
+	public static function getConditionName($ConditionStatusId)
+	{
+		$data = conditionModel::select('ConditionType')->where('ConditionStatusId', $ConditionStatusId)->first();
+		return $data->ConditionType;
+	}
+
 	public static function getState()
 	{
 		return StateModel::select('StateName', 'StateAbbreviation')->pluck('StateName', 'StateAbbreviation')->toArray();
 	}
 
+	public static function getStateName($StateAbbreviation)
+	{
+		return StateModel::select('StateName')->where('StateAbbreviation', $StateAbbreviation)->first();
+	}
+
 	public static function getTrackingsystems()
 	{
 		return TrackingSystemModel::select('ETrackDescription', 'ETrackId')->pluck('ETrackDescription', 'ETrackId')->toArray();
+	}
+
+	public static function getTrackingsystemName($ETrackId)
+	{
+		$data = TrackingSystemModel::select('ETrackDescription')->where('ETrackId', $ETrackId)->first();
+		return $data->ETrackDescription;
 	}
 
 
@@ -213,7 +248,7 @@ class DataArrayHelper {
 	{
 		$start_date = date('Y-m-d H:00:00');
         $end_date = date('Y-m-d H:59:59');
-        $mapData = SkyBizTrackingModel::select('Latitude', 'Longitude', 'ClosestLandMark');
+        $mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);
      	} else {

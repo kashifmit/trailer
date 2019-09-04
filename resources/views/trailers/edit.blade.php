@@ -9,29 +9,38 @@
 }
 </style>
     @include('flash::message')
-    <div class="card">
-        <div class="card-header">{{ __('Edit Trailer') }}</div>
-        <div class="card-body">
-            {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
+    <div class="page">
+
+      <header class="heading space-between mb-2">
+            <h3 class="title">
+                {{ __('Edit Trailer') }}
+            </h3>
+            <a href="{{route('create.trailer')}}" class="btn btn-primary">
+                Add Trailer
+            </a>
+        </header>
+      <div class="content">
+          {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
             {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
-                @include('trailers.forms.form')
+              @include('trailers.forms.form')
                 <div class="form-actions">
                     {!! Form::button('Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary edit-class', 'type'=>'submit')) !!}
-                </div>    
-            {!! Form::close() !!}
-        </div>
+                </div>
+          {!! Form::close() !!}        
+      </div>
+
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
-      var date_input=$('.date-picker');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'mm/dd/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
+      // var date_input=$('.date-picker');
+      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      // var options={
+      //   format: 'mm/dd/yyyy',
+      //   container: container,
+      //   todayHighlight: true,
+      //   autoclose: true,
+      // };
+      // date_input.datepicker(options);
 
       $(document).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
@@ -63,7 +72,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ( $(this).attr('href') === "#trailer_financials") {
+          if ( if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();

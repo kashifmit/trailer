@@ -80,12 +80,7 @@
 		</div>
 	</div>
 	@if(isset($data) && count($data->filesData) > 0)
-	<div class="row">
-		@foreach($data->filesData as $fileData)
-		<div class="col-md-3"><a href="{{route('download.file',$fileData->Id)}}">DownLoad {{str_replace("_", " ",$fileData->DocType)}}</a></div>
-		{!! Form::hidden('Id[]', $fileData->Id) !!}
-		@endforeach
-	</div>
+		@include('trailers.forms.includes.trailer_doc_table')
 	@endif
 
 </div>

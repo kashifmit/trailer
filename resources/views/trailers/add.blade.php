@@ -25,15 +25,15 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-      var date_input=$('.date-picker');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'mm/dd/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
+      // var date_input=$('.date-picker');
+      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      // var options={
+      //   format: 'mm/dd/yyyy',
+      //   container: container,
+      //   todayHighlight: true,
+      //   autoclose: true,
+      // };
+      // date_input.datepicker(options);
 
       $(document).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
@@ -65,7 +65,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ( $(this).attr('href') === "#trailer_financials") {
+          if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();
