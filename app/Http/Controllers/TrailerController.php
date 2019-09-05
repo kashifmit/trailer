@@ -19,6 +19,8 @@ use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use App\Exports\ExportTrailerTrackingCSV;
+use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 
 class TrailerController extends Controller
@@ -26,14 +28,15 @@ class TrailerController extends Controller
     public function index(Request $request)
     {
         $trailerData = '';
-        $mapData = DataArrayHelper::trailerTracking();
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
             foreach ($mapData as $key => $value) {
                 Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
             }    
         } else {
-            Mapper::map(38.19788, -85.87415);
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
         if (!empty($request->query('TrailerSerialNo')) || 
             !empty($request->query('VehicleId_VIN')) || 
@@ -80,7 +83,6 @@ class TrailerController extends Controller
         }
         $trailerData = $trailerData->paginate(20);
         }
-        $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart(
             'Total Lease Expense', 
             $allData['leaseExpense'] ? $allData['leaseExpense'] : 0, 
@@ -107,14 +109,14 @@ class TrailerController extends Controller
 
     public function createtriler(Request $request)
     {
-        $mapData = DataArrayHelper::trailerTracking();
+        $mapData = DataArrayHelper::trailerTracking('', '');
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
             foreach ($mapData as $key => $value) {
                 Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
             }    
         } else {
-            Mapper::map(38.19788, -85.87415);
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
         $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
@@ -190,11 +192,11 @@ class TrailerController extends Controller
 
     public function editTrailer($TrailerSerialNo, Request $request)
     {
-        $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo);
+        $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
         } else {
-            Mapper::map(5, 5, ['marker' => false]);
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
     	return view('trailers.edit')
@@ -219,11 +221,11 @@ class TrailerController extends Controller
 
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
-        $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo);
+        $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
         } else {
-            Mapper::map(5, 5, ['marker' => false]);
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         return view('trailers.view')
@@ -395,7 +397,7 @@ class TrailerController extends Controller
 
     private function getTrailerById($TrailerSerialNo, Request $request)
     {
-        $data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
+        $data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData', 'TrailerInvoices'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
         $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
@@ -413,5 +415,10 @@ class TrailerController extends Controller
             'TotalMaintenanceExpense' => $TotalMaintenanceExpense,
             'TrailerLeasedCountAndOwned' => $TrailerLeasedCountAndOwned
         ];
+    }
+
+    public function downloadTrailerLocationCsv(Request $request)
+    {
+        return Excel::download(new ExportTrailerTrackingCSV, 'trailerLocations'.\Carbon\Carbon::now().'.xlsx');
     }
 }

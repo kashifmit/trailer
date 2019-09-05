@@ -47,10 +47,12 @@
 					<th>DownLoad Invoice</th>
 					<th>Invoice Number</th>
 					<th>Invoice Date</th>
-					<th>Vendor</th>
 					<th>Total Invoice</th>
 				</tr>
 				<tbody>
+					@php
+						$i = 0;
+					@endphp
 					@foreach($data->filesData as $fileData)
 						@if($fileData->DocType =="invoice")
 						<tr>
@@ -61,11 +63,17 @@
 									File Not Available
 								@endif
 							</td>
-							<td>Invoice Number</td>
-							<td>Invoice Date</td>
-							<td>Vendor</td>
-							<td>Total Invoice</td>
+							<td>
+								<a href="{{route('edit.invoice', ['InvoiceNo' => $data->TrailerInvoices[$i]->InvoiceNo])}}">
+									{{$data->TrailerInvoices[$i]->InvoiceNo}}
+								</a>	
+							</td>
+							<td>{{date('m/d/Y', strtotime($data->TrailerInvoices[$i]->InvoiceDate))}}</td>
+							<td>{{ $data->TrailerInvoices[$i]->TotalPrice }}</td>
 						</tr>
+							@php
+								$i++;
+							@endphp
 						@endif
 					@endforeach
 				</tbody>

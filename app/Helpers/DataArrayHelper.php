@@ -162,7 +162,7 @@ class DataArrayHelper {
 
 	public static function getfinancials($TrailerSerialNo='', $request)
 	{
-		$total = EquipmentModel::whereNotNull('TrailerSerialNo');
+		$total = EquipmentModel::select(DB::raw('COUNT(TrailerSerialNo) as Total'), DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'))->whereNotNull('TrailerSerialNo');
         $leaseExpense = TrailerRentedViaModel::select([DB::raw('SUM(trailer_rented_via.Price) as Price')])
         ->join('equipment', 'trailer_rented_via.TrailerSerialNo', '=', 'equipment.TrailerSerialNo');
 
@@ -188,16 +188,17 @@ class DataArrayHelper {
             $data = $data->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
             $leasedTrailer = $leasedTrailer->where('SiteId', 'like', "%{$request->query('SiteId_financial')}%");
         }
-        $total = $total->count();
+        $total = $total->get();
         $leaseExpense = $leaseExpense->first();
         $data = $data->first();
         $leasedTrailer = $leasedTrailer->count();
         return [
-        	'totalTrailers' => empty($total) ? 0 : $total, 
+        	'totalTrailers' => $total[0]->Total, 
         	'leaseExpense' => empty($leaseExpense) ? 0 : $leaseExpense->Price, 
         	'totalPrice' => empty($data) ? 0 : $data->TotalPrice, 
         	'leasedTrailer' => empty($leasedTrailer) ? 0 : $leasedTrailer,
-        	'totalLeased_owned' => $total+$leasedTrailer
+        	'totalLeased_owned' => $total[0]->Total+$leasedTrailer,
+        	'trailerIds' => $total[0]->trailerIds
         ];
 	}
 
@@ -244,17 +245,22 @@ class DataArrayHelper {
 	    ->display();
 	    return $chart1;
 	}
-	public static function trailerTracking($TrailerNo='')
+	public static function trailerTracking($TrailerNo='', $TrailerIds= '')
 	{
 		$start_date = date('Y-m-d H:00:00');
         $end_date = date('Y-m-d H:59:59');
-        $mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
+        $mapData = [];
+        if (!empty($TrailerNo) || !empty($TrailerIds)) {
+        	$mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);
-     	} else {
-     		$mapData = $mapData->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
-     	}   
-        $mapData = $mapData->orderBy('created_at', 'DESC')->get();
+     	} 
+     	if (!empty($TrailerIds)) {
+     		$mapData = $mapData->whereIn('TrailerNo', $TrailerIds)->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
+     		}
+     	 $mapData = $mapData->orderBy('created_at', 'DESC')->get();
+        }
+        
         return $mapData;
 	}
 }

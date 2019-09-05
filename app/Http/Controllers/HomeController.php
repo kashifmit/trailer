@@ -40,14 +40,14 @@ class HomeController extends Controller
     {
         $allData = DataArrayHelper::getfinancials('', $request);
         
-        $mapData = DataArrayHelper::trailerTracking();
+        $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude, ['marker' => false]);
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
             foreach ($mapData as $key => $value) {
                 Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
             }    
         } else {
-            Mapper::map(38.19788, -85.87415);
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
         return view('home')
         ->with('allData', $allData)

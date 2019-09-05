@@ -69,6 +69,6 @@ class CustomerController extends Controller
 
     public function exportDTA()
     {
-    	return Excel::download(new DTAExport, 'DTA_'.\Carbon\Carbon::now().'.xlsx');
+    	return Excel::download(new ExportTrailerTrackingCSV, 'DTA_'.\Carbon\Carbon::now().'.xlsx');
     }
 }

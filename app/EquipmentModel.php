@@ -30,6 +30,11 @@ class EquipmentModel extends Model
         return $this->hasMany('App\EquipmentTrackingModel', 'TrailerSerialNo', 'TrailerSerialNo');
     }
 
+    public function TrailerInvoices()
+    {
+        return $this->hasMany('App\MaintenanceInvoiceModel', 'TrailerSerialNo', 'TrailerSerialNo');
+    }
+
     public function getTrackingsystem($field = '')
     {
         $eTrackingsystem = $this->eTrackingsystem()->first();
