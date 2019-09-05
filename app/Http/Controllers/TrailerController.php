@@ -419,6 +419,6 @@ class TrailerController extends Controller
 
     public function downloadTrailerLocationCsv(Request $request)
     {
-        return Excel::download(new ExportTrailerTrackingCSV, 'trailerLocations'.\Carbon\Carbon::now().'.xlsx');
+        return Excel::download(new ExportTrailerTrackingCSV($request->input('trailerId')), 'trailerLocations'.\Carbon\Carbon::now().'.xlsx');
     }
 }
