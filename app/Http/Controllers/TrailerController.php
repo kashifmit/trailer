@@ -44,44 +44,7 @@ class TrailerController extends Controller
             !empty($request->query('business')) || 
             !empty($request->query('TrackingId'))
             ) {
-            $trailerData = EquipmentModel::select([
-            'equipment.TrailerSerialNo',
-            'registration.VehicleId_VIN',
-            'equipment.etrack_id',
-            'equipment.ManufacturerId',
-            'equipment_tracking.TrackingId',
-            'trailer_manufacturer.MakeName',
-            'registration.PlateNo',
-            'registration.ExpireDate',
-            'equipment.ModelYear',
-            'equipment.business',
-            'site.SiteName'
-        ])
-        ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
-        ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
-        ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
-        ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId')->where('equipment.SiteId' , '!=', '');
-        
-        if (!empty($request->query('TrailerSerialNo'))) {
-            $trailerData = $trailerData->where('equipment.TrailerSerialNo','like', "%{$request->query('TrailerSerialNo')}%");
-        }
-
-        if (!empty($request->query('VehicleId_VIN'))) {
-            $trailerData = $trailerData->where('registration.VehicleId_VIN', 'like', "%{$request->query('VehicleId_VIN')}%");
-        }
-
-        if (!empty($request->query('SiteId'))) {
-            $trailerData = $trailerData->where('equipment.SiteId', 'like', "%{$request->query('SiteId')}%");
-        }
-
-        if (!empty($request->query('business'))) {
-            $trailerData = $trailerData->where('equipment.business', 'like', "%{$request->query('business')}%");
-        }
-
-        if (!empty($request->query('TrackingId'))) {
-            $trailerData = $trailerData->where('equipment_tracking.TrackingId', 'like', "%{$request->query('TrackingId')}%");
-        }
-        $trailerData = $trailerData->paginate(20);
+            $trailerData = $this->trailerHomeData($request);
         }
         $leaseExpenseChart = DataArrayHelper::getChart(
             'Total Lease Expense', 
@@ -101,6 +64,8 @@ class TrailerController extends Controller
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $allData)
+        ->with('getTrackingsystems', DataArrayHelper::getTrackingsystems())
+        ->with('getTrackingUnits', DataArrayHelper::getTrackingUnits())
         ->with('displayTable', false)
         ->with('leaseExpenseChart', $leaseExpenseChart)
         ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
@@ -109,6 +74,7 @@ class TrailerController extends Controller
 
     public function createtriler(Request $request)
     {
+        $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking('', '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
@@ -130,6 +96,7 @@ class TrailerController extends Controller
             'Total_trailer_count_owned');
     	return view('trailers.add')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
+        ->with('trailerData', $trailerData)
     	->with('make', DataArrayHelper::getMakes())
     	->with('year', DataArrayHelper::getModelYears())
     	->with('state', DataArrayHelper::getState())
@@ -192,6 +159,7 @@ class TrailerController extends Controller
 
     public function editTrailer($TrailerSerialNo, Request $request)
     {
+        $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
@@ -201,6 +169,7 @@ class TrailerController extends Controller
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
     	return view('trailers.edit')
     	->with('data', $getTrailerDetails['data'])
+        ->with('trailerData', $trailerData)
     	->with('etracking', DataArrayHelper::getTrackingsystems())
     	->with('make', DataArrayHelper::getMakes())
     	->with('year', DataArrayHelper::getModelYears())
@@ -221,6 +190,7 @@ class TrailerController extends Controller
 
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
+        $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
@@ -230,6 +200,7 @@ class TrailerController extends Controller
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         return view('trailers.view')
         ->with('data', $getTrailerDetails['data'])
+        ->with('trailerData', $trailerData)
         ->with('locations', DataArrayHelper::getSites())
         ->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
@@ -420,5 +391,68 @@ class TrailerController extends Controller
     public function downloadTrailerLocationCsv(Request $request)
     {
         return Excel::download(new ExportTrailerTrackingCSV($request->input('trailerId')), 'trailerLocations'.\Carbon\Carbon::now().'.xlsx');
+    }
+
+    private function trailerHomeData($request)
+    {
+        $trailerData = EquipmentModel::select([
+            'equipment.TrailerSerialNo',
+            'registration.VehicleId_VIN',
+            'equipment.etrack_id',
+            'equipment.ManufacturerId',
+            'equipment_tracking.TrackingId',
+            'trailer_manufacturer.MakeName',
+            'registration.PlateNo',
+            'registration.ExpireDate',
+            'equipment.ModelYear',
+            'equipment.business',
+            'site.SiteName'
+        ])
+        ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
+        ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
+        ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
+        ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId')->where('equipment.SiteId' , '!=', '');
+        
+        if (!empty($request->query('TrailerSerialNo'))) {
+            $trailerData = $trailerData->where('equipment.TrailerSerialNo', $request->query('TrailerSerialNo'));
+        }
+
+        if (!empty($request->query('VehicleId_VIN'))) {
+            $trailerData = $trailerData->where('registration.VehicleId_VIN',$request->query('VehicleId_VIN'));
+        }
+
+        if (!empty($request->query('SiteId'))) {
+            $trailerData = $trailerData->where('equipment.SiteId', $request->query('SiteId'));
+        }
+
+        if (!empty($request->query('business'))) {
+            $trailerData = $trailerData->where('equipment.business',$request->query('business'));
+        }
+
+        if (!empty($request->query('TrackingId'))) {
+            $trailerData = $trailerData->where('equipment_tracking.TrackingId',$request->query('TrackingId'));
+        }
+        $trailerData = $trailerData->paginate(20);
+        return $trailerData;
+    }
+
+    public function searchTrailerLocation(Request $request)
+    {
+        $data = [];
+        if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
+            $data = EquipmentModel::select(DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'));
+            if (!empty($request->query('TrailerNo'))){
+                $data = $data->where('TrailerSerialNo', $request->query('TrailerNo'));
+            }
+            if (!empty($request->query('SiteId'))){
+                $data = $data->where('SiteId', $request->query('SiteId'));
+            }
+            $data = $data->get();
+        }
+
+        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerNo')) ? $request->query('TrailerNo') : '');
+
+        return response()->json(['success' => count($mapData) ,'mapData' => $mapData]);
+
     }
 }

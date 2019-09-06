@@ -31,12 +31,18 @@ use App\MaintenanceInvoiceModel;
 use App\TrailerRentedViaModel;
 use App\RentalModel;
 use App\SkyBizTrackingModel;
+use App\EquipmentTrackingModel;
 
 class DataArrayHelper {
 	
 	public static function getOrganizations()
 	{
 		return OrganizationModel::select('OrgName', 'VendorId')->pluck('OrgName', 'VendorId')->toArray();
+	}
+
+	public static function getTrackingUnits()
+	{
+		return EquipmentTrackingModel::distinct('TrackingId')->pluck('TrackingId', 'TrackingId')->toArray();
 	}
 
 	public static function getOrganizationName($VendorId)
@@ -245,21 +251,26 @@ class DataArrayHelper {
 	    ->display();
 	    return $chart1;
 	}
-	public static function trailerTracking($TrailerNo='', $TrailerIds= '')
+	public static function trailerTracking($TrailerNo='', $TrailerIds= '', $TrailerUnitNo= '')
 	{
 		$start_date = date('Y-m-d H:00:00');
         $end_date = date('Y-m-d H:59:59');
         $mapData = [];
-        if (!empty($TrailerNo) || !empty($TrailerIds)) {
+        // if (!empty($TrailerNo) || !empty($TrailerIds) || !empty($TrailerUnitNo)) {
         	$mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);
-     	} 
+     	}
+
+     	if (!empty($TrailerUnitNo)) {
+     		$mapData = $mapData->where('TrailerUnitNo', $TrailerUnitNo);
+     	}
      	if (!empty($TrailerIds)) {
-     		$mapData = $mapData->whereIn('TrailerNo', $TrailerIds)->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
+     		$mapData = $mapData->whereIn('TrailerNo', $TrailerIds);
+     		// ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
      		}
      	 $mapData = $mapData->orderBy('created_at', 'DESC')->get();
-        }
+        // }
         
         return $mapData;
 	}

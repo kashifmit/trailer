@@ -44,6 +44,23 @@
                 $("#get_financial_data").html(response);
             });
       });
+    $(document).on('click', '.display-map', function() {
+        var data = $("#search_trailer_location").serialize();
+        $.ajax({
+            url:"/search-trailer-location?"+data,
+            method:"get",
+        }).done(function (response) {
+            var data = response.mapData;
+            if (response.success) {
+                $.each(data, function (index, value) {
+                maps[0].map.setCenter({lat: parseFloat(value.Latitude), lng: parseFloat(value.Longitude)});
+                });    
+            } else {
+                alert("in else");
+                maps[0].map.setCenter({lat: parseFloat(0), lng: parseFloat(0)});
+            }
+        });
+    })
 </script>    
 @endsection
 

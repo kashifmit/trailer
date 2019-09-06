@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col-md-6 form-group">
       {!! Form::label('InvoiceDate', 'Invoice Date', ['class' => 'bold']) !!}
-      {!! Form::text('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
+      {!! Form::date('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
     </div>
     <div class="col-md-6 form-group">
       {!! Form::label('AccessoriesTotal', 'Accessories Total', ['class' => 'bold']) !!}

@@ -21,6 +21,7 @@
 
         <div class="content">
             <ul class="nav nav-tabs">
+              <li><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
               <li class="active">
                 <a class="checkClass" data-toggle="tab" href="#trailer_details">
                   Detail
@@ -55,6 +56,9 @@
               </div>
             </div>
             <div class="tab-content">
+                <div id="home_details" class="tab-pane fade">
+                    @include('trailers.forms.includes.trailer_home')
+                </div>
                 <div id="trailer_details" class="tab-pane fade show in active">
                    @include('trailers.forms.includes.trailer_view')
                 </div>

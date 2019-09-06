@@ -33,15 +33,15 @@
         };
         // window.LaborObj = window.PartsObj = window.AccessoriesObj = window.AnnualInspectionObj = window.RegistrationObj = window.SalesObj = {'UnitPrice': 0, 'LaborHoursQty': 0};
         window.LaborTotal = window.PartsTotal = window.AccessoriesTotal = window.AnnualInspectionTotal = window.RegistrationTotal = window.SalesTax = [];
-      var date_input=$('.date-picker');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'mm/dd/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
+      // var date_input=$('.date-picker');
+      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      // var options={
+      //   format: 'mm/dd/yyyy',
+      //   container: container,
+      //   todayHighlight: true,
+      //   autoclose: true,
+      // };
+      // date_input.datepicker(options);
       
       $(document).on('blur', '.calculate', function (e) {
         var TotalPrice = 0;

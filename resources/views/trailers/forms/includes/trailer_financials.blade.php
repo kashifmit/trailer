@@ -3,13 +3,13 @@
 	{!! Form::open(array('method' => 'GET', 'class' => 'form', 'files'=>true, 'id' => 'financialForm')) !!}
 	<div class="row">
 		<div class="col-md-4">
-			{!! Form::select('business_financial', ['' => 'Select Business']+$business, null, array('class'=>'form-control form-control-radius', 'id'=>'business_financial')) !!}
+			{!! Form::select('business_financial', ['' => 'Select Business']+$business, null, array('class'=>'form-control form-submit form-control-radius', 'id'=>'business_financial')) !!}
 		</div>
 		<div class="col-md-4">
-			{!! Form::select('SiteId_financial', ['' => 'Select Location']+$locations, null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId_financial')) !!}
+			{!! Form::select('SiteId_financial', ['' => 'Select Location']+$locations, null, array('class'=>'form-control form-submit form-control-radius', 'id'=>'SiteId_financial')) !!}
 		</div>
 		<div class="col-md-4">
-			{!! Form::select('TrailerSerialNo_financial', ['' => 'Select Trailer Number']+$getTrailers, null, array('class'=>'form-control form-control-radius', 'id'=>'TrailerSerialNo_financial')) !!}
+			{!! Form::select('TrailerSerialNo_financial', ['' => 'Select Trailer Number']+$getTrailers, null, array('class'=>'form-control form-submit form-control-radius', 'id'=>'TrailerSerialNo_financial')) !!}
 		</div>
 	</div>
 	{!! Form::close() !!}

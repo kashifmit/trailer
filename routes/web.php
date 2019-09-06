@@ -85,6 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('users.update_profile');
 	})->name('edit.profile');
 	Route::put('/update-profile', 'HomeController@updateProfile')->name('update.profile');
+	Route::put('/update-email', 'HomeController@updateEmail')->name('update.email');
+	Route::put('/update-personal-info', 'HomeController@updateInfo')->name('update.personal.info');
+	Route::put('/update-password', 'HomeController@updatePassword')->name('update.password');
 	Route::get('/users-list', 'HomeController@usersList')->name('users.list');
 	Route::get('create-user', 'HomeController@createUser')->name('create.user');
 	Route::post('store-user', 'HomeController@storeUser')->name('store.user');
@@ -111,6 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/trailer-financials', 'TrailerController@trailerfinancilas')->name('trailer.financilas');
 	Route::get('/view-trailor/{TrailerSerialNo}', 'TrailerController@viewTrailer')->name('view.trailer');
 	Route::post('/download-trailer-location-csv', 'TrailerController@downloadTrailerLocationCsv')->name('download.trailer.location.csv');
+	Route::get('/search-trailer-location', 'TrailerController@searchTrailerLocation')->name('search.trailer.location');
 	/**
 	*	Inovices Routes
 	**/

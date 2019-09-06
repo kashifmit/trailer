@@ -6,6 +6,7 @@ use File;
 use ImgUploader;
 use Auth;
 use DB;
+use Validator;
 use Input;
 use Redirect;
 use Mapper;
@@ -53,6 +54,58 @@ class HomeController extends Controller
         ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())
         ->with('business', DataArrayHelper::businessList());
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $rules = array('email' => 'required|email|unique:users');
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(
+                ['success' => false, 'errors' => $validator->errors()->toArray()]
+            );
+        }
+        User::where('id', Auth::user()->id)->update([
+            'email' => $request->input('email')
+        ]);
+        return ['success' => '1', 'message' => 'Email updated successfully'];
+    }
+
+    public function updateInfo(Request $request)
+    {
+        $rules = array('name' => 'required',
+            'last_name' => 'required',
+            'organization' => 'required',
+            'role' => 'required');
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(
+                ['success' => false, 'errors' => $validator->errors()->toArray()]
+            );
+        }
+        User::where('id', Auth::user()->id)->update([
+            'name' => $request->input('name'),
+            'last_name' => $request->input('last_name'),
+            'organization_id' => $request->input('organization'),
+            'Role_id' => $request->input('role')
+        ]);
+        return ['success' => '1', 'message' => 'Personal Information updated successfully'];
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $rules = array('password' => 'required', 
+            'c_password' => 'required|same:password');
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(
+                ['success' => false, 'errors' => $validator->errors()->toArray()]
+            );
+        }
+        User::where('id', Auth::user()->id)->update([
+            'password' => $request->input('password')
+        ]);
+        return ['success' => '1', 'message' => 'Password updated successfully'];
     }
 
     public function updateProfile(Request $request)

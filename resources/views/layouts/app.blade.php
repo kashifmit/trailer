@@ -51,13 +51,8 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('view.profile') }}">
-                                    {{ __('View Account') }}
-                                </a>    
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('edit.profile') }}">
-                                    {{ __('Update Account') }}
+                                    {{ __('Account') }}
                                 </a>    
                             </li>
                             <li class="nav-item">
