@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/view-trailor/{TrailerSerialNo}', 'TrailerController@viewTrailer')->name('view.trailer');
 	Route::post('/download-trailer-location-csv', 'TrailerController@downloadTrailerLocationCsv')->name('download.trailer.location.csv');
 	Route::get('/search-trailer-location', 'TrailerController@searchTrailerLocation')->name('search.trailer.location');
+	Route::get('/trailer-location-table', 'TrailerController@trailerLocationTable')->name('trailer.location.table');
 	/**
 	*	Inovices Routes
 	**/

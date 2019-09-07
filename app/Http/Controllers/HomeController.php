@@ -43,9 +43,16 @@ class HomeController extends Controller
         
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+                [
+                    'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+                ]
+            );
             foreach ($mapData as $key => $value) {
-                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
+                $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
+                $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
+                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                );
             }    
         } else {
             Mapper::map(38.19788, -85.87415, ['marker' => false]);
@@ -103,7 +110,7 @@ class HomeController extends Controller
             );
         }
         User::where('id', Auth::user()->id)->update([
-            'password' => $request->input('password')
+            'password' => Hash::make($request->input('password'))
         ]);
         return ['success' => '1', 'message' => 'Password updated successfully'];
     }

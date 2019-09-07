@@ -20,7 +20,8 @@ class ExportTrailerTrackingCSV implements FromCollection, WithHeadings, ShouldAu
     }
     public function collection()
     {
-    	SkyBizTrackingModel::select('id', 'TrailerNo', 'TrailerUnitNo', 'Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time', '')->where('id', $this->id)->first();
+    	$data = SkyBizTrackingModel::select('id', 'TrailerNo', 'TrailerUnitNo', 'Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time')->where('id', $this->id)->first();
+        return $data;
     }
 
 

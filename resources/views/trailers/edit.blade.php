@@ -72,7 +72,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ( if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations") {
+          if ($(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();

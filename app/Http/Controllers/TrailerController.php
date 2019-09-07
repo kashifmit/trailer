@@ -28,16 +28,6 @@ class TrailerController extends Controller
     public function index(Request $request)
     {
         $trailerData = '';
-        $allData = DataArrayHelper::getfinancials('', $request);
-        $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
-            foreach ($mapData as $key => $value) {
-                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
-            }    
-        } else {
-            Mapper::map(38.19788, -85.87415, ['marker' => false]);
-        }
         if (!empty($request->query('TrailerSerialNo')) || 
             !empty($request->query('VehicleId_VIN')) || 
             !empty($request->query('SiteId')) || 
@@ -45,7 +35,30 @@ class TrailerController extends Controller
             !empty($request->query('TrackingId'))
             ) {
             $trailerData = $this->trailerHomeData($request);
+            $getTrailerDetails = $this->getTrailerById($trailerData['0']->TrailerSerialNo, $request);
         }
+        $trailerSerNo = '';
+        if (!empty($trailerData)) {
+            $trailerSerNo = $trailerData[0]->TrailerSerialNo;
+        }
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
+        if (count($mapData)) {
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+                [
+                    'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+                ]
+            );
+            foreach ($mapData as $key => $value) {
+                $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
+                $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
+                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                );
+            }    
+        } else {
+            Mapper::map(38.19788, -85.87415, ['marker' => false]);
+        }
+
         $leaseExpenseChart = DataArrayHelper::getChart(
             'Total Lease Expense', 
             $allData['leaseExpense'] ? $allData['leaseExpense'] : 0, 
@@ -63,13 +76,14 @@ class TrailerController extends Controller
     	->with('locations', DataArrayHelper::getSites())
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
-        ->with('allData', $allData)
+        ->with('allData', isset($getTrailerDetails['allData']) ? $getTrailerDetails['allData'] : $allData)
         ->with('getTrackingsystems', DataArrayHelper::getTrackingsystems())
         ->with('getTrackingUnits', DataArrayHelper::getTrackingUnits())
         ->with('displayTable', false)
-        ->with('leaseExpenseChart', $leaseExpenseChart)
-        ->with('TotalMaintenanceExpense', $TotalMaintenanceExpense)
-        ->with('TrailerLeasedCountAndOwned', $TrailerLeasedCountAndOwned);
+        ->with('data', isset($getTrailerDetails['data']) ? $getTrailerDetails['data'] : '')
+        ->with('leaseExpenseChart', isset($getTrailerDetails['leaseExpenseChart']) ? $getTrailerDetails['leaseExpenseChart'] : $leaseExpenseChart)
+        ->with('TotalMaintenanceExpense', isset($getTrailerDetails['TotalMaintenanceExpense']) ? $getTrailerDetails['TotalMaintenanceExpense'] : $TotalMaintenanceExpense)
+        ->with('TrailerLeasedCountAndOwned', isset($getTrailerDetails['TrailerLeasedCountAndOwned']) ? $getTrailerDetails['TrailerLeasedCountAndOwned'] : $TrailerLeasedCountAndOwned);
     }
 
     public function createtriler(Request $request)
@@ -77,9 +91,16 @@ class TrailerController extends Controller
         $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking('', '');
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+                [
+                    'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+                ]
+            );
             foreach ($mapData as $key => $value) {
-                Mapper::marker($value->Latitude, $value->Longitude, ['symbol' => 'marker', 'scale' => 1000]);
+                $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
+                $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
+                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                );
             }    
         } else {
             Mapper::map(38.19788, -85.87415, ['marker' => false]);
@@ -162,7 +183,15 @@ class TrailerController extends Controller
         $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+            [
+                'marker' => false,
+                'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+            ]);
+            $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
+            $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
+                Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
+                );    
         } else {
             Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
@@ -193,7 +222,15 @@ class TrailerController extends Controller
         $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude);    
+            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+            [
+                'marker' => false,
+                'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+            ]);
+            $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
+            $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
+                Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
+                );    
         } else {
             Mapper::map(38.19788, -85.87415, ['marker' => false]);
         }
@@ -449,10 +486,28 @@ class TrailerController extends Controller
             }
             $data = $data->get();
         }
-
         $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerNo')) ? $request->query('TrailerNo') : '');
 
-        return response()->json(['success' => count($mapData) ,'mapData' => $mapData]);
+        return response()->json(['success' => count($mapData), 'mapData' => $mapData, 'displayTable' => false]);
+    }
 
+    public function trailerLocationTable(Request $request)
+    {
+        $data = [];
+        if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
+            $data = EquipmentModel::select(DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'));
+            if (!empty($request->query('TrailerNo'))){
+                $data = $data->where('TrailerSerialNo', $request->query('TrailerNo'));
+            }
+            if (!empty($request->query('SiteId'))){
+                $data = $data->where('SiteId', $request->query('SiteId'));
+            }
+            $data = $data->get();
+        }
+
+        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerNo')) ? $request->query('TrailerNo') : '');
+        $displayTable = true;
+        return response()->View('trailers.forms.includes.location_table',
+        compact('mapData', 'displayTable'));
     }
 }
