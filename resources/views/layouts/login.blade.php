@@ -90,22 +90,6 @@
                                     </a>
                                 </li>
                             @endif
-                        @else
-                            <li>
-                                <a href="{{ route('view.profile') }}">
-                                    {{ __('View Account') }}
-                                </a>    
-                            </li>
-                            <li>
-                                <a href="{{ route('edit.profile') }}">
-                                    {{ __('Update Account') }}
-                                </a>    
-                            </li>
-                            <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>    
-                            </li>
                         @endguest
                     </ul>
                 </nav>
