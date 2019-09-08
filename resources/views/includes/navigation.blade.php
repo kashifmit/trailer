@@ -44,7 +44,7 @@
     <li class="{{Route::currentRouteName() == 'invoice.list' ? 'active' : ''}}">
       <a class="nav-link" href="{{route('invoice.list')}}">
         <i class="fas fa-file-invoice"></i>
-        <span>Invoices</span>
+        <span>Trailer Financials</span>
       </a>
     </li>
   </ul>    
