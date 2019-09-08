@@ -168,40 +168,39 @@ class DataArrayHelper {
 
 	public static function getfinancials($TrailerSerialNo='', $request)
 	{
-		$total = EquipmentModel::select(DB::raw('COUNT(TrailerSerialNo) as Total'), DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'))->whereNotNull('TrailerSerialNo');
+		$total = EquipmentModel::select(DB::raw('COUNT(equipment.TrailerSerialNo) as Total'), DB::raw('GROUP_CONCAT(equipment.TrailerSerialNo) AS trailerIds'), DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice'))->whereNotNull('maintenance_invoice.TrailerSerialNo')
+			->leftJoin('maintenance_invoice', 'equipment.TrailerSerialNo', '=', 'maintenance_invoice.TrailerSerialNo');
+
         $leaseExpense = TrailerRentedViaModel::select([DB::raw('SUM(trailer_rented_via.Price) as Price')])
         ->join('equipment', 'trailer_rented_via.TrailerSerialNo', '=', 'equipment.TrailerSerialNo');
+        
 
-        $leasedTrailer = RentalModel::whereNotNull('RentalTransId');
-        $data = EquipmentModel::select([
-            DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice')
-        ])
-        ->leftJoin('maintenance_invoice', 'equipment.TrailerSerialNo', '=', 'maintenance_invoice.TrailerSerialNo')
-        ->whereNotNull('maintenance_invoice.TrailerSerialNo');
+        $leasedTrailer = RentalModel::whereNotNull('rental.RentalTransId');
+        $leasedTrailer = $leasedTrailer->join('site', 'rental.SiteId', '=', 'site.SiteId');
+
         if (!empty($TrailerSerialNo)) {
-        	$total = $total->where('TrailerSerialNo', $TrailerSerialNo);
+        	$total = $total->where('equipment.TrailerSerialNo', $TrailerSerialNo);
         	$leaseExpense = $leaseExpense->where('equipment.TrailerSerialNo', $TrailerSerialNo);
-        	$data = $data->where('maintenance_invoice.TrailerSerialNo', $TrailerSerialNo);
         }
         if (!empty($request->query('business_financial'))) {
-            $total = $total->where('business', 'like', "%{$request->query('business_financial')}%");
-            $leaseExpense = $leaseExpense->where('equipment.business', 'like', "%{$request->query('business_financial')}%");
-            $data = $data->where('equipment.business', 'like', "%{$request->query('business_financial')}%");
+			$total = $total->join('site', 'equipment.SiteId', '=', 'site.SiteId');
+            $total = $total->where('site.Division', 'like', "%{$request->query('business_financial')}%");
+            $leaseExpense = $leaseExpense->join('site', 'equipment.SiteId', '=', 'site.SiteId');
+            $leaseExpense = $leaseExpense->where('site.Division', 'like', "%{$request->query('business_financial')}%");
+            $leasedTrailer = $leasedTrailer->where('site.Division', 'like', "%{$request->query('business_financial')}%");
         }
         if (!empty($request->query('SiteId_financial'))) {
-            $total = $total->where('SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+            $total = $total->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
             $leaseExpense = $leaseExpense->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
-            $data = $data->where('equipment.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
-            $leasedTrailer = $leasedTrailer->where('SiteId', 'like', "%{$request->query('SiteId_financial')}%");
+            $leasedTrailer = $leasedTrailer->where('site.SiteId', 'like', "%{$request->query('SiteId_financial')}%");
         }
         $total = $total->get();
         $leaseExpense = $leaseExpense->first();
-        $data = $data->first();
         $leasedTrailer = $leasedTrailer->count();
         return [
         	'totalTrailers' => $total[0]->Total, 
         	'leaseExpense' => empty($leaseExpense) ? 0 : $leaseExpense->Price, 
-        	'totalPrice' => empty($data) ? 0 : $data->TotalPrice, 
+        	'totalPrice' => $total[0]->TotalPrice, 
         	'leasedTrailer' => empty($leasedTrailer) ? 0 : $leasedTrailer,
         	'totalLeased_owned' => $total[0]->Total+$leasedTrailer,
         	'trailerIds' => $total[0]->trailerIds
@@ -257,6 +256,7 @@ class DataArrayHelper {
         $end_date = date('Y-m-d H:59:59');
         $mapData = [];
         if (!empty($TrailerNo) || !empty($TrailerIds) || !empty($TrailerUnitNo)) {
+        	DB::enableQueryLog();
         	$mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);

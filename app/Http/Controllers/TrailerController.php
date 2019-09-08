@@ -492,7 +492,8 @@ class TrailerController extends Controller
             }
             $data = $data->get();
         }
-        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerNo')) ? $request->query('TrailerNo') : '');
+
+        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerUnitNo')) ? $request->query('TrailerUnitNo') : '');
 
         return response()->json(['success' => count($mapData), 'mapData' => $mapData, 'displayTable' => false]);
     }
@@ -510,8 +511,7 @@ class TrailerController extends Controller
             }
             $data = $data->get();
         }
-
-        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerNo')) ? $request->query('TrailerNo') : '');
+        $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerUnitNo')) ? $request->query('TrailerUnitNo') : '');
         $displayTable = true;
         return response()->View('trailers.forms.includes.location_table',
         compact('mapData', 'displayTable'));

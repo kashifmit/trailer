@@ -8,7 +8,7 @@
 			<div class="col-md-10">&nbsp;</div>
 		</div>
 		<div class="row">&nbsp;</div>
-	
+	@endif
 		<div class="row">
 			<table class="table table-striped text-sm table-hover">
 				<thead>
@@ -47,10 +47,11 @@
 	        			<td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td>
 	        		</tr>
 	        		@endforeach
+	        		@else
+	        			<tr><td colspan="100%">No Trailer Found</td></tr>
 	        		@endif
 	        	</tbody>
 			</table>	
 		</div>
 		{!! Form::close() !!}
-	@endif
 @endif

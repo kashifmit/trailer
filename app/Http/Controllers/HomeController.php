@@ -40,7 +40,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $allData = DataArrayHelper::getfinancials('', $request);
-        
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
