@@ -27,7 +27,7 @@ class CustomerController extends Controller
         
        try {
             $data = "";
-        if (!empty($request->query('CustomerID')) || !empty($request->query('business')) || !empty($request->query('SiteId'))) {
+        if (!empty($request->query('CustomerID')) || !empty($request->query('business')) || !empty($request->query('SiteId')) || !empty($request->query('pressSubmit')) ) {
             $data = CustomerModel::select([
                 'customer.CustomerID', 'customer.ShipToName', 'customer.ShipToAddress1', 'customer.ShipToCity', 'customer.StateAbbreviation', 'site.SiteName','site_services_cust_tbl.SiteId', 'site_services_cust_tbl.CustomerNo'
             ])
@@ -35,24 +35,42 @@ class CustomerController extends Controller
             ->join('site', 'site_services_cust_tbl.SiteId', '=', 'site.SiteId');
         }
 
+       if (!empty($request->query('CustomerID'))) {
+            $data = $data->where('customer.CustomerID', $request->query('CustomerID'));
+        }
+
         if (!empty($request->query('business'))) {
-            // $data = $data->where('business','like', "%{$request->query('business')}%");
+            $data = $data->where('site.Division', $request->query('business'));
         }
 
         if (!empty($request->query('SiteId'))) {
-            $data = $data->where('site_services_cust_tbl.SiteId','like', "%{$request->query('SiteId')}%");
+            $data = $data->where('site_services_cust_tbl.SiteId', $request->query('SiteId'));
         }
 
-        if (!empty($request->query('CustomerID'))) {
-            $data = $data->where('customer.CustomerID','like', "%{$request->query('CustomerID')}%");
+        if ( (!empty($request->query('CustomerID')) && !empty($request->query('business'))) && 
+            empty($request->query('SiteId')) ) {
+            $data = $data->where('customer.CustomerID', $request->query('CustomerID'))->where('site.Division', $request->query('business'));
         }
 
-        if (!empty($request->query('CustomerID')) || !empty($request->query('business')) || !empty($request->query('SiteId'))) {
+        if ( (!empty($request->query('CustomerID')) && !empty($request->query('SiteId'))) && 
+            empty($request->query('business')) ) {
+            $data = $data->where('customer.CustomerID', $request->query('CustomerID'))->where('site_services_cust_tbl.SiteId', $request->query('SiteId'));
+        }
+
+        if ( (!empty($request->query('business')) && !empty($request->query('SiteId'))) && empty($request->query('CustomerID'))  ) {
+            $data = $data->where('site.Division', $request->query('business'))->where('site_services_cust_tbl.SiteId', $request->query('SiteId'));
+        }
+
+        if ( !empty($request->query('business')) && !empty($request->query('SiteId')) && !empty($request->query('CustomerID'))  ) {
+            $data = $data->where('customer.CustomerID', $request->query('CustomerID'))->where('site.Division', $request->query('business'))->where('site_services_cust_tbl.SiteId', $request->query('SiteId'));
+        }
+
+        if (!empty($request->query('CustomerID')) || !empty($request->query('business')) || !empty($request->query('SiteId')) || !empty($request->query('pressSubmit'))) {
             $data = $data->paginate(20);
         }
         return view('customers.index')
         ->with('Alldata', $data)
-        ->with('buniness', DataArrayHelper::getOrganizations())
+        ->with('buniness', DataArrayHelper::businessList())
         ->with('sites', DataArrayHelper::getSites())
         ->with('customers', DataArrayHelper::getCustomers());
 
@@ -69,6 +87,6 @@ class CustomerController extends Controller
 
     public function exportDTA()
     {
-    	return Excel::download(new ExportTrailerTrackingCSV, 'DTA_'.\Carbon\Carbon::now().'.xlsx');
+    	return Excel::download(new DTAExport, 'DTA_'.\Carbon\Carbon::now().'.xlsx');
     }
 }

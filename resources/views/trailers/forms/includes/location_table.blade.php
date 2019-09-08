@@ -8,7 +8,7 @@
 			<div class="col-md-10">&nbsp;</div>
 		</div>
 		<div class="row">&nbsp;</div>
-	
+	@endif
 		<div class="row">
 			<table class="table table-striped text-sm table-hover">
 				<thead>
@@ -25,7 +25,7 @@
 		                <th>Distance From Land Mark</th>
 		                <th>Battery Status</th>
 		                <th>Motion</th>
-		                <th>Time</th>
+		                <!-- <th>Time</th> -->
 		            </tr>
 	        	</thead>
 	        	<tbody>
@@ -44,13 +44,14 @@
 	        			<td>{{$data->DistanceFromLandmark}}</td>
 	        			<td>{{$data->BatteryStatus}}</td>
 	        			<td>{{$data->Motion_status}}</td>
-	        			<td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td>
+	        			<!-- <td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td> -->
 	        		</tr>
 	        		@endforeach
+	        		@else
+	        			<tr><td colspan="100%">No Trailer Found</td></tr>
 	        		@endif
 	        	</tbody>
 			</table>	
 		</div>
 		{!! Form::close() !!}
-	@endif
 @endif
