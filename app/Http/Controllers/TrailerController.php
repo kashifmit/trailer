@@ -482,7 +482,7 @@ class TrailerController extends Controller
     public function searchTrailerLocation(Request $request)
     {
         $data = [];
-        if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
+        // if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
             $data = EquipmentModel::select(DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'));
             if (!empty($request->query('TrailerNo'))){
                 $data = $data->where('TrailerSerialNo', $request->query('TrailerNo'));
@@ -491,7 +491,7 @@ class TrailerController extends Controller
                 $data = $data->where('SiteId', $request->query('SiteId'));
             }
             $data = $data->get();
-        }
+        // }
 
         $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerUnitNo')) ? $request->query('TrailerUnitNo') : '');
 
@@ -501,7 +501,7 @@ class TrailerController extends Controller
     public function trailerLocationTable(Request $request)
     {
         $data = [];
-        if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
+        // if (!empty($request->query('TrailerNo')) || !empty($request->query('SiteId'))){
             $data = EquipmentModel::select(DB::raw('GROUP_CONCAT(TrailerSerialNo) AS trailerIds'));
             if (!empty($request->query('TrailerNo'))){
                 $data = $data->where('TrailerSerialNo', $request->query('TrailerNo'));
@@ -510,7 +510,7 @@ class TrailerController extends Controller
                 $data = $data->where('SiteId', $request->query('SiteId'));
             }
             $data = $data->get();
-        }
+        // }
         $mapData = DataArrayHelper::trailerTracking('',  count($data) ? explode(",", $data[0]->trailerIds) : '', !empty($request->query('TrailerUnitNo')) ? $request->query('TrailerUnitNo') : '');
         $displayTable = true;
         return response()->View('trailers.forms.includes.location_table',

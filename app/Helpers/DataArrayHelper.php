@@ -269,7 +269,7 @@ class DataArrayHelper {
      		$mapData = $mapData->whereIn('TrailerNo', $TrailerIds);
      		// ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
      		}
-     	 $mapData = $mapData->orderBy('created_at', 'DESC')->get();
+     	 $mapData = $mapData->orderBy('id', 'ASC')->get();
         }
         
         return $mapData;

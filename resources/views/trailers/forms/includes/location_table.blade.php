@@ -25,7 +25,7 @@
 		                <th>Distance From Land Mark</th>
 		                <th>Battery Status</th>
 		                <th>Motion</th>
-		                <th>Time</th>
+		                <!-- <th>Time</th> -->
 		            </tr>
 	        	</thead>
 	        	<tbody>
@@ -44,7 +44,7 @@
 	        			<td>{{$data->DistanceFromLandmark}}</td>
 	        			<td>{{$data->BatteryStatus}}</td>
 	        			<td>{{$data->Motion_status}}</td>
-	        			<td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td>
+	        			<!-- <td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td> -->
 	        		</tr>
 	        		@endforeach
 	        		@else
