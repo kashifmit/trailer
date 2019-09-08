@@ -40,13 +40,13 @@ class TrailerController extends Controller
             }
         }
         $trailerSerNo = '';
-        if (!empty($trailerData) && $trailerData[0]) {
+        if ((!empty($trailerData) && $trailerData[0])) {
             $trailerSerNo = $trailerData[0]->TrailerSerialNo;
             $mapData = DataArrayHelper::trailerTracking($trailerSerNo, '');
+            $allData = DataArrayHelper::getfinancials($trailerSerNo, $request);
 
-        }
-        $allData = DataArrayHelper::getfinancials('', $request);
-        if (!$trailerData[0]) {
+        } else {
+            $allData = DataArrayHelper::getfinancials('', $request);
             $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         }
         if (count($mapData)) {
@@ -95,7 +95,8 @@ class TrailerController extends Controller
     public function createtriler(Request $request)
     {
         $trailerData = $this->trailerHomeData($request);
-        $mapData = DataArrayHelper::trailerTracking('', '');
+        $allData = DataArrayHelper::getfinancials('', $request);
+        $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
                 [
@@ -111,7 +112,6 @@ class TrailerController extends Controller
         } else {
             Mapper::map(5, 5, ['marker' => false]);
         }
-        $allData = DataArrayHelper::getfinancials('', $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
             'Total Maintenance Expense', 
@@ -412,7 +412,7 @@ class TrailerController extends Controller
     private function getTrailerById($TrailerSerialNo, Request $request)
     {
         $data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData', 'TrailerInvoices'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
-        $allData = DataArrayHelper::getfinancials('', $request);
+        $allData = DataArrayHelper::getfinancials($TrailerSerialNo, $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
             'Total Maintenance Expense', 
