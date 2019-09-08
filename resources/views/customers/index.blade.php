@@ -12,10 +12,11 @@
 
                 <div class="form-block mb-5">
                     {!! Form::open(array('method' => 'GET', 'route' => 'customer.list', 'class' => 'form', 'files'=>true)) !!}
-
+                        <input type="hidden" name="pressSubmit" value="pressed">
                         <div class="form-group">
                             {!! Form::select('business', ['' => '--Business--']+$buniness, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control form-control-radius', 'id'=>'business')) !!}
                         </div>
+                        <div class="form-group">Or</div>
                         <div class="form-group">
                             {!! Form::select('SiteId', ['' => '--Location--']+$sites, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}                        
                         </div>
