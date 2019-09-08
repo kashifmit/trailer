@@ -42,6 +42,8 @@ button {
 .form-control {
     &-radius {
         border-radius: 0.8rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 
     &-wrap {
@@ -74,6 +76,15 @@ label {
         padding: 5px;
         display: inline-block;
     }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 

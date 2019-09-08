@@ -16521,6 +16521,8 @@ button:focus {
 
 .form-control-radius {
   border-radius: 0.8rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .form-control-wrap.search {
@@ -16548,6 +16550,16 @@ label {
 .btn-action {
   padding: 5px;
   display: inline-block;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .table > thead > tr > th,
@@ -17198,16 +17210,44 @@ main[role=main] {
 }
 
 .trailer-block .form-group .form-control {
-  width: 120px;
+  width: 130px;
+  font-size: 0.9em;
+}
+
+.trailer-block .form-group .form-control.lg {
+  width: 260px;
 }
 
 .trailer-block .form-group .form-control.sm {
-  width: 100px;
+  width: 110px;
 }
 
 .trailer-block-bg {
   padding: 20px;
   background-color: #ebecef;
   border-radius: 0.5em;
+}
+
+.list-title-masthead {
+  list-style: none;
+  padding-left: 0;
+  width: 400px;
+}
+
+.list-title-masthead > li {
+  margin-left: 2px;
+  margin-bottom: 10px;
+}
+
+.list-title-masthead > li label,
+.list-title-masthead > li span {
+  width: 50%;
+  margin-left: -2px;
+  display: inline-block;
+}
+
+.list-title-masthead > li label {
+  text-transform: capitalize;
+  font-weight: 400;
 }
 

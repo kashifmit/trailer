@@ -16,7 +16,7 @@
             {!! Form::hidden('VehicleId_VIN', 0,array('id'=>'VehicleId_VIN')) !!}
                 @include('invoices.forms.form_inline')
                 <div class="form-actions">
-                    {!! Form::button('Update Invoice Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                    {!! Form::button('Update Invoice Detail', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             {!! Form::close() !!}
         </div>

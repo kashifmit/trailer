@@ -1,13 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.image-button {
-    color: white;
-    background-color: green;
-    font-weight: bold;
-}
-</style>
     @include('flash::message')
     <header class="page">
         
@@ -16,8 +9,8 @@
             {!! Form::hidden('VehicleId_VIN', 0,array('id'=>'VehicleId_VIN')) !!}
 
             @include('invoices.forms.form')
-            <div class="form-actions">
-                {!! Form::button('Load Invoice to Profile', array('class'=>'btn btn-min-sm btn-primary', 'type'=>'submit')) !!}
+            <div class="form-actions mt-4">
+                {!! Form::button('Load Invoice to Profile', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
             </div>
             {!! Form::close() !!}
         </div>

@@ -9,15 +9,18 @@
 }
 </style>
     @include('flash::message')
-    <div class="card">
-        <div class="card-header">{{ __('Edit Invoice Line Detail') }}</div>
-        <div class="card-body">
-            {!! Form::open(array('method' => 'put', 'route' => array('update.invoice.line', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
-                @include('inline_invoice.forms.edit_form')
-                <div class="form-actions">
-                    {!! Form::button('Update Invoice Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
-                </div>
-            {!! Form::close() !!}
+    <div class="page">
+        
+        <header class="heading">
+          <h3 class="title">{{ __('Edit Invoice Line Detail') }}</h3>
+        </header>
+        <div class="content">
+          {!! Form::open(array('method' => 'put', 'route' => array('update.invoice.line', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
+              @include('inline_invoice.forms.edit_form')
+              <div class="form-actions">
+                  {!! Form::button('Update Invoice Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+              </div>
+          {!! Form::close() !!}
         </div>
     </div>
 <script type="text/javascript">
