@@ -9,18 +9,21 @@
 }
 </style>
     @include('flash::message')
-    <div class="card">
-        <div class="card-header">{{ __('Add New Invoice') }}</div>
-        <div class="card-body">
+    <header class="page">
+        
+        <div class="content">
             {!! Form::open(array('method' => 'post', 'route' => 'store.invoice', 'class' => 'form', 'files'=>true)) !!}
             {!! Form::hidden('VehicleId_VIN', 0,array('id'=>'VehicleId_VIN')) !!}
-                @include('invoices.forms.form')
-                <div class="form-actions">
-                    {!! Form::button('Submit <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
-                </div>
+
+            @include('invoices.forms.form')
+            <div class="form-actions">
+                {!! Form::button('Load Invoice to Profile', array('class'=>'btn btn-min-sm btn-primary', 'type'=>'submit')) !!}
+            </div>
             {!! Form::close() !!}
         </div>
     </div>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
       window.calculation = {};
