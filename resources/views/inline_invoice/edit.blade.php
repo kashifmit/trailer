@@ -64,19 +64,19 @@
       });
       $(document).on('click', '.clone-class', function() {
         var id = $(this).attr('id').split("_");
-        var html = '<div class="row">'+
+        var html = '<tr>'+
         '<input type="hidden" name="LineType[]" value="'+id[0]+'" >'+
         '<input type="hidden" name="InvoiceLine[]" value="" >'+
-        '<div class="col-md-2">&nbsp;</div>'+
-        '<div class="col-md-1">&nbsp;</div>'+
-        '<div class="col-md-1">&nbsp;</div>'+
-        '<div class="col-md-1"><input class="'+id[0]+' form-control" id="UnitPrice" placeholder="Unit price" name="UnitPrice[]" type="text"></div>'+
-        '<div class="col-md-1"><input class="'+id[0]+' form-control" id="LaborHoursQty" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></div>'+
-        '<div class="col-md-2 faultreason'+count+'"></div>'+
-        '<div class="col-md-2 resolutioncode'+count+'"></div>'+
-        '<div class="col-md-2 partslabor'+count+'"></div>'+
-        '</div><div class="row">&nbsp;</div>';
-        $("#"+id[0]+"_div").append(html);
+        '<td>&nbsp;</td>'+
+        '<td>&nbsp;</td>'+
+        '<td></td>'+
+        '<td><input class="'+id[0]+' form-control form-control-radius" id="UnitPrice" placeholder="Unit price" name="UnitPrice[]" type="text"></td>'+
+        '<td><input class="'+id[0]+' form-control form-control-radius" id="LaborHoursQty" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
+        '<td class="faultreason'+count+'"></td>'+
+        '<td class="resolutioncode'+count+'"></td>'+
+        '<td class=" partslabor'+count+'"></td>'+
+        '</td>';
+        $(html).insertAfter("#"+id[0]+"_div");
         $('.FaultReasonCode').first().clone().appendTo(".faultreason"+count).last().val('');
         $('.ResolutionCodeId').first().clone().appendTo(".resolutioncode"+count).last().val('');
         $('.PartsLaborId').first().clone().appendTo(".partslabor"+count).last().val('');
