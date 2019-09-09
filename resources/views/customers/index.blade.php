@@ -32,11 +32,10 @@
             
             </div>
             <div class="col-xl-9">
-
+                @if($Alldata)
                 <header class="heading">
                     <h3 class="title">{{ __('Customer Table') }}</h3>
                 </header>
-                @if($Alldata)
                 <div class="button-bar mb-4">
                     <a href="{{route('export.customers')}}" class="btn btn-primary mr-20">
                         Download CSV

@@ -23,129 +23,115 @@
 
 
 <div class="form-body">
-
   <div class="table-responsive">
     <table class="table text-sm table-striped table-hover">
-      <tbody>
-        <tr>
-          <td></td>
-          <td>Dollar Amount</td>
-          <td>Unit Price</td>
-          <td>Labor Hours / Unit Used</td>
-          <td>Dollar Amount</td>
-          <td>Fault Description</td>
-          <td>Resolution Description</td>
-          <td>Ata Area code</td>
-        </tr>
-      </tbody>    
+        <thead>
+          <tr>
+            <td></td>
+            <td>Dollar Amount</td>
+            <td>Unit Price</td>
+            <td>Labor Hours / Unit Used</td>
+            <td>Dollar Amount</td>
+            <td>Fault Description</td>
+            <td>Resolution Description</td>
+            <td>Ata Area code</td>
+          </tr>  
+        </thead>
+        <tbody>
+          @foreach($arrayData as $key => $value)
+            @if($value != "TotalPrice")
+            @if(count($ItemArray[$value]) > 0)
+              @foreach($ItemArray[$value] as $key1 => $value1)
+                @if ($key1 == 0)
+          <tr id="{{$value}}_div">
+              {!! Form::hidden('LineType[]', $value) !!}
+              {!! Form::hidden('InvoiceLine[]', $value1['InvoiceLine']) !!}
+              <td><strong>{{$key}}</strong></td>
+              <td>
+                {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
+              </td>
+              <td>
+                {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
+              </td>
+              <td>
+                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
+              </td>
+              <td>
+                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+              </td>
+              <td>
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+              </td>
+          </tr>
+          @else
+            <tr>
+              {!! Form::hidden('LineType[]', $value) !!}
+              {!! Form::hidden('InvoiceLine[]', $value1['InvoiceLine']) !!}
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
+              </td>
+              <td>
+                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+              </td>
+              <td>
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+              </td>
+            </tr>
+          @endif
+        @endforeach
+          <!-- If there is no record in db -->
+            @else
+              <tr id="{{$value}}_div">
+              {!! Form::hidden('LineType[]', $value) !!}
+              <td><strong>{{$key}}</strong></td>
+              <td>
+                {!! Form::text($value, $data[$value], array('class'=>'form-control calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
+              </td>
+              <td>
+                {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
+              </td>
+              <td>
+                {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
+              </td>
+              <td>
+                {!! Form::text('LaborHoursQty[]', null, array('class'=>$value.' form-control', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+              </td>
+              <td>
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+              </td>
+              <td>
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+              </td>
+          </tr>
+            @endif
+            <!-- only to print total price -->
+            @else
+              <tr>
+                <td><strong>Total Invoice Amount</strong></td>
+                <td>
+                  {!! Form::text($value, $data[$value], array('class'=>'form-control', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
+                </td>
+              </tr>
+            @endif
+          @endforeach
+        </tbody>
     </table>
   </div>
-
-  @foreach($arrayData as $key => $value)
-    @if($value != "TotalPrice")
-    <div id="{{$value}}_div">
-      @if(count($ItemArray[$value]) > 0)
-      @foreach($ItemArray[$value] as $key1 => $value1)
-        @if ($key1 == 0)
-      <div class="row {{$value}}_row">
-        {!! Form::hidden('LineType[]', $value) !!}
-        {!! Form::hidden('InvoiceLine[]', $value1['InvoiceLine']) !!}
-    <div class="col-md-2"><strong>{{$key}}</strong></div>
-    <div class="col-md-1">
-      {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
-    </div>
-    </div>
-    <div class="row">&nbsp;</div>
-      @else
-  <div class="row {{$value}}_row">
-      {!! Form::hidden('LineType[]', $value) !!}
-      {!! Form::hidden('InvoiceLine[]', $value1['InvoiceLine']) !!}
-    <div class="col-md-2">&nbsp;</div>
-    <div class="col-md-1">&nbsp;</div>
-    <div class="col-md-1">&nbsp;</div>
-    <div class="col-md-1">
-      {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
-    </div>
-    </div>
-    <div class="row">&nbsp;</div>
-
-        
-        @endif
-      @endforeach
-
-      @else 
-    <div class="row {{$value}}_row">
-      {!! Form::hidden('InvoiceLine[]', '') !!}
-      {!! Form::hidden('LineType[]', $value) !!}
-    <div class="col-md-2"><strong>{{$key}}</strong></div>
-    <div class="col-md-1">
-      {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
-    </div>
-    <div class="col-md-1">
-      {!! Form::text('LaborHoursQty[]', null, array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
-    </div>
-    </div>
-    <div class="row">&nbsp;</div>
-      @endif
-    </div>
-    @else
-      <div class="row">
-        <div class="col-md-12"><hr></div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="col-md-2"><strong>Total Invoice Amount</strong></div>
-          <div class="col-md-2">
-            {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
-          </div>
-        </div>
-      </div>
-    @endif
-  @endforeach
-  
-</div>
