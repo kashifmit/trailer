@@ -21,8 +21,6 @@
 
     </div>
 
-
-
 <script type="text/javascript">
     $(document).ready(function(){
       // var date_input=$('.date-picker');

@@ -86,7 +86,7 @@
             @foreach($trailerData as $data)
             <tr>
                 <td>
-                    <a href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
+                    <a class="text-primary" href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
                         {{$data->TrailerSerialNo}}
                     </a>    
                     </td>

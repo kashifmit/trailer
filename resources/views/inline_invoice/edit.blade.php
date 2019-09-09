@@ -18,7 +18,7 @@
           {!! Form::open(array('method' => 'put', 'route' => array('update.invoice.line', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
               @include('inline_invoice.forms.edit_form')
               <div class="form-actions">
-                  {!! Form::button('Update Invoice Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                  {!! Form::button('Update Invoice Detail', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
               </div>
           {!! Form::close() !!}
         </div>

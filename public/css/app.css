@@ -5858,12 +5858,9 @@ readers do not read off random characters that represent icons */
   padding: 4px;
   margin-top: 1px;
   border-radius: 4px;
-  /*.dow {
-    border-top: 1px solid #ddd !important;
-  }*/
 }
 
-.datepicker:before {
+.datepicker::before {
   content: "";
   display: inline-block;
   border-left: 7px solid transparent;
@@ -5875,7 +5872,7 @@ readers do not read off random characters that represent icons */
   left: 6px;
 }
 
-.datepicker:after {
+.datepicker::after {
   content: "";
   display: inline-block;
   border-left: 6px solid transparent;
@@ -16727,6 +16724,24 @@ button:focus {
   transform: translateY(-50%);
 }
 
+.form-control-wrap.date-picker {
+  padding-right: 25px;
+  position: relative;
+}
+
+.trailer-block .form-group .form-control-wrap.date-picker .form-control.sm {
+  width: 85px;
+}
+
+.form-control-wrap.date-picker .picker-icon {
+  padding: 10px 6px;
+  margin-bottom: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 label {
   font-size: 0.9em;
   text-transform: uppercase;
@@ -17143,6 +17158,11 @@ h3 {
   font-size: 0.9rem;
 }
 
+.text-sm .btn,
+.text-sm .form-control {
+  font-size: 0.85rem;
+}
+
 .text-md {
   font-size: 1.25rem;
 }
@@ -17336,7 +17356,7 @@ main[role=main] {
 }
 
 .site-logo {
-  width: 120px;
+  width: 100px;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 1.25rem;

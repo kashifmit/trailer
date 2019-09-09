@@ -59,6 +59,23 @@ button {
                 transform: translateY(-50%);
             }
         }
+
+        &.date-picker {
+            padding-right: 25px;
+            position: relative;
+
+            .trailer-block .form-group & .form-control.sm {
+                width: 85px;
+            }
+            .picker-icon {
+                padding: 10px 6px;
+                margin-bottom: 0;
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
     }
 }
 

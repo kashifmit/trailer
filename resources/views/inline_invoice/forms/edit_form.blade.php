@@ -29,9 +29,9 @@
           <tr>
             <td></td>
             <td>Dollar Amount</td>
+            <td></td>
             <td>Unit Price</td>
             <td>Labor Hours / Unit Used</td>
-            <td>Dollar Amount</td>
             <td>Fault Description</td>
             <td>Resolution Description</td>
             <td>Ata Area code</td>

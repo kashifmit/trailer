@@ -70,15 +70,24 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('LastInsepctionDate', 'Last Registration', ['class' => 'bold']) !!}
-						{!! Form::text('LastInsepctionDate', isset($data) ? date('m/d/Y', strtotime($data->LastInsepctionDate)) : null, array('class'=>'form-control form-control-radius sm date-picker', 'id'=>'LastInsepctionDate', 'placeholder'=>'Last Registration')) !!}
+						<div class="form-control-wrap date-picker">
+							{!! Form::text('', isset($data) ? date('m/d/Y', strtotime($data->LastInsepctionDate)) : null, array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'LastInsepctionDate', 'placeholder'=>'Last Registration')) !!}
+							<label class="picker-icon" for="LastInsepctionDate"><i class="far fa-calendar-alt"></i></label>
+						</div>
+					</div>
+					<div class="form-group date-picker-group">
+						{!! Form::label('', 'Last Registration Expire', ['class' => 'bold']) !!}
+						<div class="form-control-wrap date-picker">
+							{!! Form::text('ExpireDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null, array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'ExpireDate', 'placeholder'=>'Last Registration Expire')) !!}
+							<label class="picker-icon" for="ExpireDate"><i class="far fa-calendar-alt"></i></label>
+						</div>
 					</div>
 					<div class="form-group">
-						{!! Form::label('ExpireDate', 'Last Registration Expire', ['class' => 'bold']) !!}
-						{!! Form::date('ExpireDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null, array('class'=>'form-control form-control-radius sm date-picker', 'id'=>'ExpireDate', 'placeholder'=>'Last Registration Expire')) !!}
-					</div>
-					<div class="form-group">
-						{!! Form::label('RegistrationDate', 'Date Acquire', ['class' => 'bold']) !!}
-						{!! Form::text('RegistrationDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->RegistrationDate)) : null, array('class'=>'form-control form-control-radius sm date-picker', 'id'=>'RegistrationDate', 'placeholder'=>'Date Acquire')) !!}
+						{!! Form::label('', 'Date Acquire', ['class' => 'bold']) !!}
+						<div class="form-control-wrap date-picker">
+							{!! Form::text('RegistrationDate', (isset($data) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->RegistrationDate)) : null, array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'RegistrationDate', 'placeholder'=>'Date Acquire')) !!}
+							<label class="picker-icon" for="RegistrationDate"><i class="far fa-calendar-alt"></i></label>
+						</div>
 					</div>
 
 				</div>

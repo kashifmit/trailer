@@ -1,4 +1,3 @@
-<div class="row">&nbsp;</div>
 
 @if(Route::currentRouteName() == 'trailer.list')
 {!! Form::open(array('method' => 'get', 'route' => 'search.trailer.location', 'class' => 'form', 'files'=>true, 'id' => 'search_trailer_location')) !!}
@@ -8,7 +7,7 @@
     </header>
 
     <div class="mb-5">
-        <div class="form-group row mb-0">
+        <div class="form-group row">
             <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Trailer Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap">
@@ -17,7 +16,7 @@
             </div>
         </div>
 
-        <div class="form-group row mb-0">
+        <div class="form-group row">
             <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Tracking Unit Id') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap">
@@ -25,17 +24,23 @@
                     {!! Form::select('TrailerUnitNo', ['' => '--Tracking Unit Id--']+$getTrackingUnits, null, array('class'=>'form-control form-control-radius', 'id'=>'TrailerUnitNo')) !!}
                 </div>
             </div>
-            <div class="col-md-3">&nbsp;</div>
         </div>
 
         <div class="form-group row mb-5">
         	<label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Location Name') }}</label>
-            <div class="col-md-4">
+            <div class="col-md-3">
             	 {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}
             </div>
         </div>
     </div>
-    <div class="form-group row">
+
+    <header class="heading">
+        <h3 class="title">Select Query Type:</h3>
+    </header>
+
+    <h5 class="mb-3">Show Latest Position</h5>
+
+    <div class="form-controls">
     	{!! Form::button('Display Map', array('class'=>'btn display-map btn-min-md btn-primary submit-class', 'type'=>'button', 'id' => 'display-map')) !!}
 
     	{!! Form::button('Display Table', array('class'=>'btn display-table btn-min-md btn-primary submit-class', 'type'=>'button', 'id' => 'display-table')) !!}
@@ -44,14 +49,15 @@
 {!! Form::close() !!}
 @endif
 
-<div class="row">
-	<div class="col-md-12">
-		<div class="map-block"  id="map-block">
+<div class="row justify-content-md-center">
+    <div class="col-md-10">
+        <div class="map-block"  id="map-block">
             {!! Mapper::render() !!}
         </div>
-	</div>
+    </div>
 </div>
-<div class="row">&nbsp;</div>
+
 <div id="trailer_locaton_table">
-	@include('trailers.forms.includes.location_table')
+    @include('trailers.forms.includes.location_table')
 </div>
+
