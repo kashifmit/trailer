@@ -24,7 +24,7 @@
             {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
               @include('trailers.forms.form')
                 <div class="form-actions">
-                    {!! Form::button('Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary edit-class', 'type'=>'submit')) !!}
+                    {!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
                 </div>
           {!! Form::close() !!}        
       </div>

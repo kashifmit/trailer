@@ -1,26 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.image-button {
-    color: white;
-    background-color: green;
-    font-weight: bold;
-}
-</style>
     @include('flash::message')
-    <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-md-6 pull left">{{ __('Edit Invoice') }}</div>
-            <div class="col-md-6">
-              @if(isset($data)) 
-                <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-large btn-primary pull-right">Edit Line Items</a> 
-              @endif
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
+    <div class="page">
+        <header class="heading space-between">
+          <h3 class="title">{{ __('Edit Invoice') }}</h3>
+          @if(isset($data)) 
+            <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-light">Edit Line Items</a> 
+          @endif
+        </header>
+
+        <div class="content">
             {!! Form::open(array('method' => 'put', 'route' => array('update.invoice', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
             {!! Form::hidden('InvoiceNo', $data->InvoiceNo) !!}
             {{--{!! Form::hidden('InvoiceLine', $data->InvoiceLine) !!}--}}
@@ -28,8 +18,8 @@
             {!! Form::hidden('VehicleId_VIN', $data->VehicleId_VIN)!!}
             {!! Form::hidden('TrailerSerial', $data->TrailerSerialNo)!!}
                 @include('invoices.forms.form')
-                <div class="form-actions">
-                    {!! Form::button('Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                <div class="form-actions mt-4">
+                    {!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             {!! Form::close() !!}
         </div>

@@ -74,6 +74,11 @@ h3 {
 
 .text-sm {
     font-size: $font-size-base - .1;
+
+    .btn,
+    .form-control {
+        font-size: $font-size-base - .15;
+    }
 }
 
 .text-md {

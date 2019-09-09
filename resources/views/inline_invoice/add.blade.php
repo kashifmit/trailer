@@ -15,7 +15,7 @@
             {!! Form::open(array('method' => 'post', 'route' => array('store.inline.item', $data['InvoiceNo']), 'class' => 'form', 'files'=>true)) !!}
                 @include('inline_invoice.forms.form')
                 <div class="form-actions">
-                    {!! Form::button('Update Invoice Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                    {!! Form::button('Update Invoice Detail', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
                 </div>
             {!! Form::close() !!}
         </div>

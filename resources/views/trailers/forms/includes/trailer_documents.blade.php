@@ -23,7 +23,7 @@
 					<span class="fileinput-exists"> Change </span>
 					{!! Form::file('FileName[]', null, array('id'=>'inspection_document')) !!}
 					</span> 
-					<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">Remove</a>
+					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
 				</div>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 						<span class="fileinput-exists"> Change </span>
 						{!! Form::file('FileName[]', null, array('id'=>'fhwa')) !!}
 					</span>
-					<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
 				</div>
 			</div>
 		</div>
@@ -57,7 +57,7 @@
 						<span class="fileinput-exists"> Change </span>
 						{!! Form::file('FileName[]', null, array('id'=>'registration')) !!}
 					</span>
-					<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 						<span class="fileinput-exists"> Change </span>
 						{!! Form::file('FileName[]', null,array('id'=>'tracking_installation_sheet')) !!}
 					</span>
-					<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
 				</div>
 			</div>
 		</div>

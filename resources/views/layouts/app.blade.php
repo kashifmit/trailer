@@ -37,8 +37,9 @@
                     </button>
                     <div class="site-logo">
                         <a class="site-logo-text" href="{{ url('/home') }}">
-                            {{ config('app.name', 'Trailer App') }}
-                        </a>                    
+                            <img src="{{ asset('/images/') }}/logo.png" alt="40 by 48" />
+                            <!-- {{ config('app.name', 'Trailer App') }} -->
+                        </a>
                     </div>
                 </div>
                 <nav class="hd-right">
