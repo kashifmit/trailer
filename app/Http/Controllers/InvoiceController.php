@@ -15,6 +15,8 @@ use App\MaintenanceInvoiceModel;
 use App\MaintenanceInvoiceDetailModel;
 use App\RequestMaintenanceModel;
 use App\RegistrationModel;
+use App\EquipmentModel;
+use App\EquipmentTrackingModel;
 use App\TrailerFilesModel;
 use App\Helpers\DataArrayHelper;
 use App\Exports\HeaderCSV;
@@ -27,24 +29,42 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-       $data = MaintenanceInvoiceModel::select([
-            'maintenance_invoice.InvoiceDate', 'maintenance_invoice.InvoiceNo', 
-            'maintenance_invoice.TrailerSerialNo', 
-            'maintenance_invoice.LaborTotal', 
-            'maintenance_invoice.PartsTotal', 
-            'maintenance_invoice.AccessoriesTotal', 
-            'maintenance_invoice.AnnualInspectionTotal', 
-            'maintenance_invoice.RegistrationTotal',
-            'maintenance_invoice.SalesTax', 
-            'maintenance_invoice.TotalPrice',
-            'registration.Owner', 'vendor.VendorName',
-        ])
-        ->join('registration', 'maintenance_invoice.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
-        ->join('vendor', 'registration.Owner', '=', 'vendor.VendorId')
-        ->orderBy('InvoiceDate', 'DESC')
-        ->paginate(20);
+        $data = '';
+        if (!empty($request->query('TrailerSerialNo')) || !empty($request->query('VehicleId_VIN')) || !empty($request->query('TrackingId'))) {
+            if (!empty($request->query('TrailerSerialNo'))) {
+                $trailerNumber = EquipmentModel::select('TrailerSerialNo')->where('TrailerSerialNo', $request->query('TrailerSerialNo'))->first();
+            }
+
+            if (!empty($request->query('VehicleId_VIN'))) {
+                $trailerNumber = RegistrationModel::select('TrailerSerialNo')->where('VehicleId_VIN', $request->query('VehicleId_VIN'))->first();
+            }
+
+            if (!empty($request->query('TrackingId'))) {
+                $trailerNumber = EquipmentTrackingModel::select('TrailerSerialNo')->where('TrackingId', $request->query('TrackingId'))->first();
+            }
+            if ($trailerNumber) {
+                $data = MaintenanceInvoiceModel::select([
+                'maintenance_invoice.InvoiceDate', 'maintenance_invoice.InvoiceNo', 
+                'maintenance_invoice.TrailerSerialNo', 
+                'maintenance_invoice.LaborTotal', 
+                'maintenance_invoice.PartsTotal', 
+                'maintenance_invoice.AccessoriesTotal', 
+                'maintenance_invoice.AnnualInspectionTotal', 
+                'maintenance_invoice.RegistrationTotal',
+                'maintenance_invoice.SalesTax', 
+                'maintenance_invoice.TotalPrice',
+                'registration.Owner', 'vendor.VendorName',
+                ])
+                ->where('maintenance_invoice.TrailerSerialNo', $trailerNumber->TrailerSerialNo)
+                ->join('registration', 'maintenance_invoice.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
+                ->join('vendor', 'registration.Owner', '=', 'vendor.VendorId')
+                ->orderBy('InvoiceDate', 'DESC')
+                ->paginate(20);
+            }
+        }
+       
     	return view('invoices.index')
         ->with('data', $data);
     }

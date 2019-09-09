@@ -7,7 +7,7 @@
 
     <div class="mb-5">
         <div class="form-group row mb-0">
-            <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Trailer Number') }}</label>
+            <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Enter Trailer Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap search">
                     <input type="text" class="form-control form-control-radius" name="TrailerSerialNo" id="TrailerSerialNo" autocomplete="off" placeholder="Trailer Number" value="{{\Request::get('TrailerSerialNo')}}">
@@ -21,7 +21,7 @@
         <div class="mt-4 mb-4">Or</div>
 
         <div class="form-group row mb-0">
-            <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('VIN Number') }}</label>
+            <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Enter VIN Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap search">
                     <input type="text" class="form-control form-control-radius" name="VehicleId_VIN" id="VehicleId_VIN" autocomplete="off" placeholder="VIN Number" value="{{\Request::get('VehicleId_VIN')}}">
