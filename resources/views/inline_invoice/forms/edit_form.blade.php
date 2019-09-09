@@ -24,7 +24,7 @@
 
 <div class="form-body">
   <div class="table-responsive">
-    <table class="table text-sm table-striped table-hover">
+    <table class="table text-sm">
         <thead>
           <tr>
             <td></td>
@@ -100,25 +100,25 @@
               {!! Form::hidden('LineType[]', $value) !!}
               <td><strong>{{$key}}</strong></td>
               <td>
-                {!! Form::text($value, $data[$value], array('class'=>'form-control calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
+                {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
               </td>
               <td>
                 {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
               </td>
               <td>
-                {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
+                {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control form-control-radius', 'id'=>'UnitPrice', 'placeholder'=> 'Unit price' )) !!}
               </td>
               <td>
-                {!! Form::text('LaborHoursQty[]', null, array('class'=>$value.' form-control', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+                {!! Form::text('LaborHoursQty[]', null, array('class'=>$value.' form-control form-control-radius', 'id'=>'LaborHoursQty', 'placeholder'=> 'Labor Hour Quantity' )) !!}
               </td>
               <td>
-                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
               </td>
               <td>
-                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
               </td>
               <td>
-                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
               </td>
           </tr>
             @endif
@@ -127,8 +127,9 @@
               <tr>
                 <td><strong>Total Invoice Amount</strong></td>
                 <td>
-                  {!! Form::text($value, $data[$value], array('class'=>'form-control', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
+                  {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
                 </td>
+                <td colspan="7"></td>
               </tr>
             @endif
           @endforeach

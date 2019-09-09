@@ -10,11 +10,9 @@
 
         <div class="card-body">
             @include('flash::message')
-            {!! Form::open(array('method' => 'POST', 'route' => array('add.line.item', $InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
-                <div class="form-actions">
-                    {!! Form::button('Add Line Item To the Invoice', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
-                </div>
-            {!! Form::close() !!}
+            <div class="form-actions">
+                <a href="{{route('edit.invoice.line', $InvoiceNo)}}" class="btn btn-large btn-primary">Add Line Item To the Invoice</a>
+            </div>
             <div class="row">&nbsp;</div>
             <div class="row">
                 <div class="col-md-12">
