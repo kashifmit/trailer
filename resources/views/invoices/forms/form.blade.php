@@ -26,7 +26,10 @@
         </div>
         <div class="form-group">
           {!! Form::label('InvoiceDate', 'Invoice Date', ['class' => 'bold']) !!}
-          {!! Form::date('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control form-control-radius date-picker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
+          <div class="form-control-wrap date-picker">
+            {!! Form::text('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control form-control-radius datepicker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
+          <label class="picker-icon" for="InvoiceDate"><i class="far fa-calendar-alt"></i></label>
+          </div>
         </div>
         <div class="form-group">
           {!! Form::label('MaintenanceOrderNo', 'Maintenance / PO Number', ['class' => 'bold']) !!}

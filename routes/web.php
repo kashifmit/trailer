@@ -126,7 +126,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/edit-invoice/{InvoiceNo}', 'InvoiceController@getInovice')->name('edit.invoice');
 	Route::put('/update-invoice/{InvoiceNo}', 'InvoiceController@updateInvoice')->name('update.invoice');
 	Route::get('/invoice-success/{InvoiceNo}/{TrailerSerialNo}', 'InvoiceController@invoiceSuccess')->name('invoice.success');
-	Route::post('/add-line-item/{InvoiceNo}', 'InvoiceController@addLineItem')->name('add.line.item');
+	Route::get('/add-line-item/{InvoiceNo}', 'InvoiceController@addLineItem')->name('add.line.item');
 	Route::get('/create-line-item/{InvoiceNo}', 'InvoiceController@createLineItem')->name('create.line.item');
 	Route::post('store-inline-item/{InvoiceNo}', 'InvoiceController@storeInlineInvoiceItem')->name('store.inline.item');
 	Route::get('export-headCSV', 'InvoiceController@exportHeadCSV')->name('export.headCSV');
