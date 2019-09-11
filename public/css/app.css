@@ -16742,9 +16742,18 @@ button:focus {
   right: 0;
 }
 
+.form-control.dark {
+  border-color: #617083;
+}
+
 label {
   font-size: 0.9em;
   text-transform: uppercase;
+  font-weight: 700;
+}
+
+label.col-form-label {
+  font-size: 0.9em;
 }
 
 .btn-min-md {
@@ -17091,7 +17100,9 @@ body::-webkit-scrollbar-thumb {
   background-color: #224356;
 }
 
-h3 {
+h3,
+h4,
+h5 {
   font-weight: 300;
 }
 
@@ -17277,6 +17288,8 @@ h3 {
 .list-detail li {
   margin-bottom: 1.5rem;
   font-weight: 700;
+  font-size: 0.9em;
+  text-transform: uppercase;
 }
 
 .list-detail li mark {
