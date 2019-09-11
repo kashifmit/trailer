@@ -41,32 +41,7 @@
                     </div>
                 </div>
                 <nav class="hd-right">
-                    <ul class="list-hd">
-                        @guest
-                            @if (Route::has('register'))
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li> -->
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('view.profile') }}">
-                                    {{ __('View Account') }}
-                                </a>    
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('edit.profile') }}">
-                                    {{ __('Update Account') }}
-                                </a>    
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>    
-                            </li>
-                        @endguest
-                    </ul>
+                    
                 </nav>
             </div>
         </header>
@@ -75,7 +50,7 @@
             <div class="site-sidebar">
                 <nav class="sidebar-nav">
                     <ul class="menu">
-                        <li class="active">
+                        <li class="{{Request::path() == '/' ? 'active' : ''}}">
                             <a  href="{{ url('/') }}">
                                 <i class="fas fa-user"></i>
                                 <span>Login</span>
@@ -83,7 +58,7 @@
                         </li>
                         @guest
                             @if (Route::has('register'))
-                                <li>
+                                <li class="{{Route::currentRouteName() == 'register' ? 'active' : ''}}">
                                     <a href="{{ route('register') }}">
                                         <i class="fas fa-user-plus"></i>
                                         <span>{{ __('Create Account') }}</span>
@@ -105,15 +80,5 @@
 
         <!-- Styles -->
         <script src="{{ asset('js/app.js') }}"></script>
-
-<!-- <p>
-    <i class="fas fa-user"></i>
-    <i class="fas fa-user-tie"></i>
-    <i class="fas fa-user-plus"></i>
-    <i class="fas fa-lock-open"></i>
-    <i class="fas fa-truck-moving"></i>
-    <i class="fas fa-cog"></i>
-</p> -->
-
 </body>
 </html>

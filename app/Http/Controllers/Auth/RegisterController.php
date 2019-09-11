@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,11 +51,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            // 'name' => ['required', 'string', 'max:80'],
-            // 'last_name' => ['required', 'string', 'max:20'],
-            // 'organization_id' => ['required'],
-            // 'email' => ['required', 'string', 'email', 'max:80', 'unique:users'],
-            // 'password' => ['required', 'string', 'confirmed'],
             'name' => 'required',
             'last_name' => 'required',
             'password' => 'required',
@@ -71,7 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        User::create([
+       return User::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'organization_id' => $data['organization'],
@@ -79,7 +76,19 @@ class RegisterController extends Controller
             'Role_id' => 1,
             'password' => Hash::make($data['password']),
         ]);
+        
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
         flash('User has been created successfully!')->success();
         return \Redirect::route('register');
+        // return $this->registered($request, $user)
+        //                 ?: redirect($this->redirectPath());
     }
 }

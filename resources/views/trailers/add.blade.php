@@ -23,16 +23,6 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-      // var date_input=$('.date-picker');
-      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      // var options={
-      //   format: 'mm/dd/yyyy',
-      //   container: container,
-      //   todayHighlight: true,
-      //   autoclose: true,
-      // };
-      // date_input.datepicker(options);
-
       $(document).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
           {
@@ -41,7 +31,6 @@
               _token: '{{ csrf_token() }}'
           })
           .done(function (response) {
-              // console.log(response.Owner);
               if (response.success == 1) {
                 $("#Owner").val(response.Owner);
                 $("#business").val(response.business);
@@ -63,7 +52,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations") {
+          if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();
@@ -71,6 +60,15 @@
       });
       $(document).on('click', '.submit-class', function() {
         $("#add_trailer").submit();
+      });
+      $(document).on('click', '.submit-btn', function () {
+        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val();
+            $.ajax({
+                url: "/trailer-data?"+urlString,
+                method: "GET",
+            }).done(function(response) {
+                $("#home_data_table").html(response);
+            });
       });
     });
 </script>

@@ -1,5 +1,5 @@
 <div class="trailer-contents">
-    {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true)) !!}
+    {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true, 'id' => 'search-trailer')) !!}
 
     <header class="heading">
         <h3 class="title">Search For a Trailer</h3>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
+                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary submit-btn', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary submit-btn', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
+            {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary submit-btn', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
             </div>
         </div>
 
@@ -58,58 +58,13 @@
                 {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}
             </div>
             <div class="col-md-4">
-                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
+                {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary submit-btn', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
             </div>
         </div>
 
     </div>
     {!! Form::close() !!}
-
-
-    @if($trailerData)
-    <table class="table table-striped text-sm table-hover">
-        <thead>
-            <tr>
-                <th>Trailer Number</th>
-                <th>Location</th>
-                <th>Business</th>
-                <th>Make</th>
-                <th>VIN Number</th>
-                <th>Year</th>
-                <th>Licence Plate</th>
-                <th>Registration Expiration Date</th>
-                <th>Tracking Number</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            @foreach($trailerData as $data)
-            <tr>
-                <td>
-                    <a class="text-primary" href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
-                        {{$data->TrailerSerialNo}}
-                    </a>    
-                    </td>
-                <td>{{$data->SiteName}}</td>
-                <td>{{$data->business ? $data->business : '--'}}</td>
-                <td>{{$data->MakeName}}</td>
-                <td>{{$data->VehicleId_VIN}}</td>
-                <th>{{$data->ModelYear}}</th>
-                <th>{{$data->PlateNo}}</th>
-                <th>{{date('m/d/Y', strtotime($data->ExpireDate))}}</th>
-                <td>
-                    <a href="{{route('edit.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
-                        {{$data->TrackingId}}
-                    </a>    
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
-    @if($trailerData)
-        <div class="pull-right">
-            {{ $trailerData->appends(request()->query())->links() }}
-        </div>
-    @endif
+        <span id="home_data_table">
+            @include('trailers.forms.includes.home_data_table')
+        </span>
 </div>

@@ -60,12 +60,8 @@
                             </div>
 
                             <div class="form-group row mb-5">
-                                {!! Form::label('Role', 'Role', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
-                                <div class="col-md-4">
-                                    {!! Form::select('role', ['' => 'Select Role']+App\Helpers\DataArrayHelper::getRoles(), Auth::user()->Role_id, array('class'=>'form-control form-control-radius role-class', 'id'=>'role')) !!}
-                                    <span class="text-danger" id="role_span" 
-                                        style="display: none"></span>
-                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">&nbsp;</div>
                                 <div class="col-md-4">
                                     {!! Form::button('Update Personal Information', array('class'=>'btn btn-primary save-personal-info', 'type'=>'button')) !!}
                                 </div>
@@ -76,9 +72,17 @@
                             </header>
 
                             <div class="form-group row">
+                                {!! Form::label('old_password', 'Old Password', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
+                                <div class="col-md-4">
+                                    <input type="password" name="old_password" id="old_password" class="form-control password-class form-control-radius" placeholder="Old Password" autocomplete="off">
+                                    <span class="text-danger" id="old_password_span" 
+                                        style="display: none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 {!! Form::label('password', 'New Password', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
                                 <div class="col-md-4">
-                                    <input type="password" name="password" id="password" class="form-control password-class form-control-radius" placeholder="New Password">
+                                    <input type="password" name="password" id="password" class="form-control password-class form-control-radius" placeholder="New Password" autocomplete="off">
                                     <span class="text-danger" id="password_span" 
                                         style="display: none"></span>
                                 </div>
@@ -103,6 +107,9 @@
         </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $("#old_password").val("");
+    });
     $(document).on('click', '.save-email', function(){
         var url = "/update-email";
         var formData = $("#profile_form").serialize();
@@ -132,7 +139,8 @@
                 setTimeout(function() {
                     $("#alert-success").html('').hide();
                 },3000);
-            } else {
+            }
+            else {
                 var errors = response.errors;
                 for (var key in errors) {
                     if (errors.hasOwnProperty(key)) {

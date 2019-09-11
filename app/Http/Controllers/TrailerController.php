@@ -13,6 +13,7 @@ use App\EquipmentModel;
 use App\TrailerFilesModel;
 use App\RegistrationModel;
 use App\EquipmentTrackingModel;
+use App\MaintenanceInvoiceModel;
 use App\SiteModel;
 use Carbon\Carbon;
 use App\Helpers\DataArrayHelper;
@@ -44,7 +45,7 @@ class TrailerController extends Controller
             $trailerSerNo = $trailerData[0]->TrailerSerialNo;
             $mapData = DataArrayHelper::trailerTracking($trailerSerNo, '');
             $allData = DataArrayHelper::getfinancials($trailerSerNo, $request);
-
+            $invoices = MaintenanceInvoiceModel::where('TrailerSerialNo', $trailerSerNo)->get();
         } else {
             $allData = DataArrayHelper::getfinancials('', $request);
             $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
@@ -86,6 +87,7 @@ class TrailerController extends Controller
         ->with('getTrackingsystems', DataArrayHelper::getTrackingsystems())
         ->with('getTrackingUnits', DataArrayHelper::getTrackingUnits())
         ->with('displayTable', false)
+        ->with('invoices', isset($invoices) ? $invoices : [])
         ->with('data', isset($getTrailerDetails['data']) ? $getTrailerDetails['data'] : '')
         ->with('leaseExpenseChart', isset($getTrailerDetails['leaseExpenseChart']) ? $getTrailerDetails['leaseExpenseChart'] : $leaseExpenseChart)
         ->with('TotalMaintenanceExpense', isset($getTrailerDetails['TotalMaintenanceExpense']) ? $getTrailerDetails['TotalMaintenanceExpense'] : $TotalMaintenanceExpense)
@@ -94,7 +96,6 @@ class TrailerController extends Controller
 
     public function createtriler(Request $request)
     {
-        $trailerData = $this->trailerHomeData($request);
         $allData = DataArrayHelper::getfinancials('', $request);
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         if (count($mapData)) {
@@ -123,7 +124,7 @@ class TrailerController extends Controller
             'Total_trailer_count_owned');
     	return view('trailers.add')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
-        ->with('trailerData', $trailerData)
+        ->with('trailerData', '')
     	->with('make', DataArrayHelper::getMakes())
     	->with('year', DataArrayHelper::getModelYears())
     	->with('state', DataArrayHelper::getState())
@@ -133,6 +134,7 @@ class TrailerController extends Controller
     	->with('conditions', DataArrayHelper::getCondition())
     	->with('owners', DataArrayHelper::getOrganizations())
         ->with('displayTable', false)
+        ->with('invoices', isset($invoices) ? $invoices : [])
     	->with('business', DataArrayHelper::businessList())
         ->with('allData', $allData)
         ->with('leaseExpenseChart', $leaseExpenseChart)
@@ -186,7 +188,6 @@ class TrailerController extends Controller
 
     public function editTrailer($TrailerSerialNo, Request $request)
     {
-        $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
@@ -204,7 +205,7 @@ class TrailerController extends Controller
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
     	return view('trailers.edit')
     	->with('data', $getTrailerDetails['data'])
-        ->with('trailerData', $trailerData)
+        ->with('trailerData', '')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
     	->with('make', DataArrayHelper::getMakes())
     	->with('year', DataArrayHelper::getModelYears())
@@ -216,6 +217,7 @@ class TrailerController extends Controller
     	->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $getTrailerDetails['allData'])
+        ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
         ->with('displayTable', true)
         ->with('mapData', $mapData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
@@ -225,7 +227,6 @@ class TrailerController extends Controller
 
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
-        $trailerData = $this->trailerHomeData($request);
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         if (count($mapData)) {
             Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
@@ -243,12 +244,13 @@ class TrailerController extends Controller
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         return view('trailers.view')
         ->with('data', $getTrailerDetails['data'])
-        ->with('trailerData', $trailerData)
+        ->with('trailerData', '')
         ->with('locations', DataArrayHelper::getSites())
         ->with('business', DataArrayHelper::businessList())
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $getTrailerDetails['allData'])
         ->with('displayTable', true)
+        ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
         ->with('mapData', $mapData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
         ->with('TotalMaintenanceExpense', $getTrailerDetails['TotalMaintenanceExpense'])
@@ -411,7 +413,7 @@ class TrailerController extends Controller
 
     private function getTrailerById($TrailerSerialNo, Request $request)
     {
-        $data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData', 'TrailerInvoices'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
+        $data = EquipmentModel::with(['equipmentTracking', 'registrationData', 'filesData', 'TrailerInvoices', 'TrailerInvoices'])->where('TrailerSerialNo', $TrailerSerialNo)->get();
         $allData = DataArrayHelper::getfinancials($TrailerSerialNo, $request);
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
@@ -515,5 +517,12 @@ class TrailerController extends Controller
         $displayTable = true;
         return response()->View('trailers.forms.includes.location_table',
         compact('mapData', 'displayTable'));
+    }
+
+    public function trailerData(Request $request)
+    {
+        $trailerData = $this->trailerHomeData($request);
+        return response()->View('trailers.forms.includes.home_data_table',
+        compact('trailerData'));
     }
 }

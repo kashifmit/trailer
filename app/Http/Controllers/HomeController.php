@@ -82,7 +82,8 @@ class HomeController extends Controller
         $rules = array('name' => 'required',
             'last_name' => 'required',
             'organization' => 'required',
-            'role' => 'required');
+            // 'role' => 'required'
+        );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json(
@@ -92,26 +93,37 @@ class HomeController extends Controller
         User::where('id', Auth::user()->id)->update([
             'name' => $request->input('name'),
             'last_name' => $request->input('last_name'),
-            'organization_id' => $request->input('organization'),
-            'Role_id' => $request->input('role')
+            'organization_id' => $request->input('organization')
         ]);
         return ['success' => '1', 'message' => 'Personal Information updated successfully'];
     }
 
     public function updatePassword(Request $request)
     {
-        $rules = array('password' => 'required', 
-            'c_password' => 'required|same:password');
+        $rules = array(
+            'password' => 'required', 
+            'c_password' => 'required|same:password',
+            'old_password' => 'required'
+        );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json(
                 ['success' => false, 'errors' => $validator->errors()->toArray()]
             );
         }
-        User::where('id', Auth::user()->id)->update([
-            'password' => Hash::make($request->input('password'))
-        ]);
-        return ['success' => '1', 'message' => 'Password updated successfully'];
+        $userData = User::where('id', Auth::user()->id)->first();
+        if (Hash::check($request->input('old_password'), $userData->password) ) {
+            $userData->password = Hash::make($request->input('password'));
+            $userData->save();
+            return ['success' => '1', 'message' => 'Password updated successfully'];
+
+        } else {
+            $errors['old_password'] = ["Invalid Old password"];
+            return response()->json(
+                ['success' => false, 'errors' => $errors]
+            );
+        }
+
     }
 
     public function updateProfile(Request $request)

@@ -105,6 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
 	*	Trailer Routes
 	**/
 	Route::get('/trailers-list', 'TrailerController@index')->name('trailer.list');
+	Route::get('/trailer-data', 'TrailerController@trailerData')->name('trailer.data');
 	Route::get('/create-trailor', 'TrailerController@createtriler')->name('create.trailer');
 	Route::post('/store-trailor', 'TrailerController@storetriler')->name('store.trailer');
 	Route::get('/edit-trailor/{TrailerSerialNo}', 'TrailerController@editTrailer')->name('edit.trailer');
