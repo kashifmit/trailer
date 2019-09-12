@@ -29,7 +29,7 @@
     <li>
       <a class="nav-link" href="{{ route('state.list') }}">States</a>
     </li>-->
-    @if(Auth::user()->id)
+    @if(Auth::user()->id == 1)
     <li class="{{Route::currentRouteName() == 'users.list' || Route::currentRouteName() == 'create.user' || Route::currentRouteName() == 'edit.user' ? 'active' : ''}}">
       <a class="nav-link" href="{{ route('users.list') }}">
       <i class="fas fa-users"></i>
