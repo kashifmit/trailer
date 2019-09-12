@@ -1,6 +1,6 @@
 <div class="trailer-contents">
 	<header class="heading">
-		<h4 class="title">
+		<h4 class="title text-bold">
 			Equipment Documents
 		</h4>
 	</header>

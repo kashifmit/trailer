@@ -35,9 +35,9 @@
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="site-logo">
-                        <a class="site-logo-text" href="{{ url('/') }}">
-                            {{ config('app.name', 'Trailer App') }}
-                        </a>                    
+                        <a class="site-logo-text" href="{{ url('/home') }}">
+                            <img src="{{ asset('/images/') }}/logo.png" alt="40 by 48" />
+                        </a>
                     </div>
                 </div>
                 <nav class="hd-right">

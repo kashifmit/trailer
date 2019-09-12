@@ -77,11 +77,20 @@ button {
             }
         }
     }
+
+    &.dark {
+        border-color: $text;
+    }
 }
 
 label {
     font-size: .9em;
     text-transform: uppercase;
+    font-weight: 700;
+
+    &.col-form-label {
+        font-size: .9em;
+    }
 }
 
 

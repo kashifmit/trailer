@@ -5,7 +5,7 @@
 		<div class="col-md-4">
 			<div class="trailer-block">
 				<header class="heading">
-					<h5>Equipment Details</h5>
+					<h5 class="text-bold">Equipment Details</h5>
 				</header>
 				<div class="text">
 					<div class="form-group">
@@ -50,7 +50,7 @@
 		<div class="col-md-4">
 			<div class="trailer-block trailer-block-bg">
 				<header class="heading">
-					<h5>Registration Details</h5>
+					<h5 class="text-bold">Registration Details</h5>
 				</header>
 				<div class="text">
 					<div class="form-group">
@@ -90,7 +90,7 @@
 		<div class="col-md-4">
 			<div class="trailer-block">
 				<header class="heading">
-					<h5>Tracking Details</h5>
+					<h5 class="text-bold">Tracking Details</h5>
 				</header>
 				<div class="text">
 					<div class="form-group">
