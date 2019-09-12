@@ -28,13 +28,15 @@
     </li>
     <li>
       <a class="nav-link" href="{{ route('state.list') }}">States</a>
-    </li> 
-    <li>
+    </li>-->
+    @if(Auth::user()->id)
+    <li class="{{Route::currentRouteName() == 'users.list' || Route::currentRouteName() == 'create.user' || Route::currentRouteName() == 'edit.user' ? 'active' : ''}}">
       <a class="nav-link" href="{{ route('users.list') }}">
       <i class="fas fa-users"></i>
         <span>Users</span>
       </a>
-    </li>-->
+    </li>
+    @endif
     <li class="{{(Route::currentRouteName() == 'trailer.list' || Route::currentRouteName() == 'create.trailer' || Route::currentRouteName() == 'view.trailer' || Route::currentRouteName() == 'edit.trailer') ? 'active' : ''}}">
       <a class="nav-link" href="{{route('trailer.list')}}">
         <i class="fas fa-truck-moving"></i>  

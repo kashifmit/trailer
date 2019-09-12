@@ -28,7 +28,7 @@
                     {!! Form::select('role', ['' => 'Select Role']+$roles, \Request::get('role') ? \Request::get('role') : null, array('class'=>'form-control form-control-radius', 'id'=>'role')) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::button('Display User', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+                    {!! Form::button('Search User', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

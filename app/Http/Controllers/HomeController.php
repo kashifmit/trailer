@@ -159,6 +159,9 @@ class HomeController extends Controller
 
     public function createUser()
     {
+        if (Auth::user()->id != 1) {
+            return Redirect::route('home');
+        }
         return view('users.add')
         ->with('organizations', DataArrayHelper::getOrganizations())
         ->with('roles', DataArrayHelper::getRoles());
@@ -166,6 +169,9 @@ class HomeController extends Controller
 
     public function storeUser(Request $request)
     {
+        if (Auth::user()->id != 1) {
+            return Redirect::route('home');
+        }
         $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',
@@ -193,6 +199,9 @@ class HomeController extends Controller
 
     public function usersList(Request $request)
     {
+        if (Auth::user()->id != 1) {
+            return Redirect::route('home');
+        }
         $data = User::with(['organizations', 'roles']);
 
         if (!empty($request->query('name'))) {
@@ -219,6 +228,9 @@ class HomeController extends Controller
 
     public function editUser($id)
     {
+        if (Auth::user()->id != 1) {
+            return Redirect::route('home');
+        }
         $userData = User::findOrFail($id);
         return view('users.edit')
         ->with('data', $userData)
@@ -228,6 +240,9 @@ class HomeController extends Controller
 
     public function updateUser($id, Request $request)
     {
+        if (Auth::user()->id != 1) {
+            return Redirect::route('home');
+        }
         $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',

@@ -35,7 +35,7 @@
 		</div>	
 	</div>
 </div>
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 @if(count($data->TrailerInvoices))
 <header class="heading">
 	<h4 class="title">
