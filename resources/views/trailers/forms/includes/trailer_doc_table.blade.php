@@ -36,6 +36,7 @@
 	</div>
 </div>
 
+@if(count($data->TrailerInvoices))
 <header class="heading">
 	<h4 class="title">
 		Equipment Invoices
@@ -89,3 +90,4 @@
 		</div>
 	</div>
 </div>
+@endif
