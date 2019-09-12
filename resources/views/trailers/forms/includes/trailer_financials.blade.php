@@ -1,5 +1,5 @@
 <div class="trailer-contents">
-	@if(!count($invoices))
+	@if(!$requestData)
 	{!! Form::open(array('method' => 'GET', 'class' => 'form', 'files'=>true, 'id' => 'financialForm')) !!}
 	<div class="row">
 		<div class="col-md-4">
@@ -19,6 +19,14 @@
 	</div>
 	@else
 		<div class="table-container">
+            <div class="row">
+                <div class="col-md-10">&nbsp;</div>
+                <div class="col-md-2">
+                    <a href="{{route('create.invoice')}}" class="btn btn-primary">
+                        <div class="fas fa-plus"></div> Add Invoice
+                    </a>
+                </div>
+            </div>
 			<div class="table-responsive">
 				<table class="table table-striped text-sm table-hover" id="invoices">
 					<tr>

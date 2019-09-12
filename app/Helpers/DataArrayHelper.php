@@ -123,7 +123,7 @@ class DataArrayHelper {
 
 	public static function getTrailerSizes()
 	{
-		return SizesModel::select(DB::raw('CONCAT("L", Length, " - ", "W", Width, " - ", "H", Height) AS Sizes'), 'ProductId')->where('ProductId', '!=', 'UNKNOWN')->orderBy('Sizes', 'ASC')->pluck('Sizes', 'ProductId')->toArray();
+		return SizesModel::select(DB::raw('CONCAT(ProductId, " - ","L", Length, " - ", "W", Width, " - ", "H", Height) AS Sizes'), 'ProductId')->where('ProductId', '!=', 'UNKNOWN')->orderBy('Sizes', 'ASC')->pluck('Sizes', 'ProductId')->toArray();
 	}
 
 	public static function getCustomers()

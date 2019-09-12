@@ -29,6 +29,7 @@ class TrailerController extends Controller
     public function index(Request $request)
     {
         $trailerData = '';
+        $requestData = false;
         if (!empty($request->query('TrailerSerialNo')) || 
             !empty($request->query('VehicleId_VIN')) || 
             !empty($request->query('SiteId')) || 
@@ -39,6 +40,7 @@ class TrailerController extends Controller
             if ($trailerData[0]) {
                 $getTrailerDetails = $this->getTrailerById($trailerData['0']->TrailerSerialNo, $request);
             }
+            $requestData = true;
         }
         $trailerSerNo = '';
         if ((!empty($trailerData) && $trailerData[0])) {
@@ -88,6 +90,7 @@ class TrailerController extends Controller
         ->with('getTrackingUnits', DataArrayHelper::getTrackingUnits())
         ->with('displayTable', false)
         ->with('invoices', isset($invoices) ? $invoices : [])
+        ->with('requestData', $requestData)
         ->with('data', isset($getTrailerDetails['data']) ? $getTrailerDetails['data'] : '')
         ->with('leaseExpenseChart', isset($getTrailerDetails['leaseExpenseChart']) ? $getTrailerDetails['leaseExpenseChart'] : $leaseExpenseChart)
         ->with('TotalMaintenanceExpense', isset($getTrailerDetails['TotalMaintenanceExpense']) ? $getTrailerDetails['TotalMaintenanceExpense'] : $TotalMaintenanceExpense)
@@ -135,6 +138,7 @@ class TrailerController extends Controller
     	->with('owners', DataArrayHelper::getOrganizations())
         ->with('displayTable', false)
         ->with('invoices', isset($invoices) ? $invoices : [])
+        ->with('requestData', false)
     	->with('business', DataArrayHelper::businessList())
         ->with('allData', $allData)
         ->with('leaseExpenseChart', $leaseExpenseChart)
@@ -218,6 +222,7 @@ class TrailerController extends Controller
         ->with('getTrailers', DataArrayHelper::getTrailers())
         ->with('allData', $getTrailerDetails['allData'])
         ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
+        ->with('requestData', true)
         ->with('displayTable', true)
         ->with('mapData', $mapData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
@@ -251,6 +256,7 @@ class TrailerController extends Controller
         ->with('allData', $getTrailerDetails['allData'])
         ->with('displayTable', true)
         ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
+        ->with('requestData', true)
         ->with('mapData', $mapData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
         ->with('TotalMaintenanceExpense', $getTrailerDetails['TotalMaintenanceExpense'])

@@ -44,7 +44,7 @@
               </li>
             </ul>
             <div class="row">&nbsp;</div>
-            <div class="row">
+            <div class="row editClass">
               <div class="col-md-9">&nbsp;</div>
               <div class="col-md-3">
                 <a href="{{route('edit.trailer', $data->TrailerSerialNo)}}" class="btn btn-primary">Edit</a>
@@ -108,8 +108,10 @@
       $(document).on('click', '.checkClass', function () {
           if ($(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details") {
             $(".form-actions").hide();
+            $(".editClass").hide();
           } else {
             $(".form-actions").show();
+            $(".editClass").show();
           }
       });
       $(document).on('click', '.edit-class', function() {
