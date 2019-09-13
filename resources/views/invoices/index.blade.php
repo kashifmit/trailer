@@ -2,14 +2,20 @@
 
 @section('content')
     <div class="page">
-        <div class="row">
-            <div class="col-md-10">&nbsp;</div>
-            <div class="col-md-2">
-                <a href="{{route('create.invoice')}}" class="btn btn-xs btn-dark">
-                    <div class="fas fa-plus"></div> Add Invoice
-                </a>
-            </div>
+        <div class="button-bar mb-4 pull-right">
+            <a href="{{route('create.invoice')}}" class="btn btn-xs btn-dark">
+                <div class="fas fa-plus"></div> Add Invoice
+            </a>
+            @if(!empty($data))
+            <a href="{{route('export.headCSV')}}" class="btn btn-xs btn-primary">
+                Download Header CSV
+            </a>
+            <a href="{{route('export.lineCSV')}}" class="btn btn-xs btn-primary">
+                Download Line Item CSV
+            </a>
+            @endif
         </div>
+        
         <header class="heading">
             <h3>{{ __('Search For a Trailer Repair History') }}</h3>
         </header>
@@ -54,15 +60,6 @@
         {!! Form::close() !!}
         @if(!empty($data))
         <div class="content">
-            <div class="button-bar mb-4">
-                <a href="{{route('export.headCSV')}}" class="btn btn-xs btn-primary">
-                    Download Header CSV
-                </a>
-                <a href="{{route('export.lineCSV')}}" class="btn btn-xs btn-primary">
-                    Download Line Item CSV
-                </a>
-            </div>
-
             <div class="table-container">
                 <div class="table-responsive">
                     <table class="table table-striped text-sm table-hover" id="invoices">

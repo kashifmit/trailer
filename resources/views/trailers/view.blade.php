@@ -10,13 +10,21 @@
 </style>
     @include('flash::message')
     <div class="page">
+        <div class="button-bar mb-4 pull-right">
+          <a href="{{route('create.trailer')}}" class="btn btn-primary">
+                Add Trailer
+            </a>
+            <a href="{{route('edit.trailer', $data->TrailerSerialNo)}}" class="btn btn-primary">
+              Edit
+            </a>
+            <a href="{{route('create.invoice')}}" class="btn btn-primary">
+                <div class="fas fa-plus"></div> Add Invoice
+            </a>
+        </div>
         <header class="heading space-between mb-2">
             <h3 class="title">
                 {{ __('Trailers') }}
             </h3>
-            <a href="{{route('create.trailer')}}" class="btn btn-primary">
-                Add Trailer
-            </a>
         </header>
 
         <div class="content">
@@ -47,7 +55,7 @@
             <div class="row editClass">
               <div class="col-md-9">&nbsp;</div>
               <div class="col-md-3">
-                <a href="{{route('edit.trailer', $data->TrailerSerialNo)}}" class="btn btn-primary">Edit</a>
+                
               </div>
             </div>
             <div class="row">
@@ -108,17 +116,17 @@
       $(document).on('click', '.checkClass', function () {
           if ($(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details") {
             $(".form-actions").hide();
-            $(".editClass").hide();
+            // $(".editClass").hide();
           } else {
             $(".form-actions").show();
-            $(".editClass").show();
+            // $(".editClass").show();
           }
       });
       $(document).on('click', '.edit-class', function() {
         $("#edit_trailer").submit();
       });
       $(document).on('click', '.submit-btn', function () {
-        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val();
+        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val()+'&search=search';
             $.ajax({
                 url: "/trailer-data?"+urlString,
                 method: "GET",

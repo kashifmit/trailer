@@ -18,6 +18,9 @@
             <a href="{{route('create.trailer')}}" class="btn btn-primary">
                 Add Trailer
             </a>
+            <a href="{{route('create.invoice')}}" class="btn btn-primary">
+                <div class="fas fa-plus"></div> Add Invoice
+            </a>
         </header>
       <div class="content">
           {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
@@ -43,7 +46,7 @@
                 console.log(response.Owner);
                 if (response.success == 1) {
                     $("#Owner").val(response.Owner);
-                    $("#business").val(response.business);
+                    $("#business_detail").val(response.business);
                 } else {
                     console.log("not found");
                 }
@@ -72,7 +75,7 @@
         $("#edit_trailer").submit();
       });
       $(document).on('click', '.submit-btn', function () {
-        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val();
+        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val()+'&search=search';
             $.ajax({
                 url: "/trailer-data?"+urlString,
                 method: "GET",

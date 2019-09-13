@@ -1,6 +1,5 @@
 <div class="trailer-contents">
     {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true, 'id' => 'search-trailer')) !!}
-
     <header class="heading">
         <h3 class="title">Search For a Trailer</h3>
     </header>
@@ -63,6 +62,7 @@
         </div>
 
     </div>
+    <input type="hidden" name="search" value="search">
     {!! Form::close() !!}
         <span id="home_data_table">
             @include('trailers.forms.includes.home_data_table')

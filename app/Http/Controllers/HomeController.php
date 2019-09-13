@@ -54,7 +54,7 @@ class HomeController extends Controller
                 );
             }    
         } else {
-            Mapper::map(38.19788, -85.87415, ['marker' => false]);
+            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
         return view('home')
         ->with('allData', $allData)

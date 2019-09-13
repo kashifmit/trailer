@@ -45,15 +45,15 @@
                     <ul class="list-detail">
                         <li>
                             Total Trailers: <small>(All Locations)</small>
-                            <mark>{{ $allData['totalTrailers'] ? $allData['totalTrailers'] : 0 }}</mark>
+                            <mark>{{ $allData['totalTrailers'] ? number_format((float)$allData['totalTrailers'], 1) : 0 }}</mark>
                         </li>
                         <li>
                             Subtotal Trailers Owned: <small>(All Locations)</small>
-                            <mark>{{ $allData['totalTrailers'] ? $allData['totalTrailers'] : 0 }}</mark>
+                            <mark>{{ $allData['totalTrailers'] ? number_format((float)$allData['totalTrailers'], 1) : 0 }}</mark>
                         </li>
                         <li>
                             Subtotal Trailers Leased: <small>(All Locations)</small>
-                            <mark>{{ $allData['leasedTrailer'] ? $allData['leasedTrailer'] : 0 }}</mark>
+                            <mark>{{ $allData['leasedTrailer'] ? number_format((float)$allData['leasedTrailer'], 1) : 0 }}</mark>
                         </li>
                     </ul>
                 </div>
@@ -62,15 +62,14 @@
                     <header class="heading">
                         <h3 class="title">Trailer Financials</h3>
                     </header>
-                    
                     <ul class="list-detail">
                         <li>
                             Total Lease Expense <small>(All Locations)</small>
-                            <mark>{{ $allData['leaseExpense'] ? $allData['leaseExpense'] : 0 }}</mark>
+                            <mark>{{ $allData['leaseExpense'] ? '$ '.number_format((float)$allData['leaseExpense'], 2) : 0 }}</mark>
                         </li>
                         <li>
                             Total Maintenance Expense <small>(All Locations)</small>
-                            <mark>{{ $allData['totalPrice'] ? $allData['totalPrice'] : 0 }}</mark>
+                            <mark>{{ $allData['totalPrice'] ? '$ '.number_format((float)$allData['totalPrice'], 2) : 0 }}</mark>
                         </li>
                     </ul>
 

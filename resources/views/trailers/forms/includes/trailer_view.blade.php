@@ -39,7 +39,9 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('business', 'Business', ['class' => 'bold']) !!}
-						<span>{{(isset($data) && !empty($data)) ? $data->business  : null}}</span>
+						<span>
+							{{(isset($data) && !empty($data)) ? App\Helpers\DataArrayHelper::getBusinessName($data->SiteId) : null}}
+						</span>
 					</div>
 
 				</div>			

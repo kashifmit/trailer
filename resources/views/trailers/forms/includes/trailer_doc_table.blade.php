@@ -35,8 +35,7 @@
 		</div>	
 	</div>
 </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-@if(count($data->TrailerInvoices))
+
 <header class="heading">
 	<h4 class="title">
 		Equipment Invoices
@@ -62,7 +61,7 @@
 							$i = 0;
 						@endphp
 						@foreach($data->filesData as $fileData)
-							@if($fileData->DocType =="invoice")
+							@if($fileData->DocType =="invoice" && isset($data->TrailerInvoices[$i]))
 							<tr>
 								<td>
 									@if(file_exists(public_path('docs/'.$fileData->FileName)))
@@ -90,4 +89,3 @@
 		</div>
 	</div>
 </div>
-@endif

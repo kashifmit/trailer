@@ -34,7 +34,8 @@ class TrailerController extends Controller
             !empty($request->query('VehicleId_VIN')) || 
             !empty($request->query('SiteId')) || 
             !empty($request->query('business')) || 
-            !empty($request->query('TrackingId'))
+            !empty($request->query('TrackingId')) ||
+            !empty($request->query('search'))
             ) {
             $trailerData = $this->trailerHomeData($request);
             if ($trailerData[0]) {
@@ -65,7 +66,7 @@ class TrailerController extends Controller
                 );
             }    
         } else {
-            Mapper::map(5, 5, ['marker' => false]);
+            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
 
         $leaseExpenseChart = DataArrayHelper::getChart(
@@ -114,7 +115,7 @@ class TrailerController extends Controller
                 );
             }    
         } else {
-            Mapper::map(5, 5, ['marker' => false]);
+            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
@@ -204,7 +205,7 @@ class TrailerController extends Controller
                 Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
                 );    
         } else {
-            Mapper::map(38.19788, -85.87415, ['marker' => false]);
+            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
     	return view('trailers.edit')
@@ -244,7 +245,7 @@ class TrailerController extends Controller
                 Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
                 );    
         } else {
-            Mapper::map(5, 5, ['marker' => false]);
+            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         return view('trailers.view')
@@ -457,8 +458,10 @@ class TrailerController extends Controller
             'registration.ExpireDate',
             'equipment.ModelYear',
             'equipment.business',
-            'site.SiteName'
+            'site.SiteName',
+            'site.Division'
         ])
+        ->where('site.SiteId', '!=', '')
         ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
         ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
         ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
@@ -469,19 +472,19 @@ class TrailerController extends Controller
         }
 
         if (!empty($request->query('VehicleId_VIN'))) {
-            $trailerData = $trailerData->where('registration.VehicleId_VIN',$request->query('VehicleId_VIN'));
+            $trailerData = $trailerData->orWhere('registration.VehicleId_VIN',$request->query('VehicleId_VIN'));
         }
 
         if (!empty($request->query('SiteId'))) {
-            $trailerData = $trailerData->where('equipment.SiteId', $request->query('SiteId'));
+            $trailerData = $trailerData->orWhere('equipment.SiteId', $request->query('SiteId'));
         }
 
         if (!empty($request->query('business'))) {
-            $trailerData = $trailerData->where('equipment.business',$request->query('business'));
+            $trailerData = $trailerData->orWhere('site.business',$request->query('business'));
         }
 
         if (!empty($request->query('TrackingId'))) {
-            $trailerData = $trailerData->where('equipment_tracking.TrackingId',$request->query('TrackingId'));
+            $trailerData = $trailerData->orWhere('equipment_tracking.TrackingId',$request->query('TrackingId'));
         }
         $trailerData = $trailerData->paginate(20);
         return $trailerData;

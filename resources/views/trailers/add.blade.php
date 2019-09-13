@@ -32,8 +32,8 @@
           })
           .done(function (response) {
               if (response.success == 1) {
+                $("#business_detail").val(response.business);
                 $("#Owner").val(response.Owner);
-                $("#business").val(response.business);
               } else {
                 console.log("not found");
               }
@@ -62,7 +62,7 @@
         $("#add_trailer").submit();
       });
       $(document).on('click', '.submit-btn', function () {
-        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val();
+        var urlString = 'TrailerSerialNo='+$("#TrailerSerialNo").val()+'&VehicleId_VIN='+$("#VehicleId_VIN").val()+'&TrackingId='+$("#TrackingId").val()+'&business='+$("#business").val()+'&SiteId='+$("#SiteId").val()+'&search=search';
             $.ajax({
                 url: "/trailer-data?"+urlString,
                 method: "GET",

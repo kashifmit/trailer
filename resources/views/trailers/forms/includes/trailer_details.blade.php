@@ -1,5 +1,4 @@
 <div class="trailer-contents">
-	
 	<div class="row">
 		<div class="col-md-4">
 			<div class="trailer-block">
@@ -37,9 +36,8 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('business', 'Business', ['class' => 'bold']) !!}                    
-						{!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? $data->business  : null, array('class'=>'form-control dark form-control-radius', 'id'=>'business')) !!}
+						{!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? App\Helpers\DataArrayHelper::getBusinessName($data->SiteId) : null, array('class'=>'form-control dark form-control-radius', 'id'=>'business_detail', 'disabled' => true )) !!}
 					</div>
-
 				</div>			
 			</div>
 

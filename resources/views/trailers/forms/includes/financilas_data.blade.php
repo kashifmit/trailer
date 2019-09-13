@@ -29,19 +29,19 @@
 				<li>
 					Total Lease Expense <small>(All Locations)</small>
 					<mark>
-						{{$allData['leaseExpense'] ? $allData['leaseExpense'] : 0}}
+						{{$allData['leaseExpense'] ? '$ '.number_format((float)$allData['leaseExpense'], 2) : 0}}
 					</mark>
 				</li>
 				<li>
 					Total Maintenance Expense <small>(All Locations)</small>
 					<mark>
-						{{$allData['totalPrice'] ? $allData['totalPrice'] : 0}}
+						{{$allData['totalPrice'] ? '$'. number_format((float)$allData['totalPrice'], 2) : 0}}
 					</mark>
 				</li>
 				<li>
 					Total Tariler Count Lease & Owned <small>(All Locations)</small>
 					<mark>
-						{{$allData['totalLeased_owned'] ? $allData['totalLeased_owned'] : 0}}
+						{{$allData['totalLeased_owned'] ? '$'. number_format($allData['totalLeased_owned'], 2) : 0}}
 					</mark>
 
 				</li>

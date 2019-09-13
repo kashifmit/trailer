@@ -2,13 +2,23 @@
 
 @section('content')
     <div class="page">
+        <div class="button-bar mb-4 pull-right">
+            <a href="{{route('create.trailer')}}" class="btn btn-primary">
+                Add Trailer
+            </a>
+            @if(isset($data) && !empty($data))
+            <a href="{{route('edit.trailer', $data->TrailerSerialNo)}}" class="btn btn-primary">
+                Edit
+            </a>
+            <a href="{{route('create.invoice')}}" class="btn btn-primary">
+                <div class="fas fa-plus"></div> Add Invoice
+            </a>
+            @endif
+        </div>
         <header class="heading space-between mb-2">
             <h3 class="title">
                 {{ __('Trailers') }}
             </h3>
-            <a href="{{route('create.trailer')}}" class="btn btn-primary">
-                Add Trailer
-            </a>
         </header>
 
         <div class="content">

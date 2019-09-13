@@ -63,15 +63,20 @@ class DataArrayHelper {
 
 	public static function getSites()
 	{
-		return SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, "") ) AS SiteName'), 'SiteId')->pluck('SiteName', 'SiteId')->toArray();
+		return SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, ""), " - ", Division) AS SiteName'), 'SiteId')->pluck('SiteName', 'SiteId')->toArray();
 	}
 
 	public static function getSiteName($SiteId)
 	{
-		$data = SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, "") ) AS SiteName'))->where('SiteId', $SiteId)->first();
+		$data = SiteModel::select(DB::raw('CONCAT(SiteName, " - " ,IF(City IS NOT NULL, City, ""), " - ", Division ) AS SiteName'))->where('SiteId', $SiteId)->first();
 		return $data->SiteName;
 	}
 
+	public static function getBusinessName($SiteId)
+	{
+		$data = SiteModel::select('Division')->where('SiteId', $SiteId)->first();
+		return $data->Division;
+	}
 	public static function getMakes()
 	{
 		return ManufacturerModel::select('MakeName', 'MakeId')->pluck('MakeName', 'MakeId')->toArray();
@@ -168,7 +173,7 @@ class DataArrayHelper {
 
 	public static function getfinancials($TrailerSerialNo='', $request)
 	{
-		$total = EquipmentModel::select(DB::raw('COUNT(equipment.TrailerSerialNo) as Total'), DB::raw('GROUP_CONCAT(equipment.TrailerSerialNo) AS trailerIds'), DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice'))->whereNotNull('maintenance_invoice.TrailerSerialNo')
+		$total = EquipmentModel::select(DB::raw('COUNT(equipment.TrailerSerialNo) as Total'), DB::raw('GROUP_CONCAT(equipment.TrailerSerialNo) AS trailerIds'), DB::raw('SUM(maintenance_invoice.TotalPrice) as TotalPrice'))
 			->leftJoin('maintenance_invoice', 'equipment.TrailerSerialNo', '=', 'maintenance_invoice.TrailerSerialNo');
 
         $leaseExpense = TrailerRentedViaModel::select([DB::raw('SUM(trailer_rented_via.Price) as Price')])
