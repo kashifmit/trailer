@@ -10,17 +10,19 @@
 </style>
     @include('flash::message')
     <div class="page">
-
+      <div class="button-bar mb-4 pull-right">
+        <a href="{{route('create.trailer')}}" class="btn btn-primary">
+            Add Trailer
+        </a>
+        <a href="{{route('create.invoice')}}" class="btn btn-primary">
+            <div class="fas fa-plus"></div> Add Invoice
+        </a>
+      </div>
+      <div class="clearfix"></div>
       <header class="heading space-between mb-2">
             <h3 class="title">
                 {{ __('Edit Trailer') }}
             </h3>
-            <a href="{{route('create.trailer')}}" class="btn btn-primary">
-                Add Trailer
-            </a>
-            <a href="{{route('create.invoice')}}" class="btn btn-primary">
-                <div class="fas fa-plus"></div> Add Invoice
-            </a>
         </header>
       <div class="content">
           {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}

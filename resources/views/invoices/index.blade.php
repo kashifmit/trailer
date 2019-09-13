@@ -15,7 +15,7 @@
             </a>
             @endif
         </div>
-        
+        <div class="clearfix"></div>
         <header class="heading">
             <h3>{{ __('Search For a Trailer Repair History') }}</h3>
         </header>
