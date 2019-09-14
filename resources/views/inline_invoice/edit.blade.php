@@ -34,17 +34,6 @@
             'RegistrationTotal': $('#RegistrationTotal').val(), 
             'SalesTax': $('#SalesTax').val()
         };
-        // window.LaborObj = window.PartsObj = window.AccessoriesObj = window.AnnualInspectionObj = window.RegistrationObj = window.SalesObj = {'UnitPrice': 0, 'LaborHoursQty': 0};
-        window.LaborTotal = window.PartsTotal = window.AccessoriesTotal = window.AnnualInspectionTotal = window.RegistrationTotal = window.SalesTax = [];
-      // var date_input=$('.date-picker');
-      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      // var options={
-      //   format: 'mm/dd/yyyy',
-      //   container: container,
-      //   todayHighlight: true,
-      //   autoclose: true,
-      // };
-      // date_input.datepicker(options);
       
       $(document).on('blur', '.calculate', function (e) {
         var TotalPrice = 0;
@@ -63,6 +52,9 @@
         $("#TotalPrice").val(TotalPrice.toFixed(2));
       });
       $(document).on('click', '.clone-class', function() {
+        var num_item = $('.calculate-item').length;
+        num_item = num_item+1;
+        console.log(num_item);
         var id = $(this).attr('id').split("_");
         var html = '<tr>'+
         '<input type="hidden" name="LineType[]" value="'+id[0]+'" >'+
@@ -70,8 +62,10 @@
         '<td>&nbsp;</td>'+
         '<td>&nbsp;</td>'+
         '<td></td>'+
-        '<td><input class="'+id[0]+' form-control form-control-radius" id="UnitPrice" placeholder="Unit price" name="UnitPrice[]" type="text"></td>'+
-        '<td><input class="'+id[0]+' form-control form-control-radius" id="LaborHoursQty" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
+        '<td>'+
+        '<input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_UnitPrice_'+num_item+'" placeholder="Unit price" name="UnitPrice[]" type="text">'+
+        '</td>'+
+        '<td><input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_LaborHoursQty_'+num_item+'" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
         '<td class="faultreason'+count+'"></td>'+
         '<td class="resolutioncode'+count+'"></td>'+
         '<td class=" partslabor'+count+'"></td>'+
@@ -82,14 +76,20 @@
         $('.PartsLaborId').first().clone().appendTo(".partslabor"+count).last().val('');
         count++;
       });
-      // $(document).on('blur', '.LaborTotal', function () {
-      //   window.LaborObj[$(this).attr('id')] = parseFloat($(this).val());
-      //   if (window.LaborObj.LaborHoursQty != 0 && window.LaborObj.UnitPrice ) {
-      //       window.LaborTotal.push(window.LaborObj);
-      //   }
-      //   console.log(window.LaborTotal);
-      // });
     });
+    $(document).on('blur', '.calculate-item', function () {
+        var getAttrId = $(this).attr('id').split("_");
+        var totalamount = getAttrId[0];
+        var item = getAttrId[2];
+        var UnitPrice = $("#"+totalamount+"_UnitPrice_"+item).val();
+        var LaborHoursQty = $("#"+totalamount+"_LaborHoursQty_"+item).val();
+        if (UnitPrice != "" && LaborHoursQty != "") {
+          var result = parseFloat(UnitPrice) * parseFloat(LaborHoursQty);
+          var total = parseFloat($("#"+totalamount).val()) + parseFloat(result);
+          $("#"+totalamount).val(total);
+          $("#"+totalamount).blur();
+        }
+      });
 </script>    
 @endsection
 
