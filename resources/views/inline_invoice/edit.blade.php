@@ -77,7 +77,7 @@
       });
     });
 
-    $(document).on('blur', '.calculate-item', function () {
+    $(document).on('keyup', '.calculate-item', function () {
         var getAttrId = $(this).attr('id').split("_");
         var totalamount = getAttrId[0];
         var obj = {};
