@@ -5,5 +5,7 @@ $(document).ready(function () {
     });
 
     $('.datepicker').datepicker();
+
+    $('.selectable-box').select2();
     
 });

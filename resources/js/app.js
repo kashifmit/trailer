@@ -34,4 +34,5 @@ require('./bootstrap');
 
 
 require('./bootstrap-datepicker');
+require('./select2');
 require('./custom');
