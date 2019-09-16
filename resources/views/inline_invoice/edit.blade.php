@@ -54,7 +54,6 @@
       $(document).on('click', '.clone-class', function() {
         var num_item = $('.calculate-item').length;
         num_item = num_item+1;
-        console.log(num_item);
         var id = $(this).attr('id').split("_");
         var html = '<tr>'+
         '<input type="hidden" name="LineType[]" value="'+id[0]+'" >'+
@@ -65,7 +64,7 @@
         '<td>'+
         '<input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_UnitPrice_'+num_item+'" placeholder="Unit price" name="UnitPrice[]" type="text">'+
         '</td>'+
-        '<td><input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_LaborHoursQty_'+num_item+'" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
+        '<td><input class="form-control form-control-radius calculate-item" id="'+id[0]+'_LaborHoursQty_'+num_item+'" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
         '<td class="faultreason'+count+'"></td>'+
         '<td class="resolutioncode'+count+'"></td>'+
         '<td class=" partslabor'+count+'"></td>'+
@@ -77,15 +76,31 @@
         count++;
       });
     });
+
     $(document).on('blur', '.calculate-item', function () {
         var getAttrId = $(this).attr('id').split("_");
         var totalamount = getAttrId[0];
-        var item = getAttrId[2];
-        var UnitPrice = $("#"+totalamount+"_UnitPrice_"+item).val();
-        var LaborHoursQty = $("#"+totalamount+"_LaborHoursQty_"+item).val();
-        if (UnitPrice != "" && LaborHoursQty != "") {
-          var result = parseFloat(UnitPrice) * parseFloat(LaborHoursQty);
-          var total = parseFloat($("#"+totalamount).val()) + parseFloat(result);
+        var obj = {};
+        var ArrayItem = [];
+        var result = total = 0;
+        
+        $('.'+totalamount).each(function (index, item) {
+            var id = $(item).attr('id').split("_");
+            var LaborHoursQty = $("#"+totalamount+"_LaborHoursQty_"+id[2]).val();
+          if ($(item).val() != "" && LaborHoursQty != "") {
+            obj['UnitPrice'] = parseFloat($(item).val());
+            obj['LaborHoursQty'] = parseFloat(LaborHoursQty);
+            ArrayItem.push(obj);
+            obj = {};
+          }
+        });
+
+        if (ArrayItem.length) {
+          ArrayItem.forEach(function(item){
+            result = parseFloat(item.UnitPrice) * parseFloat(item.LaborHoursQty);
+            total += result;
+          });
+
           $("#"+totalamount).val(total);
           $("#"+totalamount).blur();
         }
