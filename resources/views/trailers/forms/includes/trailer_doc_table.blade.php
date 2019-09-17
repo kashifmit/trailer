@@ -54,6 +54,7 @@
 						<th>DownLoad Invoice</th>
 						<th>Invoice Number</th>
 						<th>Invoice Date</th>
+						<th>Vendor</th>
 						<th>Total Invoice</th>
 					</tr>
 					<tbody>
@@ -76,7 +77,8 @@
 									</a>	
 								</td>
 								<td>{{date('m/d/Y', strtotime($data->TrailerInvoices[$i]->InvoiceDate))}}</td>
-								<td>{{ $data->TrailerInvoices[$i]->TotalPrice }}</td>
+								<td>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? App\Helpers\DataArrayHelper::getOrganizationName($data->registrationData[0]->Owner) : null}}</td>
+								<td>$ {{ number_format($data->TrailerInvoices[$i]->TotalPrice) }}</td>
 							</tr>
 								@php
 									$i++;
