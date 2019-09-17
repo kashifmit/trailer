@@ -38,14 +38,14 @@
     <div class="form-group row {!! APFrmErrHelp::hasError($errors, 'organization') !!}">
         {!! Form::label('organization', 'Organization', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-4">
-            {!! Form::select('organization', ['' => 'Select Organization']+$organizations, isset($data) ? $data->organization_id : null, array('class'=>'form-control form-control-radius', 'id'=>'organization')) !!}
+            {!! Form::select('organization', ['' => 'Select Organization']+$organizations, isset($data) ? $data->organization_id : null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'organization')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'organization') !!}
         </div>
     </div>
     <div class="form-group row mb-5 {!! APFrmErrHelp::hasError($errors, 'role') !!}">
         {!! Form::label('role', 'Role', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-4">
-            {!! Form::select('role', ['' => 'Select Role']+$roles, isset($data) ? $data->Role_id : null, array('class'=>'form-control form-control-radius', 'id'=>'role')) !!}
+            {!! Form::select('role', ['' => 'Select Role']+$roles, isset($data) ? $data->Role_id : null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'role')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'role') !!}
         </div>
         <!-- <div class="col-md-4">

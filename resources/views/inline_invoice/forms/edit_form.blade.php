@@ -60,13 +60,13 @@
                 {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_0', 'placeholder'=> 'Labor Hour Quantity' )) !!}
               </td>
               <td>
-                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control selectable-box form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
               </td>
               <td>
-                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius selectable-box invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
               </td>
               <td>
-                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control selectable-box form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
               </td>
           </tr>
           @else
@@ -83,13 +83,13 @@
                 {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_'.$key1, 'placeholder'=> 'Labor Hour Quantity' )) !!}
               </td>
               <td>
-                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control selectable-box form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
               </td>
               <td>
-                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, $value1['ResolutionCodeId'], array('class'=>'form-control form-control-radius selectable-box invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
               </td>
               <td>
-                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, $value1['ATACodeId'], array('class'=>'form-control selectable-box form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
               </td>
             </tr>
           @endif
@@ -98,6 +98,7 @@
             @else
               <tr id="{{$value}}_div">
               {!! Form::hidden('LineType[]', $value) !!}
+              {!! Form::hidden('InvoiceLine[]', '') !!}
               <td><strong>{{$key}}</strong></td>
               <td>
                 {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
@@ -112,13 +113,13 @@
                 {!! Form::text('LaborHoursQty[]', null, array('class'=>'form-control form-control-radius calculate-item', 'id'=> $value.'_LaborHoursQty_0', 'placeholder'=> 'Labor Hour Quantity' )) !!}
               </td>
               <td>
-                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
+                {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control form-control-radius selectable-box invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
               </td>
               <td>
-                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control form-control-radius invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
+                {!! Form::select('ResolutionCodeId[]', ['' => 'Select Resolution']+$getResolutionCode, null, array('class'=>'form-control form-control-radius selectable-box invoices ResolutionCodeId', 'id'=>'ResolutionCodeId' )) !!}
               </td>
               <td>
-                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
+                {!! Form::select('ATACodeId[]', ['' => 'Select Ata']+$getAtaCode, null, array('class'=>'form-control selectable-box form-control-radius invoices PartsLaborId', 'id'=>'PartsLaborId' )) !!}
               </td>
           </tr>
             @endif

@@ -14,15 +14,15 @@
                     {!! Form::open(array('method' => 'GET', 'route' => 'customer.list', 'class' => 'form', 'files'=>true)) !!}
                         <input type="hidden" name="pressSubmit" value="pressed">
                         <div class="form-group">
-                            {!! Form::select('business', ['' => '--Business--']+$buniness, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control form-control-radius', 'id'=>'business')) !!}
+                            {!! Form::select('business', ['' => '--Business--']+$buniness, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control selectable-box form-control-radius', 'id'=>'business')) !!}
                         </div>
                         <div class="form-group">Or</div>
                         <div class="form-group">
-                            {!! Form::select('SiteId', ['' => '--Location--']+$sites, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}                        
+                            {!! Form::select('SiteId', ['' => '--Location--']+$sites, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control selectable-box form-control-radius', 'id'=>'SiteId')) !!}                        
                         </div>
 
                         <div class="form-group">
-                            {!! Form::select('CustomerID', ['' => '--Customers--']+$customers, \Request::get('CustomerID') ? \Request::get('CustomerID') : null, array('class'=>'form-control form-control-radius', 'id'=>'CustomerID')) !!}
+                            {!! Form::select('CustomerID', ['' => '--Customers--']+$customers, \Request::get('CustomerID') ? \Request::get('CustomerID') : null, array('class'=>'form-control selectable-box form-control-radius', 'id'=>'CustomerID')) !!}
                         </div>
 
                         {!! Form::button('Display Table', array('class'=>'btn btn-primary', 'type'=>'submit')) !!}

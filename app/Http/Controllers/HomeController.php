@@ -159,20 +159,19 @@ class HomeController extends Controller
 
     public function createUser()
     {
-        if (Auth::user()->id != 1) {
+        if (Auth::user()->id == 1 || Auth::user()->id = 18) {
+            return view('users.add')
+            ->with('organizations', DataArrayHelper::getOrganizations())
+            ->with('roles', DataArrayHelper::getRoles());
+        } else {
             return Redirect::route('home');
         }
-        return view('users.add')
-        ->with('organizations', DataArrayHelper::getOrganizations())
-        ->with('roles', DataArrayHelper::getRoles());
     }
 
     public function storeUser(Request $request)
     {
-        if (Auth::user()->id != 1) {
-            return Redirect::route('home');
-        }
-        $validate = $request->validate([
+        if (Auth::user()->id == 1 || Auth::user()->id = 18) {
+            $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',
             'password' => 'required',
@@ -181,28 +180,30 @@ class HomeController extends Controller
             'organization' => 'required',
             'role' => 'required',
         ]);
-        try {
-            $user = new User();
-            $user->name = $request->input('name');
-            $user->last_name = $request->input('last_name');
-            $user->password = Hash::make($request->input('password'));
-            $user->email = $request->input('email');
-            $user->organization_id = $request->input('organization');
-            $user->Role_id = $request->input('role');
-            $user->save();
-            flash('User has been created successfully!')->success();
-            return Redirect::route('create.user');
-        } catch(QueryException $e) {
-            return back()->withError($e->getMessage());
+            try {
+                $user = new User();
+                $user->name = $request->input('name');
+                $user->last_name = $request->input('last_name');
+                $user->password = Hash::make($request->input('password'));
+                $user->email = $request->input('email');
+                $user->organization_id = $request->input('organization');
+                $user->Role_id = $request->input('role');
+                $user->save();
+                flash('User has been created successfully!')->success();
+                return Redirect::route('create.user');
+            } catch(QueryException $e) {
+                return back()->withError($e->getMessage());
+            }
+        } else {
+            return Redirect::route('home');            
         }
+        
     }
 
     public function usersList(Request $request)
     {
-        if (Auth::user()->id != 1) {
-            return Redirect::route('home');
-        }
-        $data = User::with(['organizations', 'roles']);
+        if (Auth::user()->id == 1 || Auth::user()->id = 18) {
+            $data = User::with(['organizations', 'roles']);
 
         if (!empty($request->query('name'))) {
               $data = $data->where('name','like', "%{$request->query('name')}%");
@@ -224,26 +225,29 @@ class HomeController extends Controller
         ->with('Alldata', $data)
         ->with('organizations', DataArrayHelper::getOrganizations())
         ->with('roles', DataArrayHelper::getRoles());
+        } else {
+            return Redirect::route('home');
+        }
     }
 
     public function editUser($id)
     {
-        if (Auth::user()->id != 1) {
-            return Redirect::route('home');
+        if (Auth::user()->id == 1 || Auth::user()->id = 18) {
+            $userData = User::findOrFail($id);
+            return view('users.edit')
+            ->with('data', $userData)
+            ->with('organizations', DataArrayHelper::getOrganizations())
+            ->with('roles', DataArrayHelper::getRoles());
+        } else {
+          return Redirect::route('home');            
         }
-        $userData = User::findOrFail($id);
-        return view('users.edit')
-        ->with('data', $userData)
-        ->with('organizations', DataArrayHelper::getOrganizations())
-        ->with('roles', DataArrayHelper::getRoles());
+        
     }
 
     public function updateUser($id, Request $request)
     {
-        if (Auth::user()->id != 1) {
-            return Redirect::route('home');
-        }
-        $validate = $request->validate([
+        if (Auth::user()->id == 1 || Auth::user()->id = 18) {
+            $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',
             'password' => 'required',
@@ -251,18 +255,22 @@ class HomeController extends Controller
             'organization' => 'required',
             'role' => 'required',
         ]);
-        try {
-            $user = User::findOrFail($id);
-            $user->name = $request->input('name');
-            $user->last_name = $request->input('last_name');
-            $user->password = Hash::make($request->input('password'));
-            $user->organization_id = $request->input('organization');
-            $user->Role_id = $request->input('role');
-            $user->save();
-            flash('User has been updated successfully!')->success();
-            return Redirect::route('edit.user', $id);
-        } catch(QueryException $e) {
-            return back()->withError($e->getMessage());
+            try {
+                $user = User::findOrFail($id);
+                $user->name = $request->input('name');
+                $user->last_name = $request->input('last_name');
+                $user->password = Hash::make($request->input('password'));
+                $user->organization_id = $request->input('organization');
+                $user->Role_id = $request->input('role');
+                $user->save();
+                flash('User has been updated successfully!')->success();
+                return Redirect::route('edit.user', $id);
+            } catch(QueryException $e) {
+                return back()->withError($e->getMessage());
+            }
+        } else {
+            return Redirect::route('home');            
         }
+        
     }
 }

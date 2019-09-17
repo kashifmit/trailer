@@ -470,6 +470,7 @@ class InvoiceController extends Controller
 
     public function updateInvoiceLine($InvoiceNo, Request $request)
     {   
+        // dd($request->all());
         $this->updateMaintenanceInvoice($InvoiceNo, $request);
         foreach ($request->input('InvoiceLine') as $key => $value) {
             if (!empty($value)) {

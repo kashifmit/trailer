@@ -22,10 +22,10 @@
                     <input type="text" class="form-control form-control-radius" name="email" id="email" autocomplete="off" placeholder="email" value="{{\Request::get('email')}}">
                 </div>
                 <div class="form-group">
-                    {!! Form::select('organization', ['' => 'Select Organization']+$organizations, \Request::get('organization') ? \Request::get('organization') : null, array('class'=>'form-control form-control-radius', 'id'=>'organization')) !!}
+                    {!! Form::select('organization', ['' => 'Select Organization']+$organizations, \Request::get('organization') ? \Request::get('organization') : null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'organization')) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::select('role', ['' => 'Select Role']+$roles, \Request::get('role') ? \Request::get('role') : null, array('class'=>'form-control form-control-radius', 'id'=>'role')) !!}
+                    {!! Form::select('role', ['' => 'Select Role']+$roles, \Request::get('role') ? \Request::get('role') : null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'role')) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::button('Search User', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}

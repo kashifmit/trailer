@@ -11,7 +11,7 @@
             <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Trailer Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap">
-                    {!! Form::select('TrailerNo', ['' => '--Select Trailer No--']+$getTrailers, null, array('class'=>'form-control form-control-radius', 'id'=>'TrailerNo')) !!}
+                    {!! Form::select('TrailerNo', ['' => '--Select Trailer No--']+$getTrailers, null, array('class'=>'form-control selectable-box form-control-radius', 'id'=>'TrailerNo')) !!}
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="col-md-3">
                 <div class="form-control-wrap">
                     
-                    {!! Form::select('TrailerUnitNo', ['' => '--Tracking Unit Id--']+$getTrackingUnits, null, array('class'=>'form-control form-control-radius', 'id'=>'TrailerUnitNo')) !!}
+                    {!! Form::select('TrailerUnitNo', ['' => '--Tracking Unit Id--']+$getTrackingUnits, null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'TrailerUnitNo')) !!}
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group row mb-5">
         	<label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Location Name') }}</label>
             <div class="col-md-3">
-            	 {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, null, array('class'=>'form-control form-control-radius', 'id'=>'SiteId')) !!}
+            	 {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'SiteId')) !!}
             </div>
         </div>
     </div>
