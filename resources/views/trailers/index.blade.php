@@ -16,11 +16,11 @@
             @endif
         </div>
         <div class="clearfix"></div>
-        <header class="heading space-between mb-2">
+        <!-- <header class="heading space-between mb-2">
             <h3 class="title">
                 {{ __('Trailers') }}
             </h3>
-        </header>
+        </header> -->
 
         <div class="content">
             <ul class="nav nav-tabs">

@@ -480,7 +480,7 @@ class TrailerController extends Controller
         }
 
         if (!empty($request->query('business'))) {
-            $trailerData = $trailerData->orWhere('site.business',$request->query('business'));
+            $trailerData = $trailerData->orWhere('site.Division',$request->query('business'));
         }
 
         if (!empty($request->query('TrackingId'))) {

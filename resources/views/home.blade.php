@@ -18,10 +18,10 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="form-group">
-                                {!! Form::select('business_financial', ['' => 'Select Business']+$business, \Request::get('business_financial') ? \Request::get('business_financial') : null, array('class'=>'form-control form-control-radius selectable-box form-submit', 'id'=>'business_financial')) !!}
+                                {!! Form::select('business_financial', ['' => 'ALL Business']+$business, \Request::get('business_financial') ? \Request::get('business_financial') : null, array('class'=>'form-control form-control-radius selectable-box form-submit', 'id'=>'business_financial')) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::select('SiteId_financial', ['' => 'Select Location']+$locations, \Request::get('SiteId_financial') ? \Request::get('SiteId_financial') : null, array('class'=>'form-control form-control-radius selectable-box form-submit', 'id'=>'SiteId_financial')) !!}
+                                {!! Form::select('SiteId_financial', ['' => 'ALL Location']+$locations, \Request::get('SiteId_financial') ? \Request::get('SiteId_financial') : null, array('class'=>'form-control form-control-radius selectable-box form-submit', 'id'=>'SiteId_financial')) !!}
                             </div>
                         </div>
                     </div>
