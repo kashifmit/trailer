@@ -3,7 +3,7 @@
 @section('content')
     <div class="page">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10 col-lg-8">
 
                 <header class="heading">
                     <h2 class="title">{{ __('Welcome!') }}</h2>

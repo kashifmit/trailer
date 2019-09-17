@@ -72,12 +72,14 @@
         <main role="main">
             <div class="site-sidebar">
                 @include('includes.navigation')
+
             </div>        
             <div class="site-contents">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
             </div>
+            <div class="nav-overlay"></div>
         </main>
         
     </div>
