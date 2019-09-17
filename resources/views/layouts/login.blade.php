@@ -74,6 +74,7 @@
                     @yield('content')
                 </div>
             </div>
+            <div class="nav-overlay"></div>
         </main>
     </div>
 

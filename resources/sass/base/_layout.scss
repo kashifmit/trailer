@@ -13,19 +13,31 @@ main[role="main"] {
     position: fixed;
     top: 0;
     left: 0;
+    transform: translateX(-100%);
 
     @extend .scrollbar;
-
+    
     .menu-collapsed & {
-        width: 60px;
+        transform: translateX(0);
+    }
+    
+    @media (min-width: $md) {
+        transform: translateX(0);
+        width: 200px;
 
-        .menu a {
-            span {
-                display: none;
+        .menu-collapsed & {
+            width: 60px;
+    
+            .menu a {
+                span {
+                    display: none;
+                }
             }
         }
     }
-    
+
+    @media (min-width: $md) {
+    }
 }
 
 .sidebar-nav {
@@ -33,9 +45,56 @@ main[role="main"] {
     padding-bottom: 45px;
 }
 .site-contents {
-    margin-left: 250px;
-
+    
     .menu-collapsed & {
-        margin-left: 60px;
+        transform: translateX(250px);
+    }
+    
+    @media (min-width: $md) {
+        margin-left: 200px;
+    
+        .menu-collapsed & {
+            margin-left: 60px;
+            transform: translateX(0);
+        }
+    }
+
+    @media (min-width: $xl) {
+        margin-left: 250px;
+    
+    }
+
+}
+
+.nav-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    @media (min-width: $md) {
+        display: none;
+    }
+}
+
+.menu-collapsed {
+
+    .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(250px);
+    }
+    #app {
+        overflow-x: hidden;
+    }
+
+    @media (min-width: $md) {
+        #app {
+            overflow-x: auto;
+        }
     }
 }

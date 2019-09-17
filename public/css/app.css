@@ -17980,14 +17980,26 @@ main[role=main] {
   position: fixed;
   top: 0;
   left: 0;
+  transform: translateX(-100%);
 }
 
 .menu-collapsed .site-sidebar {
-  width: 60px;
+  transform: translateX(0);
 }
 
-.menu-collapsed .site-sidebar .menu a span {
-  display: none;
+@media (min-width: 768px) {
+  .site-sidebar {
+    transform: translateX(0);
+    width: 200px;
+  }
+
+  .menu-collapsed .site-sidebar {
+    width: 60px;
+  }
+
+  .menu-collapsed .site-sidebar .menu a span {
+    display: none;
+  }
 }
 
 .sidebar-nav {
@@ -17995,12 +18007,58 @@ main[role=main] {
   padding-bottom: 45px;
 }
 
-.site-contents {
-  margin-left: 250px;
+.menu-collapsed .site-contents {
+  transform: translateX(250px);
 }
 
-.menu-collapsed .site-contents {
-  margin-left: 60px;
+@media (min-width: 768px) {
+  .site-contents {
+    margin-left: 200px;
+  }
+
+  .menu-collapsed .site-contents {
+    margin-left: 60px;
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1200px) {
+  .site-contents {
+    margin-left: 250px;
+  }
+}
+
+.nav-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media (min-width: 768px) {
+  .nav-overlay {
+    display: none;
+  }
+}
+
+.menu-collapsed .nav-overlay {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(250px);
+}
+
+.menu-collapsed #app {
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .menu-collapsed #app {
+    overflow-x: auto;
+  }
 }
 
 .site-header {
