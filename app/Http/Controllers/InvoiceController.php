@@ -264,7 +264,8 @@ class InvoiceController extends Controller
             $fileName = ImgUploader::UploadDoc('docs', $request->file('FileName'), 'trailersdocs');
             TrailerFilesModel::where('Id', $request->input('Id'))->update([
                 'FileName' => $fileName,
-                'mimetype' => $request->file('FileName')->getClientOriginalExtension()
+                'mimetype' => $request->file('FileName')->getClientOriginalExtension(),
+                'InvoiceNo' => $invoiceLine
             ]);
         } else {
             if (!empty($request->file('FileName'))) {
@@ -276,6 +277,7 @@ class InvoiceController extends Controller
                 $uploadFiles->FileName = $fileName;
                 $uploadFiles->mimetype = $request->file('FileName')->getClientOriginalExtension();
                 $uploadFiles->DocType = 'invoice';
+                $uploadFiles->InvoiceNo = 'invoiceLine';
                 $uploadFiles->save();
             }
         }
