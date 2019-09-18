@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
           {!! Form::label('VendorName', 'Vendor Name', ['class' => 'bold']) !!}
-          {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius selectable-box lg vendor-name', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
+          {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius lg vendor-name', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
         </div>
         <div class="form-group">
           {!! Form::label('InvoiceNo', 'Invoice Number', ['class' => 'bold']) !!} 
@@ -34,9 +34,11 @@
         <div class="form-group">
           {!! Form::label('MaintenanceOrderNo', 'Maintenance / PO Number', ['class' => 'bold']) !!}
           {!! Form::text('MaintenanceOrderNo',isset($data) ? $data->MaintenanceOrderNo : null, array('class'=>'form-control form-control-radius', 'id'=>'MaintenanceOrderNo', 'placeholder'=>'Maintenance / PO Number', 'disabled' => isset($data) )) !!}
+
         </div>
         <div class="form-group">
-          <div class="fileinput fileinput-new" data-provides="fileinput">
+          {!! Form::file('FileName', null, array('id'=>'invoice_document')) !!}
+          <!-- <div class="fileinput fileinput-new" data-provides="fileinput">
             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
               <img src="{{ asset('/') }}no-image.png" alt="" />
             </div>
@@ -51,11 +53,13 @@
               </span> 
               <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
             </div>
-          </div>
+          </div> -->
         </div>
-        @if(isset($data) && !empty($data->Id))
+          @if(isset($data) && !empty($data->FileName)
+            && file_exists(public_path('docs/'.$data->FileName))
+          )
           <div class="mt-4">
-            <a href="{{route('download.file',$data->Id)}}">DownLoad {{$data->FileName}}</a>
+            <a class="text-primary" href="{{route('download.file',$data->Id)}}">Download Invoice</a>
             {!! Form::hidden('Id', $data->Id) !!}
           </div>
         @endif

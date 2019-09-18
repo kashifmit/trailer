@@ -10,77 +10,26 @@
 	<div class="row">
 		<div class="form-group col-md-3">
 			{!! Form::hidden('DocType[]', 'inspection_document') !!}
-			<div class="fileinput fileinput-new" data-provides="fileinput">
-				<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-					<img src="{{ asset('/') }}no-image.png" alt="" />
-				</div>
-				<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-				<div>
-					<span class="btn default btn-file image-button">
-						<span class="fileinput-new">
-							Inspection Document 
-						</span> 
-					<span class="fileinput-exists"> Change </span>
-					{!! Form::file('FileName[]', null, array('id'=>'inspection_document')) !!}
-					</span> 
-					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-				</div>
-			</div>
+			{!! Form::file('FileName[]', null, array('id'=>'inspection_document')) !!}
+			
 		</div>
 		<div class="form-group col-md-3">
 			{!! Form::hidden('DocType[]', 'fhwa') !!}
-			<div class="fileinput fileinput-new" data-provides="fileinput">
-				<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-					<img src="{{ asset('/') }}no-image.png" alt="" />
-				</div>
-				<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-				<div>
-					<span class="btn default btn-file image-button">
-						<span class="fileinput-new">FHWA</span>
-						<span class="fileinput-exists"> Change </span>
-						{!! Form::file('FileName[]', null, array('id'=>'fhwa')) !!}
-					</span>
-					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
-				</div>
-			</div>
+			{!! Form::file('FileName[]', null, array('id'=>'fhwa')) !!}
+			
 		</div>
 		<div class="form-group col-md-3">
 			{!! Form::hidden('DocType[]', 'registration') !!}
-			<div class="fileinput fileinput-new" data-provides="fileinput">
-				<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-					<img src="{{ asset('/') }}no-image.png" alt="" />
-				</div>
-				<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-				<div>
-					<span class="btn default btn-file image-button">
-						<span class="fileinput-new">Registration </span>
-						<span class="fileinput-exists"> Change </span>
-						{!! Form::file('FileName[]', null, array('id'=>'registration')) !!}
-					</span>
-					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
-				</div>
-			</div>
+			{!! Form::file('FileName[]', null, array('id'=>'registration')) !!}
+			
 		</div>
 		<div class="form-group col-md-3">
 			{!! Form::hidden('DocType[]', 'tracking_installation_sheet') !!}
-			<div class="fileinput fileinput-new" data-provides="fileinput">
-				<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-					<img src="{{ asset('/') }}no-image.png" alt="" />
-				</div>
-				<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-				<div>
-					<span class="btn default btn-file image-button">
-						<span class="fileinput-new">Tracking Installation Sheet</span>
-						<span class="fileinput-exists"> Change </span>
-						{!! Form::file('FileName[]', null,array('id'=>'tracking_installation_sheet')) !!}
-					</span>
-					<a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Remove </a>
-				</div>
-			</div>
+			{!! Form::file('FileName[]', null,array('id'=>'tracking_installation_sheet')) !!}
 		</div>
 	</div>
 	@if(isset($data) && count($data->filesData) > 0)
-		@include('trailers.forms.includes.trailer_doc_table')
+		@include('trailers.forms.includes.trailer_doc_table_view')
 	@endif
 
 </div>

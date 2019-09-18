@@ -10,7 +10,7 @@
 </style>
     @include('flash::message')
     <div class="page">
-        <div class="button-bar mb-4 pull-right">
+        <!-- <div class="button-bar mb-4 pull-right">
           <a href="{{route('create.trailer')}}" class="btn btn-primary">
                 Add Trailer
             </a>
@@ -26,7 +26,7 @@
             <h3 class="title">
                 {{ __('Trailers') }}
             </h3>
-        </header>
+        </header> -->
 
         <div class="content">
             <ul class="nav nav-tabs">
@@ -61,7 +61,9 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <strong style="font-size: 20px;">Trailer Record - {{$data->TrailerSerialNo}}</strong>
+                <!-- <strong style="font-size: 20px;"> -->
+                  Trailer Record - {{$data->TrailerSerialNo}}
+                  <!-- </strong> -->
               </div>
             </div>
             <div class="tab-content">
@@ -85,7 +87,7 @@
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
-      $(document).on('change', '#SiteId', function() {
+      $(document.body).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
             {
                 SiteId: $(this).val(), 
@@ -102,7 +104,7 @@
                 }
             });
       });
-      $(document).on('change', '.form-submit', function () {
+      $(document.body).on('change', '.form-submit', function () {
         var business = $("#business_financial").val();
         var SiteId = $("#SiteId_financial").val();
         var TrailerSerialNo = $("#TrailerSerialNo_financial").val();

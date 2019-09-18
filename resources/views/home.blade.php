@@ -45,7 +45,7 @@
                     <ul class="list-detail">
                         <li>
                             Total Trailers: <small>(All Locations)</small>
-                            <mark>{{ $allData['totalTrailers'] ? number_format((float)$allData['totalTrailers'], 1) : 0 }}</mark>
+                            <mark>{{ $allData['totalTrailers'] ? number_format((float)$allData['totalTrailers']+ (float)$allData['leasedTrailer'], 1) : 0 }}</mark>
                         </li>
                         <li>
                             Subtotal Trailers Owned: <small>(All Locations)</small>
@@ -82,7 +82,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $(document).on('change', '.form-submit', function () {
+        $(document.body).on('change', '.form-submit', function () {
             $("#dashboard-form").submit();
         });
     });

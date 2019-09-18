@@ -152,7 +152,7 @@ class InvoiceController extends Controller
         ->join('maintenance', 'maintenance_invoice.MaintenanceOrderNo', '=', 'maintenance.MaintenanceOrderNo')
         ->leftJoin('files', function($join) use($InvoiceNo) {
             $join->on('maintenance_invoice.TrailerSerialNo', '=', 'files.TrailerSerialNo');
-            $join->where('files.DocType', $InvoiceNo);
+            // $join->where('files.DocType', $InvoiceNo);
         })
         ->where('maintenance_invoice.InvoiceNo', $InvoiceNo)
         // ->where('maintenance_invoice_detail.InvoiceLine', $InvoiceLine)

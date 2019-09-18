@@ -32,11 +32,11 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('Owner', 'Owners', ['class' => 'bold']) !!}                    
-						{!! Form::select('Owner', ['' => 'Select Owner']+$owners, (isset($data) && isset($data->registrationData)) ? $data->registrationData[0]->Owner : null, array('class'=>'form-control dark form-control-radius selectable-box', 'id'=>'Owner')) !!}
+						{!! Form::select('Owner', ['' => 'Select Owner']+$owners, (isset($data) && isset($data->registrationData)) ? $data->registrationData[0]->Owner : null, array('class'=>'form-control dark form-control-radius', 'id'=>'Owner')) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label('business', 'Business', ['class' => 'bold']) !!}                    
-						{!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? App\Helpers\DataArrayHelper::getBusinessName($data->SiteId) : null, array('class'=>'form-control dark form-control-radius selectable-box', 'id'=>'business_detail', 'disabled' => true )) !!}
+						{!! Form::select('business', ['' => 'Select Business']+$business, (isset($data) && isset($data)) ? App\Helpers\DataArrayHelper::getBusinessName($data->SiteId) : null, array('class'=>'form-control dark form-control-radius', 'id'=>'business_detail', 'disabled' => true )) !!}
 					</div>
 				</div>			
 			</div>

@@ -57,11 +57,6 @@
                                     <span class="text-danger" id="organization_span" 
                                         style="display: none"></span>
                                 </div>
-                            </div>
-
-                            <div class="form-group row mb-5">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">&nbsp;</div>
                                 <div class="col-md-4">
                                     {!! Form::button('Update Personal Information', array('class'=>'btn btn-primary save-personal-info', 'type'=>'button')) !!}
                                 </div>

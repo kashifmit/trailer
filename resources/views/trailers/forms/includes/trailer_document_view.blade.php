@@ -23,7 +23,7 @@
 	</div>
 
 	@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
-		@include('trailers.forms.includes.trailer_doc_table')
+		@include('trailers.forms.includes.trailer_doc_table_view')
 	@endif
 
 </div>

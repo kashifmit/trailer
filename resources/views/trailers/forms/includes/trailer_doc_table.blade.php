@@ -1,38 +1,32 @@
 
+@if(count($data))
+	<div class="row">Trailer Record - {{$data[0]->TrailerSerialNo}}</div>
+<div class="row">Equipment Documents</div>
 <div class="row">
 	<div class="col-lg-8">
-		<div class="table-responsive mb-4">
-			<table class="table table-striped text-sm table-hover">
-				<thead>
-					<tr>
-						<th>DownLoad</th>
-						<th>Document Name</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($data->filesData as $fileData)
-						@if($fileData->DocType !="invoice")
-						<tr>
-							<td>
-								@if(file_exists(public_path('docs/'.$fileData->FileName)))
-									<a class="text-primary" href="{{route('download.file',$fileData->Id)}}">DownLoad {{str_replace("_", " ",$fileData->DocType)}}</a>
-								@else
-									No File
-								@endif
-							</td>
-							<td>
-								{{str_replace("_", " ",$fileData->DocType)}}
-							</td>
-							<td>
-								{{ file_exists(public_path('docs/'.$fileData->FileName)) ? 'Exists' : 'File Not Available' }}
-							</td>
-						</tr>
-						@endif
-					@endforeach
-				</tbody>
-			</table>
-		</div>	
+		<div class="row">
+			<div class="col-md-6">Trailer Number</div>
+			<div class="col-md-6">{{count($data) ? $data[0]->TrailerSerialNo : ''}}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">VIN #</div>
+			<div class="col-md-6">{{count($data) ? $data[0]->VehicleId_VIN : ''}}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Licence #</div>
+			<div class="col-md-6">{{count($data) ? $data[0]->PlateNo : ''}}</div>
+		</div>
+		@if(count($data))
+		@foreach($data as $singleData)
+		@if($singleData->DocType != 'invoice')
+		<div class="row">
+			<div class="col-md-4">{{ucwords(str_replace("_", " ",$singleData->DocType))}}</div>
+			<div class="col-md-4"><a href="">View</a></div>
+			<div class="col-md-4"><a href="" class="btn btn-primary">Download</a></div>
+		</div>
+		@endif
+		@endforeach
+		@endif
 	</div>
 </div>
 
@@ -54,40 +48,40 @@
 						<th>DownLoad Invoice</th>
 						<th>Invoice Number</th>
 						<th>Invoice Date</th>
-						<th>Vendor</th>
+						<th>Trailer</th>
 						<th>Total Invoice</th>
 					</tr>
 					<tbody>
-						@php
-							$i = 0;
-						@endphp
-						@foreach($data->filesData as $fileData)
-							@if($fileData->DocType =="invoice" && isset($data->TrailerInvoices[$i]))
+						@if(count($invoiceData) && isset($invoiceData[0]->invoiceFiles))
+							@foreach($invoiceData as $key =>$data)
+							@if($data->invoiceFiles)
+							@php
+								
+								$disabled = file_exists(public_path('docs/'.$data->invoiceFiles[$key]->FileName)) ? '' : 'disabled="disabled"'
+							@endphp
 							<tr>
+								<td><input type="checkbox" {{$disabled}} name="Id[]" value="{{$data->invoiceFiles[$key]->Id}}"></td>
 								<td>
-									@if(file_exists(public_path('docs/'.$fileData->FileName)))
-										<a class="text-primary" href="{{route('download.file',$fileData->Id)}}">DownLoad</a>
-									@else
-										No File
-									@endif
-								</td>
-								<td>
-									<a href="{{route('edit.invoice', ['InvoiceNo' => $data->TrailerInvoices[$i]->InvoiceNo])}}">
-										{{$data->TrailerInvoices[$i]->InvoiceNo}}
-									</a>	
-								</td>
-								<td>{{date('m/d/Y', strtotime($data->TrailerInvoices[$i]->InvoiceDate))}}</td>
-								<td>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? App\Helpers\DataArrayHelper::getOrganizationName($data->registrationData[0]->Owner) : null}}</td>
-								<td>$ {{ number_format($data->TrailerInvoices[$i]->TotalPrice) }}</td>
+									<a href="{{route('edit.invoice', ['InvoiceNo' => $data->InvoiceNo])}}">
+										{{$data->InvoiceNo}}
+									</a></td>
+								<td>{{date('m/d/Y', strtotime($data->InvoiceDate))}}</td>
+								<td>{{$data->TrailerSerialNo}}</td>
+								<td>${{$data->TotalPrice}}</td>
 							</tr>
-								@php
-									$i++;
-								@endphp
 							@endif
-						@endforeach
+							@endforeach
+						@else
+							<tr><td colspan="100%">No invoices found</td></tr>	
+						@endif
 					</tbody>
 				</thead>
 			</table>
 		</div>
 	</div>
 </div>
+@else
+	<div class="row">
+		Equipment Documents Not Found
+	</div>
+@endif

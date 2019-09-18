@@ -28,7 +28,7 @@
 	        		@if(count($mapData))
 	        		@foreach($mapData as $data)
 	        		<tr>
-	        			<td><input type="radio" name="trailerId" value="{{$data->id}}"></td>
+	        			<td><input type="checkbox" name="trailerId[]" value="{{$data->id}}"></td>
 	        			<td>{{$data->id}}</td>
 	        			<td>{{$data->TrailerNo}}</td>
 	        			<td>{{$data->TrailerUnitNo}}</td>

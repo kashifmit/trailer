@@ -11,7 +11,7 @@
  <div class="row">&nbsp;</div>
   <div class="row">
     <div class="col-md-12">
-      <strong style="font-size: 20px;">Trailer Record - {{$data->TrailerSerialNo}}</strong>
+      Trailer Record - {{$data->TrailerSerialNo}}
     </div>
   </div>
  @endif 
@@ -31,5 +31,8 @@
   	<div id="trailer_financials" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_financials')
   	</div>
+  </div>
+  <div class="form-actions">
+      {!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
   </div>
 

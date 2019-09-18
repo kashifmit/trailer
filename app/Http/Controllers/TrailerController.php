@@ -13,8 +13,8 @@ use App\EquipmentModel;
 use App\TrailerFilesModel;
 use App\RegistrationModel;
 use App\EquipmentTrackingModel;
-use App\MaintenanceInvoiceModel;
 use App\SiteModel;
+use App\MaintenanceInvoiceModel;
 use Carbon\Carbon;
 use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class TrailerController extends Controller
             if ($trailerData[0]) {
                 $getTrailerDetails = $this->getTrailerById($trailerData['0']->TrailerSerialNo, $request);
             }
-            $requestData = true;
+            // $requestData = true;
         }
         $trailerSerNo = '';
         if ((!empty($trailerData) && $trailerData[0])) {
@@ -185,7 +185,7 @@ class TrailerController extends Controller
             $this->updateRegistration($equipment->TrailerSerialNo, $request);
     		$this->uploadDocuments($equipment->TrailerSerialNo, $registration->VehicleId_VIN, $request);
 	    	flash('Trailer has been added!')->success();
-		    return Redirect::route('create.trailer');
+		    return Redirect::route('view.trailer', ['TrailerSerialNo' => $request->input('TrailerSerialNo')]);
     	} catch (ModelNotFoundException $e) {
     		return back()->withError($e->getMessage());
     	}
@@ -284,7 +284,7 @@ class TrailerController extends Controller
             $this->updateRegistration($TrailerSerialNo, $request);
             $this->uploadDocuments($TrailerSerialNo, $request->input('VehicleId_VIN'), $request);
             flash('Trailer has been updated successfully!')->success();
-            return Redirect::route('edit.trailer', ['TrailerSerialNo' => $TrailerSerialNo]);
+            return Redirect::route('view.trailer', ['TrailerSerialNo' => $TrailerSerialNo]);
         } catch (QueryException $e) {
             return back()->withError($e->getMessage());
         }
@@ -533,5 +533,34 @@ class TrailerController extends Controller
         $trailerData = $this->trailerHomeData($request);
         return response()->View('trailers.forms.includes.home_data_table',
         compact('trailerData'));
+    }
+
+    public function searchTrailerDocs(Request $request)
+    {
+        $data = TrailerFilesModel::select([
+            'files.Id', 'files.FileName', 'files.InvoiceNo', 'files.TrailerSerialNo', 'files.VehicleId_VIN', 'files.DocType', 'registration.Owner', 'equipment_tracking.TrackingId', 'registration.PlateNo'
+        ])
+        ->join('registration', 'files.VehicleId_VIN', '=', 'registration.VehicleId_VIN')
+        ->join('equipment_tracking', 'files.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo');
+        if (!empty($request->input('TrailerSerialNo'))) {
+            $data = $data->where('files.TrailerSerialNo', $request->input('TrailerSerialNo'));
+        }
+
+        if (!empty($request->input('VehicleId_VIN'))) {
+            $data = $data->where('files.VehicleId_VIN', $request->input('VehicleId_VIN'));
+        }
+
+        if (!empty($request->input('TrackingId'))) {
+            $data = $data->where('equipment_tracking.TrackingId', $request->input('TrackingId'));
+        }
+        $data = $data->get();
+        if (count($data)) {
+            $invoiceData = MaintenanceInvoiceModel::with('invoiceFiles')->where('TrailerSerialNo', $data[0]->TrailerSerialNo)->get();
+        } else {
+            $data = $invoiceData = [];
+        }
+        return response()->View('trailers.forms.includes.trailer_doc_table',
+        compact('data', 'invoiceData'));
+
     }
 }

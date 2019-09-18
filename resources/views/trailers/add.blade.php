@@ -5,17 +5,15 @@
     @include('flash::message')
     <div class="page">
 
-      <header class="heading">
+      <!-- <header class="heading">
         <h3 class="title">
           {{ __('Add New Trailer') }}
         </h3>
-      </header>
+      </header> -->
       <div class="content">
           {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
               @include('trailers.forms.form')
-        <div class="form-actions">
-            {!! Form::button('Save', array('class'=>'btn btn-min-md btn-primary submit-class', 'type'=>'submit')) !!}
-        </div>
+        
           {!! Form::close() !!}        
       </div>
 
@@ -23,7 +21,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-      $(document).on('change', '#SiteId', function() {
+      $(document.body).on('change', '#SiteId', function() {
         $.post("{{ route('trailer.owners') }}", 
           {
               SiteId: $(this).val(), 
@@ -39,7 +37,7 @@
               }
           });
       });
-      $(document).on('change', '.form-submit', function () {
+      $(document.body).on('change', '.form-submit', function () {
         var business = $("#business_financial").val();
         var SiteId = $("#SiteId_financial").val();
         var TrailerSerialNo = $("#TrailerSerialNo_financial").val();
