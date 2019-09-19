@@ -184,7 +184,7 @@ class TrailerController extends Controller
 	    	$registration->TrailerSerialNo = $equipment->TrailerSerialNo;
 	    	$registration->save();
             $this->updateRegistration($equipment->TrailerSerialNo, $request);
-    		$this->uploadDocuments($equipment->TrailerSerialNo, $registration->VehicleId_VIN, $request);
+    		// $this->uploadDocuments($equipment->TrailerSerialNo, $registration->VehicleId_VIN, $request);
 	    	flash('Trailer has been added!')->success();
 		    return Redirect::route('view.trailer', ['TrailerSerialNo' => $request->input('TrailerSerialNo')]);
     	} catch (ModelNotFoundException $e) {
@@ -283,7 +283,7 @@ class TrailerController extends Controller
             $this->upDateEquipment($TrailerSerialNo, $request);
             $this->updateTracking($TrailerSerialNo, $request);
             $this->updateRegistration($TrailerSerialNo, $request);
-            $this->uploadDocuments($TrailerSerialNo, $request->input('VehicleId_VIN'), $request);
+            // $this->uploadDocuments($TrailerSerialNo, $request->input('VehicleId_VIN'), $request);
             flash('Trailer has been updated successfully!')->success();
             return Redirect::route('view.trailer', ['TrailerSerialNo' => $TrailerSerialNo]);
         } catch (QueryException $e) {
