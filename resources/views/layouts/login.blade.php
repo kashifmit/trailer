@@ -65,6 +65,14 @@
                                     </a>
                                 </li>
                             @endif
+                            @if (Route::has('password.request') && Route::currentRouteName() == 'password.request' )
+                                <li class="{{Route::currentRouteName() == 'password.request' ? 'active' : ''}}">
+                                    <a href="{{ route('password.request') }}">
+                                        <i class="fas fa-lock-open"></i>
+                                        <span>{{ __('Support') }}</span>
+                                    </a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </nav>

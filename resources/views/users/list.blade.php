@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-xl-3">
             <header class="heading">
-                <div class="h3 title">
+                <h3 class="title">
                     {{ __('Users') }}
-                </div>
+                </h3>
             </header>
 
             <div class="form-block mb-5">

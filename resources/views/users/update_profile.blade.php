@@ -7,7 +7,7 @@
             <div class="col-md-10">
                 <div class="alert alert-success" id="alert-success" style="display: none;"></div>
                 <header class="heading">
-                    <div class="h3 title mb-2">{{ __('Account Information') }}</div>
+                    <h3 class="title mb-4">{{ __('Account Information') }}</h3>
                     <h5 class="title">{{ __('Account Email / Username and Password') }}</h5>
                 </header>
 
