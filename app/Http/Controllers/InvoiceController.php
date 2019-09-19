@@ -277,7 +277,7 @@ class InvoiceController extends Controller
                 $uploadFiles->FileName = $fileName;
                 $uploadFiles->mimetype = $request->file('FileName')->getClientOriginalExtension();
                 $uploadFiles->DocType = 'invoice';
-                $uploadFiles->InvoiceNo = 'invoiceLine';
+                $uploadFiles->InvoiceNo = $invoiceLine;
                 $uploadFiles->save();
             }
         }

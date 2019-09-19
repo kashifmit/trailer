@@ -9,6 +9,7 @@ use DB;
 use Input;
 use Mapper;
 use Redirect;
+use Zipper;
 use App\EquipmentModel;
 use App\TrailerFilesModel;
 use App\RegistrationModel;
@@ -337,7 +338,7 @@ class TrailerController extends Controller
                 if (!empty($request->file('FileName')[$index])) {
                     $uploadFiles = TrailerFilesModel::where('Id', $request->input('Id')[$index])->first();
                     $this->removeDocs($uploadFiles->FileName);
-                    $fileName = ImgUploader::UploadDoc('docs', $request->file('FileName')[$index], 'trailersdocs');
+                    $fileName = ImgUploader::UploadDoc($request->input('DocType')[$index], $request->file('FileName')[$index], 'trailersdocs');
                     TrailerFilesModel::where('Id', $request->input('Id')[$index])->update([
                         'FileName' => $fileName,
                         'mimetype' => $request->file('FileName')[$index]->getClientOriginalExtension()
@@ -346,7 +347,7 @@ class TrailerController extends Controller
             } else {
                 if (!empty($request->file('FileName')[$index])) {
                     $uploadFiles = new TrailerFilesModel();
-                    $fileName = ImgUploader::UploadDoc('docs', $request->file('FileName')[$index], 'trailersdocs');
+                    $fileName = ImgUploader::UploadDoc($request->input('DocType')[$index], $request->file('FileName')[$index], 'trailersdocs');
                     $uploadFiles->VehicleId_VIN = $VehicleId_VIN;
                     $uploadFiles->TrailerSerialNo = $TrailerSerialNo;
                     $uploadFiles->FileName = $fileName;
@@ -535,7 +536,7 @@ class TrailerController extends Controller
         compact('trailerData'));
     }
 
-    public function searchTrailerDocs(Request $request)
+    private function getDocs($request)
     {
         $data = TrailerFilesModel::select([
             'files.Id', 'files.FileName', 'files.InvoiceNo', 'files.TrailerSerialNo', 'files.VehicleId_VIN', 'files.DocType', 'registration.Owner', 'equipment_tracking.TrackingId', 'registration.PlateNo'
@@ -559,8 +560,54 @@ class TrailerController extends Controller
         } else {
             $data = $invoiceData = [];
         }
+        return [
+            "data" => $data,
+            "invoiceData" => $invoiceData
+        ];
+    }
+
+    public function searchTrailerDocs(Request $request)
+    {
+        $result = $this->getDocs($request);
+        $data = $result['data'];
+        $invoiceData = $result['invoiceData'];
         return response()->View('trailers.forms.includes.trailer_doc_table',
         compact('data', 'invoiceData'));
 
+    }
+    public function downAllDocs(Request $request)
+    {
+        $result = $this->getDocs($request);
+        $data = $result['data'];
+        $invoiceData = $result['invoiceData'];
+        return response()->View('trailers.forms.includes.download_all_docs',
+        compact('data', 'invoiceData'));
+    }
+
+    public function searchDocsForm()
+    {
+        return response()->View('trailers.forms.includes.search_documents');
+    }
+    public function downLoadZip(Request $request)
+    {
+        try {
+            if (file_exists(public_path('trailerDocs.zip'))){
+            File::delete('trailerDocs.zip');
+            }
+            $filesData = TrailerFilesModel::where('TrailerSerialNo', $request->input('TrailerSerialNo'));
+            if (!empty($request->input('Ids'))) {
+                $filesData = $filesData->whereIn('Id', $request->input('Ids'));
+            }
+            $filesData = $filesData->get();
+            foreach($filesData as $data) {
+                    $files = public_path('docs/'. $data->FileName);
+                    Zipper::make(public_path('trailerDocs.zip'))->add($files);
+                } 
+                Zipper::close();
+            return response()->download(public_path('trailerDocs.zip'));
+        } catch(\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
+        
     }
 }

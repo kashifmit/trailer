@@ -166,6 +166,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         RezaAr\Highcharts\Provider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -240,6 +241,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Chart' => RezaAr\Highcharts\Facade::class,
         'Curl'  => Ixudra\Curl\Facades\Curl::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
 
 ];

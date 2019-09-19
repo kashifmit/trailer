@@ -23,7 +23,7 @@
   		@include('trailers.forms.includes.trailer_details')
   	</div>
   	<div id="trailer_documents" class="tab-pane fade">
-  		@include('trailers.forms.includes.trailer_documents')
+  		@include('trailers.forms.includes.search_documents')
   	</div>
   	<div id="trailer_locations" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_locations')
@@ -32,7 +32,5 @@
   		@include('trailers.forms.includes.trailer_financials')
   	</div>
   </div>
-  <div class="form-actions">
-      {!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
-  </div>
+  
 

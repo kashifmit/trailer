@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/edit-trailor/{TrailerSerialNo}', 'TrailerController@editTrailer')->name('edit.trailer');
 	Route::put('update-trailer/{TrailerSerialNo}', 'TrailerController@updateTrailer')->name('update.trailer');
 	Route::get('download-file/{id}', 'TrailerController@dowLoadFile')->name('download.file');
+	Route::get('download-zip', 'TrailerController@downLoadZip')->name('download.zip');
 	Route::post('/trailer-owners', 'TrailerController@trailerOwners')->name('trailer.owners');
 	Route::get('/trailer-financials', 'TrailerController@trailerfinancilas')->name('trailer.financilas');
 	Route::get('/view-trailor/{TrailerSerialNo}', 'TrailerController@viewTrailer')->name('view.trailer');
@@ -118,6 +119,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/search-trailer-location', 'TrailerController@searchTrailerLocation')->name('search.trailer.location');
 	Route::get('/trailer-location-table', 'TrailerController@trailerLocationTable')->name('trailer.location.table');
 	Route::get('/search-trailer-docs', 'TrailerController@searchTrailerDocs')->name('search.trailer.docs');
+	Route::get('/download-all-docs', 'TrailerController@downAllDocs')->name('download.all.docs');
+	Route::get('/search-docs-form', 'TrailerController@searchDocsForm')->name('search.docs.form');
 	/**
 	*	Inovices Routes
 	**/

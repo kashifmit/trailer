@@ -1,16 +1,12 @@
 
 @if(count($data))
+
 <div class="row">
 	<div class="col-md-8">&nbsp;</div>
 	<div class="col-md-2">
 		<button class="btn btn-primary upload-documents" type="button">Upload Document</button>
 	</div>
-	<div class="col-md-2">
-	{!! Form::open(array('method' => 'get', 'route' => 'download.all.docs', 'class' => 'form', 'id' => 'all_docs_form')) !!}
-	<input type="button" value="Download All documents" class="download-all-documents btn btn-min-md btn-primary">
-	<input type="hidden" name="TrailerSerialNo" value="{{$data[0]->TrailerSerialNo}}">
-	{!! Form::close() !!}
-	</div>
+	<div class="col-md-2"><input type="button" value="Search Docs" class="search-docs-form btn btn-min-md btn-primary"></div>
 </div>
 <div class="row">Equipment Documents</div>
 <div class="row">
@@ -29,29 +25,43 @@
 		</div>
 	</div>
 </div>
-@if(count($data))
-@foreach($data as $singleData)
-	@if($singleData->DocType != 'invoice')
 <div class="row">
-	<div class="col-md-4">{{str_replace("_", " ",$singleData->DocType)}}</div>
-	<div class="col-md-4">
-		@if ($singleData->mimetype)
-		<a href="{{public_path('docs/'.$singleData->FileName)}}" target="_blank">View</a>
-		@else
-			{{$singleData->FileName}}
-		@endif
-	</div>
-	<div class="col-md-4">
-		@if ( file_exists(public_path('docs/'.$singleData->FileName)) )
-		<a class="btn btn-primary" href="{{route('download.file',$singleData->Id)}}">Download</a>
-		@else
-			Document Unavailable
-		@endif
-	</div>
+	<div class="col-lg-8">
+	<div class="table-responsive mb-4">
+		<table class="table table-striped text-sm table-hover">
+			<thead>
+				<tr>
+					<th>DownLoad</th>
+					<th>Document Name</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if(count($data))
+				@foreach($data as $singleData)
+					@if($singleData->DocType != 'invoice')
+					@php	
+						$disabled = file_exists(public_path('docs/'.$singleData->FileName)) ? '' : 'disabled="disabled"'
+					@endphp
+					<tr>
+						<td>
+							<input type="checkbox" value="{{$singleData->Id}}" {{$disabled}} name="Ids[]">
+						</td>
+						<td>
+							{{str_replace("_", " ",$singleData->DocType)}}
+						</td>
+						<td>
+							{{ file_exists(public_path('docs/'.$singleData->FileName)) ? 'Exists' : 'File Not Available' }}
+						</td>
+					</tr>
+					@endif
+					@endforeach
+					@endif
+			</tbody>
+		</table>
+	</div>	
 </div>
-@endif
-@endforeach
-@endif
+</div>
 
 <header class="heading">
 	<h4 class="title">
@@ -64,6 +74,7 @@
 
 <div class="row">
 	<div class="col-lg-8">
+		{!! Form::open(array('method' => 'get', 'route' => 'download.zip', 'class' => 'form')) !!}
 		<div class="table-responsive">
 			<table class="table table-striped text-sm table-hover">
 				<thead>
@@ -101,6 +112,11 @@
 				</thead>
 			</table>
 		</div>
+			@if(count($invoiceData) && isset($invoiceData[0]->invoiceFiles))
+			<input type="hidden" name="TrailerSerialNo" value="{{$invoiceData[0]->invoiceFiles[0]->TrailerSerialNo}}">
+			{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
+			@endif
+		{!! Form::close() !!}
 	</div>
 </div>
 @else

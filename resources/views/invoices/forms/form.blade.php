@@ -38,22 +38,6 @@
         </div>
         <div class="form-group">
           {!! Form::file('FileName', null, array('id'=>'invoice_document')) !!}
-          <!-- <div class="fileinput fileinput-new" data-provides="fileinput">
-            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-              <img src="{{ asset('/') }}no-image.png" alt="" />
-            </div>
-            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-            <div>
-              <span class="btn btn-primary btn-file image-button">
-                <span class="fileinput-new">
-                  Load Invoice Document
-                </span> 
-              <span class="fileinput-exists"> Change </span>
-              {!! Form::file('FileName', null, array('id'=>'invoice_document')) !!}
-              </span> 
-              <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-            </div>
-          </div> -->
         </div>
           @if(isset($data) && !empty($data->FileName)
             && file_exists(public_path('docs/'.$data->FileName))

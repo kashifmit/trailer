@@ -6,6 +6,7 @@
 /vendor
 .env.backup
 .env
+/public/trailerDocs.zip
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

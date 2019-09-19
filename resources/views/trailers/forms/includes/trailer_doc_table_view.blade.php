@@ -1,4 +1,4 @@
-
+{!! Form::open(array('method' => 'get', 'route' => 'download.zip', 'class' => 'form')) !!}
 <div class="row">
 	<div class="col-lg-8">
 		<div class="table-responsive mb-4">
@@ -18,7 +18,7 @@
 						@endphp
 						<tr>
 							<td>
-								<input type="checkbox" {{$disabled}} name="Id[]">
+								<input type="checkbox" value="{{$fileData->Id}}" {{$disabled}} name="Ids[]">
 							</td>
 							<td>
 								{{str_replace("_", " ",$fileData->DocType)}}
@@ -67,7 +67,7 @@
 							@endphp
 							<tr>
 								<td>
-									<input type="checkbox" {{$disabled}} name="Id[]">
+									<input type="checkbox" value="{{$fileData->Id}}" {{$disabled}} name="Ids[]">
 								</td>
 								<td>
 									<a href="{{route('edit.invoice', ['InvoiceNo' => $data->TrailerInvoices[$i]->InvoiceNo])}}">
@@ -89,3 +89,8 @@
 		</div>
 	</div>
 </div>
+@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
+	<input type="hidden" name="TrailerSerialNo" value="{{$data->filesData[0]->TrailerSerialNo}}">
+	{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
+@endif
+{!! Form::close() !!}

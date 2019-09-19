@@ -82,18 +82,28 @@
                 allBlank = true;
             }
             if (allBlank) {
-                $.ajax({
-                    url:"/search-trailer-docs?"+$("#search_trailer_docs").serialize(),
-                    method:"get",
-                }).done(function (response) {
-                    $("#search_docs_data").html(response);
-                });
+                searchResult("/search-trailer-docs?",$("#search_trailer_docs").serialize());
             } else {
                 alert('Please add any value');
             }
-            
+        });
+
+        $(document).on('click', '.download-all-documents', function () {
+            searchResult("/download-all-docs?",$("#all_docs_form").serialize());
+        });
+
+        $(document).on('click', '.search-docs-form', function () {
+            searchResult("/search-docs-form","");
         });
     });
+    function searchResult(route, formData) {
+        $.ajax({
+            url: route+formData,
+            method:"get",
+        }).done(function (response) {
+            $("#trailer_documents").html(response);
+        });
+    }
 </script>    
 @endsection
 

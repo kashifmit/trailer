@@ -78,6 +78,11 @@
     });
 
     $(document).on('keyup', '.calculate-item', function () {
+        if (!$.isNumeric($(this).val())) {
+          $(this).val('');
+          $(this).focus();
+          return false;
+        }
         var getAttrId = $(this).attr('id').split("_");
         var totalamount = getAttrId[0];
         var obj = {};

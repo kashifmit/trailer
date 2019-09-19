@@ -13,7 +13,9 @@
       <div class="content">
           {!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
               @include('trailers.forms.form')
-        
+              <div class="form-actions">
+                  {!! Form::button('Submit', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
+              </div>
           {!! Form::close() !!}        
       </div>
 
@@ -50,7 +52,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details") {
+          if ( $(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details" || $(this).attr('href') === "#trailer_documents") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();
@@ -68,6 +70,25 @@
                 $("#home_data_table").html(response);
             });
       });
+      $(document).on('click', '.find-docs', function (argument) {
+            var allBlank = false;
+            if ($("#TrailerSerialNo_docs").val() != "" ||
+                $("#VehicleId_VIN_docs").val() != "" ||
+                $("#TrackingId_docs").val() != ""
+                ) {
+                allBlank = true;
+            }
+            if (allBlank) {
+                $.ajax({
+                    url:"/search-trailer-docs?"+$("#search_trailer_docs").serialize(),
+                    method:"get",
+                }).done(function (response) {
+                    $("#search_docs_data").html(response.html);
+                });
+            } else {
+                alert('Please add any value');
+            }
+        });
     });
 </script>
   

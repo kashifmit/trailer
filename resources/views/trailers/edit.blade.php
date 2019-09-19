@@ -10,25 +10,13 @@
 </style>
     @include('flash::message')
     <div class="page">
-      <!-- <div class="button-bar mb-4 pull-right">
-        <a href="{{route('create.trailer')}}" class="btn btn-primary">
-            Add Trailer
-        </a>
-        <a href="{{route('create.invoice')}}" class="btn btn-primary">
-            <div class="fas fa-plus"></div> Add Invoice
-        </a>
-      </div>
-      <div class="clearfix"></div>
-      <header class="heading space-between mb-2">
-            <h3 class="title">
-                {{ __('Edit Trailer') }}
-            </h3>
-        </header> -->
       <div class="content">
           {!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
             {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
               @include('trailers.forms.form')
-                
+              <div class="form-actions">
+                  {!! Form::button('Submit', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
+              </div>  
           {!! Form::close() !!}        
       </div>
 
@@ -65,7 +53,7 @@
             });
       });
       $(document).on('click', '.checkClass', function () {
-          if ($(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details") {
+          if ($(this).attr('href') === "#trailer_financials" || $(this).attr('href') === "#trailer_locations" || $(this).attr('href') === "#home_details" || $(this).attr('href') === "#trailer_documents") {
             $(".form-actions").hide();
           } else {
             $(".form-actions").show();
@@ -83,6 +71,25 @@
                 $("#home_data_table").html(response);
             });
       });
+      $(document).on('click', '.find-docs', function (argument) {
+            var allBlank = false;
+            if ($("#TrailerSerialNo_docs").val() != "" ||
+                $("#VehicleId_VIN_docs").val() != "" ||
+                $("#TrackingId_docs").val() != ""
+                ) {
+                allBlank = true;
+            }
+            if (allBlank) {
+                $.ajax({
+                    url:"/search-trailer-docs?"+$("#search_trailer_docs").serialize(),
+                    method:"get",
+                }).done(function (response) {
+                    $("#search_docs_data").html(response);
+                });
+            } else {
+                alert('Please add any value');
+            }
+        });
     });
 </script>    
 @endsection
