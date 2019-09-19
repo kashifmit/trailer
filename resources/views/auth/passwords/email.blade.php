@@ -7,7 +7,7 @@
 
                 <header class="header">
                     <h3 class="title">
-                        {{ __('Reset Password') }}
+                        {{ __('Account Support') }}
                     </h3>
                 </header>
         

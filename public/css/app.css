@@ -17763,9 +17763,12 @@ body::-webkit-scrollbar-thumb {
   background-color: #224356;
 }
 
+h1,
+h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   font-weight: 300;
 }
 
@@ -17966,7 +17969,7 @@ h5 {
 }
 
 main[role=main] {
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: 2.5rem;
 }
 
@@ -18024,14 +18027,14 @@ main[role=main] {
 
 @media (min-width: 1200px) {
   .site-contents {
-    margin-left: 250px;
+    margin-left: 200px;
   }
 }
 
 .nav-overlay {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #224356;
   opacity: 0;
   visibility: hidden;
   position: fixed;
@@ -18046,7 +18049,7 @@ main[role=main] {
 }
 
 .menu-collapsed .nav-overlay {
-  opacity: 1;
+  opacity: 0.8;
   visibility: visible;
   transform: translateX(250px);
 }

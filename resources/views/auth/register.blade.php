@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
                 <header class="heading">
-                    <h3 class="title mb-2">{{ __('Register') }}</h3>
+                    <h3 class="title mb-2">{{ __('Welcome') }}</h3>
                     <h5 class="title">{{ __('Account Email / Username and Password') }}</h5>
                 </header>
                 @include('flash::message')
@@ -26,6 +26,8 @@
                                         </span>
                                     </p>
                                 @enderror
+
+                                <p class="mt-4 mb-1">Your email address is your username</p>
                             </div>
                         </div>
         
