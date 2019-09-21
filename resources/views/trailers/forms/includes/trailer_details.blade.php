@@ -1,4 +1,11 @@
+
 <div class="trailer-contents">
+	@if(Route::currentRouteName() == 'create.trailer')
+	{!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
+	@else
+		{!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
+            {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
+	@endif
 	<div class="row">
 		<div class="col-md-4">
 			<div class="trailer-block">
@@ -113,6 +120,13 @@
 		</div>
 
 	</div>
-
+	<div class="form-actions">
+	@if(Route::currentRouteName() == 'create.trailer')
+      {!! Form::button('Submit', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
+    @else
+    	{!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
+	@endif
+    </div>
+	{!! Form::close() !!}
 </div>
 

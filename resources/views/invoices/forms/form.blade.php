@@ -14,11 +14,11 @@
       
         <div class="form-group">
           {!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
-          {!! Form::select('TrailerSerialNo', ['' => 'Select Trailer Number']+$trailers, isset($data) ? $data->TrailerSerialNo : null, array('class'=>'form-control form-control-radius selectable-box lg vendor-name', 'id'=>'TrailerSerialNo', 'disabled' => isset($data) )) !!}
+          {!! Form::select('TrailerSerialNo', ['' => 'Select Trailer Number']+$trailers, isset($data) ? $data->TrailerSerialNo : $invoiceId, array('class'=>'form-control form-control-radius selectable-box lg vendor-name', 'id'=>'TrailerSerialNo', 'disabled' => isset($data) )) !!}
         </div>
         <div class="form-group">
           {!! Form::label('VendorName', 'Vendor Name', ['class' => 'bold']) !!}
-          {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius lg vendor-name', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
+          {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius lg', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
         </div>
         <div class="form-group">
           {!! Form::label('InvoiceNo', 'Invoice Number', ['class' => 'bold']) !!} 

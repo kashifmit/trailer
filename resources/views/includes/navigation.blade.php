@@ -49,5 +49,18 @@
         <span>Trailer Financials</span>
       </a>
     </li>
+    <li class="{{Route::currentRouteName() == 'edit.profile' ? 'active' : ''}}">
+        <a class="nav-link" href="{{ route('edit.profile') }}">
+           <i class="glyphicon glyphicon-user"></i>
+            <span>{{ __('Account') }}</span>
+        </a>    
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+            <i class="glyphicon glyphicon-log-out"></i>                 
+            <span>{{ __('Logout') }}</span>
+        </a>    
+    </li>
   </ul>    
 </nav>

@@ -2,25 +2,12 @@
 
 @section('content')
     <div class="page">
-        <div class="button-bar mb-4 pull-right">
-            <a href="{{route('create.invoice')}}" class="btn btn-xs btn-dark">
-                <div class="fas fa-plus"></div> Add Invoice
-            </a>
-            @if(!empty($data))
-            <a href="{{route('export.headCSV')}}" class="btn btn-xs btn-primary">
-                Download Header CSV
-            </a>
-            <a href="{{route('export.lineCSV')}}" class="btn btn-xs btn-primary">
-                Download Line Item CSV
-            </a>
-            @endif
-        </div>
-        <div class="clearfix"></div>
+        
         <header class="heading">
             <h3>{{ __('Search For a Trailer Repair History') }}</h3>
         </header>
-        {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
         <div class="mb-5">
+            {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
                 <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Enter Trailer Number') }}</label>
                 <div class="col-md-3">
@@ -32,7 +19,9 @@
                     {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
+            {!! Form::close() !!}
             <div class="mt-4 mb-4">Or</div>
+            {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
                 <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Enter VIN Number') }}</label>
                 <div class="col-md-3">
@@ -44,7 +33,9 @@
                 {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
+            {!! Form::close() !!}
             <div class="mt-4 mb-4">Or</div>
+            {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
                 <label for="TrackingId" class="col-md-3 col-form-label text-md-right">{{ __('Enter TrailerTracking Number') }}</label>
                 <div class="col-md-3">
@@ -56,9 +47,8 @@
                 {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
+            {!! Form::close() !!}
         </div>
-        {!! Form::close() !!}
-        @if(!empty($data))
         <div class="content">
             <div class="table-container">
                 <div class="table-responsive">
@@ -79,6 +69,7 @@
                             </thead>
                         </tr>
                         <tbody>
+                            @if(count($data))
                                 @foreach($data as $single)
                                     <tr>
                                         <td><a class="text-primary" href="{{route('edit.invoice', ['InvoiceNo' => $single->InvoiceNo])}}">{{$single->InvoiceNo}}</a></td>
@@ -93,7 +84,12 @@
                                         <td>{{$single->SalesTax}}</td>
                                         <td>{{$single->TotalPrice}}</td>
                                     </tr>
-                                @endforeach    
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="100%">No Invoice found</td>
+                                </tr>
+                            @endif     
                         </tbody>
                     </table>
                 </div>
@@ -103,7 +99,6 @@
                 @endif
             </div>
         </div>
-        @endif
     </div>
 
 @endsection

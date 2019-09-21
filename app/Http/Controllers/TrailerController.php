@@ -31,12 +31,12 @@ class TrailerController extends Controller
     {
         $trailerData = '';
         $requestData = false;
-        if (!empty($request->query('TrailerSerialNo')) || 
-            !empty($request->query('VehicleId_VIN')) || 
-            !empty($request->query('SiteId')) || 
-            !empty($request->query('business')) || 
-            !empty($request->query('TrackingId')) ||
-            !empty($request->query('search'))
+        if (null !== $request->query('TrailerSerialNo') || 
+            null !== $request->query('VehicleId_VIN') || 
+            null !== $request->query('SiteId') || 
+            null !== $request->query('business') || 
+            null !== $request->query('TrackingId') ||
+            null !== $request->query('search')
             ) {
             $trailerData = $this->trailerHomeData($request);
             if ($trailerData[0]) {
@@ -333,29 +333,34 @@ class TrailerController extends Controller
     }
 
     private function uploadDocuments($TrailerSerialNo, $VehicleId_VIN, $request) {
-        foreach ($request->input('DocType') as $index => $value) {
-            if (isset($request->input('Id')[$index])) {
-                if (!empty($request->file('FileName')[$index])) {
-                    $uploadFiles = TrailerFilesModel::where('Id', $request->input('Id')[$index])->first();
-                    $this->removeDocs($uploadFiles->FileName);
-                    $fileName = ImgUploader::UploadDoc($request->input('DocType')[$index], $request->file('FileName')[$index], 'trailersdocs');
-                    TrailerFilesModel::where('Id', $request->input('Id')[$index])->update([
-                        'FileName' => $fileName,
-                        'mimetype' => $request->file('FileName')[$index]->getClientOriginalExtension()
-                    ]);
-                }
-            } else {
-                if (!empty($request->file('FileName')[$index])) {
-                    $uploadFiles = new TrailerFilesModel();
-                    $fileName = ImgUploader::UploadDoc($request->input('DocType')[$index], $request->file('FileName')[$index], 'trailersdocs');
-                    $uploadFiles->VehicleId_VIN = $VehicleId_VIN;
-                    $uploadFiles->TrailerSerialNo = $TrailerSerialNo;
-                    $uploadFiles->FileName = $fileName;
-                    $uploadFiles->mimetype = $request->file('FileName')[$index]->getClientOriginalExtension();
-                    $uploadFiles->DocType = $request->input('DocType')[$index];
-                    $uploadFiles->save();
+        try {
+            foreach ($request->input('DocType') as $index => $value) {
+                if (isset($request->input('Id')[$index])) {
+                    if (!empty($request->file('FileName')[$index])) {
+                        $uploadFiles = TrailerFilesModel::where('Id', $request->input('Id')[$index])->first();
+                        $this->removeDocs($uploadFiles->FileName);
+                        $fileName = ImgUploader::UploadDoc('docs', $request->file('FileName')[$index], $request->input('DocType')[$index]);
+                        TrailerFilesModel::where('Id', $request->input('Id')[$index])->update([
+                            'FileName' => $fileName,
+                            'mimetype' => $request->file('FileName')[$index]->getClientOriginalExtension()
+                        ]);
+                    }
+                } else {
+                    if (!empty($request->file('FileName')[$index])) {
+                        $uploadFiles = new TrailerFilesModel();
+                        $fileName = ImgUploader::UploadDoc('docs', $request->file('FileName')[$index], $request->input('DocType')[$index]);
+                        $uploadFiles->VehicleId_VIN = $VehicleId_VIN;
+                        $uploadFiles->TrailerSerialNo = $TrailerSerialNo;
+                        $uploadFiles->FileName = $fileName;
+                        $uploadFiles->mimetype = $request->file('FileName')[$index]->getClientOriginalExtension();
+                        $uploadFiles->DocType = $request->input('DocType')[$index];
+                        $uploadFiles->save();
+                    }
                 }
             }
+            return response()->json(['success' => 1, 'message' => "Documents uploaded successfully"]);
+        } catch (\Exception $e) {
+            return response()->json([ 'success' => 0 ,'message'=> 'Something went wrong', 'technical_message' => $e->getMessage()]);
         }
     }
 
@@ -468,24 +473,24 @@ class TrailerController extends Controller
         ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
         ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId');
         
-        if (!empty($request->query('TrailerSerialNo'))) {
+        if (null !== $request->query('TrailerSerialNo')) {
             $trailerData = $trailerData->where('equipment.TrailerSerialNo', $request->query('TrailerSerialNo'));
         }
 
-        if (!empty($request->query('VehicleId_VIN'))) {
-            $trailerData = $trailerData->orWhere('registration.VehicleId_VIN',$request->query('VehicleId_VIN'));
+        if (null !== $request->query('VehicleId_VIN')) {
+            $trailerData = $trailerData->where('registration.VehicleId_VIN',$request->query('VehicleId_VIN'));
         }
 
-        if (!empty($request->query('SiteId'))) {
-            $trailerData = $trailerData->orWhere('equipment.SiteId', $request->query('SiteId'));
+        if (null !== $request->query('SiteId')) {
+            $trailerData = $trailerData->where('equipment.SiteId', $request->query('SiteId'));
         }
 
-        if (!empty($request->query('business'))) {
-            $trailerData = $trailerData->orWhere('site.Division',$request->query('business'));
+        if (null !== $request->query('business')) {
+            $trailerData = $trailerData->where('site.Division',$request->query('business'));
         }
 
-        if (!empty($request->query('TrackingId'))) {
-            $trailerData = $trailerData->orWhere('equipment_tracking.TrackingId',$request->query('TrackingId'));
+        if (null !== $request->query('TrackingId')) {
+            $trailerData = $trailerData->where('equipment_tracking.TrackingId',$request->query('TrackingId'));
         }
         $trailerData = $trailerData->paginate(20);
         return $trailerData;
@@ -538,31 +543,39 @@ class TrailerController extends Controller
 
     private function getDocs($request)
     {
-        $data = TrailerFilesModel::select([
-            'files.Id', 'files.FileName', 'files.InvoiceNo', 'files.TrailerSerialNo', 'files.VehicleId_VIN', 'files.DocType', 'registration.Owner', 'equipment_tracking.TrackingId', 'registration.PlateNo'
-        ])
-        ->join('registration', 'files.VehicleId_VIN', '=', 'registration.VehicleId_VIN')
-        ->join('equipment_tracking', 'files.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo');
+        $TrailerSerialNo = $request->input('TrailerSerialNo');
+        $VehicleId_VIN = $request->input('VehicleId_VIN');
+        if (!empty($request->input('TrackingId'))) {
+            $trackData = EquipmentTrackingModel::select('TrailerSerialNo')->where('TrackingId', $request->input('TrackingId'))->first();
+            if ($trackData) {
+                $TrailerSerialNo = $trackData->TrailerSerialNo;
+            }
+        }
         if (!empty($request->input('TrailerSerialNo'))) {
-            $data = $data->where('files.TrailerSerialNo', $request->input('TrailerSerialNo'));
+            $VehicleId_VIN = "";
         }
 
         if (!empty($request->input('VehicleId_VIN'))) {
-            $data = $data->where('files.VehicleId_VIN', $request->input('VehicleId_VIN'));
+            $TrailerSerialNo = "";
         }
-
-        if (!empty($request->input('TrackingId'))) {
-            $data = $data->where('equipment_tracking.TrackingId', $request->input('TrackingId'));
+        $regData = RegistrationModel::select('TrailerSerialNo', 'PlateNo', 'VehicleId_VIN', 'Owner');
+        if (!empty($TrailerSerialNo)) {
+            $regData = $regData->where('TrailerSerialNo', $TrailerSerialNo);
         }
-        $data = $data->get();
-        if (count($data)) {
-            $invoiceData = MaintenanceInvoiceModel::with('invoiceFiles')->where('TrailerSerialNo', $data[0]->TrailerSerialNo)->get();
-        } else {
-            $data = $invoiceData = [];
+        if (!empty($request->input('VehicleId_VIN'))) {
+            $regData = $regData->where('VehicleId_VIN', $VehicleId_VIN);
+        }
+        $regData = $regData->first();
+        $data = [];
+        $invoiceData = [];
+        if ($regData) {
+            $data = TrailerFilesModel::where('TrailerSerialNo', $regData->TrailerSerialNo)->where('DocType', '!=','invoice')->get();
+            $invoiceData = MaintenanceInvoiceModel::with('invoiceFiles')->where('TrailerSerialNo', $regData->TrailerSerialNo)->get();
         }
         return [
             "data" => $data,
-            "invoiceData" => $invoiceData
+            "invoiceData" => $invoiceData,
+            "regData" => $regData
         ];
     }
 
@@ -571,8 +584,9 @@ class TrailerController extends Controller
         $result = $this->getDocs($request);
         $data = $result['data'];
         $invoiceData = $result['invoiceData'];
+        $regData = $result['regData'];
         return response()->View('trailers.forms.includes.trailer_doc_table',
-        compact('data', 'invoiceData'));
+        compact('data', 'invoiceData', 'regData'));
 
     }
     public function downAllDocs(Request $request)
@@ -580,13 +594,28 @@ class TrailerController extends Controller
         $result = $this->getDocs($request);
         $data = $result['data'];
         $invoiceData = $result['invoiceData'];
+        $regData = $result['regData'];
         return response()->View('trailers.forms.includes.download_all_docs',
-        compact('data', 'invoiceData'));
+        compact('data', 'invoiceData', 'regData'));
     }
 
     public function searchDocsForm()
     {
         return response()->View('trailers.forms.includes.search_documents');
+    }
+    public function uploadAllDocs(Request $request)
+    {
+        $result = $this->getDocs($request);
+        $data = $result['data'];
+        $regData = $result['regData'];
+        $docTypes = DataArrayHelper::docsTypes();
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($data as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
+
+        return response()->View('trailers.forms.includes.upload_all_docs',
+        compact('docData', 'docTypes', 'regData'));
     }
     public function downLoadZip(Request $request)
     {
@@ -609,5 +638,11 @@ class TrailerController extends Controller
             return back()->withError($e->getMessage());
         }
         
+    }
+
+    public function uploadNewDocuments(Request $request)
+    {
+        $result = $this->uploadDocuments($request->input('TrailerSerialNo'), $request->input('VehicleId_VIN'), $request);
+        return $result;
     }
 }

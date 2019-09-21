@@ -72,38 +72,7 @@
                 }
             });
         });
-
-        $(document).on('click', '.find-docs', function (argument) {
-            var allBlank = false;
-            if ($("#TrailerSerialNo_docs").val() != "" ||
-                $("#VehicleId_VIN_docs").val() != "" ||
-                $("#TrackingId_docs").val() != ""
-                ) {
-                allBlank = true;
-            }
-            if (allBlank) {
-                searchResult("/search-trailer-docs?",$("#search_trailer_docs").serialize());
-            } else {
-                alert('Please add any value');
-            }
-        });
-
-        $(document).on('click', '.download-all-documents', function () {
-            searchResult("/download-all-docs?",$("#all_docs_form").serialize());
-        });
-
-        $(document).on('click', '.search-docs-form', function () {
-            searchResult("/search-docs-form","");
-        });
     });
-    function searchResult(route, formData) {
-        $.ajax({
-            url: route+formData,
-            method:"get",
-        }).done(function (response) {
-            $("#trailer_documents").html(response);
-        });
-    }
 </script>    
 @endsection
 
