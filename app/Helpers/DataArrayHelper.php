@@ -279,4 +279,9 @@ class DataArrayHelper {
         
         return $mapData;
 	}
+
+	public static function docsTypes()
+	{
+		return ["inspection_document", "fhwa", "registration", "tracking_installation_sheet"];
+	}
 }

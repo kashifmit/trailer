@@ -20,16 +20,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
       window.calculation = {};
-      // var date_input=$('.date-picker');
-      // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      // var options={
-      //   format: 'mm/dd/yyyy',
-      //   container: container,
-      //   todayHighlight: true,
-      //   autoclose: true,
-      // };
-      // date_input.datepicker(options);
-      
+      getVendorName($(".vendor-name").val());
       $(document).on('blur', '.calculate', function (e) {
         var TotalPrice = 0;
         if ($.isNumeric( $(this).val() ) ) {
@@ -48,9 +39,16 @@
       });
       
       $(document).on('change', '.vendor-name', function () {
-        $.post("{{ route('trailer.vendor') }}", 
+        getVendorName($(this).val());
+        
+      });
+    });
+
+    function getVendorName(trailerId) {
+        if (trailerId != "") {
+            $.post("{{ route('trailer.vendor') }}", 
             {
-                TrailerSerialNo: $(this).val(), 
+                TrailerSerialNo: trailerId, 
                 _method: 'POST', 
                 _token: '{{ csrf_token() }}'
             })
@@ -65,8 +63,8 @@
                   $("#VendorName").attr('disabled', false);
                 }
             });
-      });
-    });
+        }
+    }
 </script>    
 @endsection
 

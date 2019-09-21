@@ -15,14 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!--<link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://www.myjobo.com/admin_assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css">
-    
-    
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://www.myjobo.com/admin_assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/> -->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -52,40 +44,105 @@
                             @endif
                         @else
                         @if (Route::currentRouteName() == 'trailer.list')
-                            <li class="nav-item">
+                            <li class="nav-item homeClass">
                                 <a class="nav-link" href="{{ route('create.trailer') }}">
                                     {{ __('Create New') }}
                                 </a>    
+                            </li>
+                            <li class="nav-item docsClass download_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link download-all-documents">Download All documents</a>
+                            </li>
+                            <li class="nav-item docsClass upload_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link upload-documents">Upload Document</a>
+                            </li>
+                            <li class="nav-item docsClass search_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link search-docs-form">
+                                    Search Docs
+                                </a>
+                            </li>
+                        @elseif(Route::currentRouteName() == 'create.trailer')
+                            <li class="nav-item docsClass download_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link download-all-documents">Download All documents</a>
+                            </li>
+                            <li class="nav-item docsClass upload_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link upload-documents">Upload Document</a>
+                            </li>
+                            <li class="nav-item docsClass search_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link search-docs-form">
+                                    Search Docs
+                                </a>
                             </li>
                         @elseif(Route::currentRouteName() == 'view.trailer')
-                            <li class="nav-item">
+                            <li class="nav-item homeClass">
                                 <a class="nav-link" href="{{ route('create.trailer') }}">
                                     {{ __('Create New') }}
                                 </a>    
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item homeClass">
                                 <a class="nav-link" href="{{ route('edit.trailer', $data->TrailerSerialNo) }}">
                                     {{ __('Edit') }}
                                 </a>    
                             </li>
+                            <li class="nav-item docsClass download_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link download-all-documents">Download All documents</a>
+                            </li>
+                            <li class="nav-item docsClass upload_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link upload-documents">Upload Document</a>
+                            </li>
+                            <li class="nav-item docsClass search_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link search-docs-form">
+                                    Search Docs
+                                </a>
+                            </li>
+                            <li class="nav-item add_financial_invoice_top" style="display: none;">
+                                <a href="{{route('create.invoice', $data->TrailerSerialNo)}}" class="nav-link">
+                                    Add Invoice
+                                </a>
+                            </li>
                         @elseif(Route::currentRouteName() == 'edit.trailer')
-                              <li class="nav-item">
+                            <li class="nav-item homeClass">
                                 <a class="nav-link" href="{{ route('create.trailer') }}">
                                     {{ __('Create New') }}
                                 </a>    
                             </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('edit.profile') }}">
-                                    {{ __('Account') }}
-                                </a>    
+                            <li class="nav-item docsClass download_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link download-all-documents">Download All documents</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>    
+                            <li class="nav-item docsClass upload_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link upload-documents">Upload Document</a>
                             </li>
+                            <li class="nav-item docsClass search_documents" style="display: none;">
+                                <a href="javascript:" class="nav-link search-docs-form">
+                                    Search Docs
+                                </a>
+                            </li>
+                            <li class="nav-item add_financial_invoice_top" style="display: none;">
+                                <a href="{{route('create.invoice', $data->TrailerSerialNo)}}" class="nav-link">
+                                    Add Invoice
+                                </a>
+                            </li>
+                            @elseif(Route::currentRouteName() == 'invoice.list')
+                            <li class="nav-item">
+                                <a href="{{route('create.invoice')}}" class="nav-link">Add Invoice</a>
+                            </li>
+                            @if(count($data))
+                            <li class="nav-item">
+                                <a href="{{route('export.headCSV')}}" class="nav-link">
+                                    Download Header CSV
+                                </a>
+                            </li>
+                            <li class="nav-item">    
+                                <a href="{{route('export.lineCSV')}}" class="nav-link">
+                                    Download Line Item CSV
+                                </a>
+                            </li>    
+                                @endif
+                            @elseif (Route::currentRouteName() == 'edit.invoice')
+                                @if(isset($data)) 
+                            <li class="nav-item">
+                                    <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="nav-link">Edit Line Items</a> 
+                            </li>
+                                  @endif
                         @endif    
                         @endguest
                     </ul>

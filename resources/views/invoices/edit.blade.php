@@ -5,9 +5,6 @@
     <div class="page">
         <header class="heading space-between">
           <h3 class="title">{{ __('Edit Invoice') }}</h3>
-          @if(isset($data)) 
-            <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-light">Edit Line Items</a> 
-          @endif
         </header>
 
         <div class="content">

@@ -31,17 +31,17 @@ class InvoiceController extends Controller
 {
     public function index(Request $request)
     {
-        $data = '';
-        if (!empty($request->query('TrailerSerialNo')) || !empty($request->query('VehicleId_VIN')) || !empty($request->query('TrackingId'))) {
-            if (!empty($request->query('TrailerSerialNo'))) {
+        $data = [];
+        if (null !== $request->query('TrailerSerialNo') || null !== $request->query('VehicleId_VIN') || null !== $request->query('TrackingId')) {
+            if (null !== $request->query('TrailerSerialNo')) {
                 $trailerNumber = EquipmentModel::select('TrailerSerialNo')->where('TrailerSerialNo', $request->query('TrailerSerialNo'))->first();
             }
 
-            if (!empty($request->query('VehicleId_VIN'))) {
+            if (null !== $request->query('VehicleId_VIN')) {
                 $trailerNumber = RegistrationModel::select('TrailerSerialNo')->where('VehicleId_VIN', $request->query('VehicleId_VIN'))->first();
             }
 
-            if (!empty($request->query('TrackingId'))) {
+            if (null !== $request->query('TrackingId')) {
                 $trailerNumber = EquipmentTrackingModel::select('TrailerSerialNo')->where('TrackingId', $request->query('TrackingId'))->first();
             }
             if ($trailerNumber) {
@@ -69,12 +69,13 @@ class InvoiceController extends Controller
         ->with('data', $data);
     }
 
-    public function createInvoice()
+    public function createInvoice($id = '')
     {
 
     	return view('invoices.add')
     	->with('trailers', DataArrayHelper::getTrailers())
-    	->with('vendors',DataArrayHelper::getVendors());
+        ->with('vendors',DataArrayHelper::getVendors())
+    	->with('invoiceId', $id);
     }
 
     public function storeInvoice(Request $request)

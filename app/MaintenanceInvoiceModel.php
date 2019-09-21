@@ -17,6 +17,6 @@ class MaintenanceInvoiceModel extends Model
 
     public function invoiceFiles()
     {
-    	return $this->hasMany('App\TrailerFilesModel', 'InvoiceNo', 'InvoiceNo');
+    	return $this->hasOne('App\TrailerFilesModel', 'InvoiceNo', 'InvoiceNo');
     }
 }

@@ -23,7 +23,11 @@
   		@include('trailers.forms.includes.trailer_details')
   	</div>
   	<div id="trailer_documents" class="tab-pane fade">
-  		@include('trailers.forms.includes.search_documents')
+  		@if(Route::currentRouteName() == 'create.trailer')
+        @include('trailers.forms.includes.search_documents')
+      @else
+        @include('trailers.forms.includes.trailer_document_view')
+      @endif  
   	</div>
   	<div id="trailer_locations" class="tab-pane fade">
   		@include('trailers.forms.includes.trailer_locations')

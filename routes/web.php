@@ -121,11 +121,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/search-trailer-docs', 'TrailerController@searchTrailerDocs')->name('search.trailer.docs');
 	Route::get('/download-all-docs', 'TrailerController@downAllDocs')->name('download.all.docs');
 	Route::get('/search-docs-form', 'TrailerController@searchDocsForm')->name('search.docs.form');
+	Route::get('/upload-all-docs', 'TrailerController@uploadAllDocs')->name('upload.all.docs');
+	Route::post('/upload-documents', 'TrailerController@uploadNewDocuments')->name('upload.documents');
 	/**
 	*	Inovices Routes
 	**/
 	Route::get('/invoice-list', 'InvoiceController@index')->name('invoice.list');
-	Route::get('/create-invoice', 'InvoiceController@createInvoice')->name('create.invoice');
+	Route::get('/create-invoice/{id?}', 'InvoiceController@createInvoice')->name('create.invoice');
 	Route::post('/store-invoice', 'InvoiceController@storeInvoice')->name('store.invoice');
 	Route::post('/trailer-vendor', 'InvoiceController@trailerVendor')->name('trailer.vendor');
 	Route::get('/edit-invoice/{InvoiceNo}', 'InvoiceController@getInovice')->name('edit.invoice');
