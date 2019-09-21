@@ -284,9 +284,4 @@ class DataArrayHelper {
 	{
 		return ["inspection_document", "fhwa", "registration", "tracking_installation_sheet"];
 	}
-
-	public static function getVendndorNameByTrailer($TrailerSerialNo)
-	{
-		$getOwner = equipment::select()->where()->first();
-	}
 }
