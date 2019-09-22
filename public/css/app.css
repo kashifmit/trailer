@@ -17335,6 +17335,12 @@ button:focus {
   outline: none;
 }
 
+.form-control:disabled,
+.form-control[readonly] {
+  border-color: #dbdde3;
+  box-shadow: none;
+}
+
 .form-control-radius {
   border-radius: 0.8rem;
   padding-left: 0.75rem;
@@ -17348,6 +17354,7 @@ button:focus {
 .form-control-wrap.search::before {
   font-family: "FontAwesome";
   content: "\F002";
+  font-size: 1.2em;
   position: absolute;
   right: 10px;
   top: 50%;
@@ -17370,10 +17377,6 @@ button:focus {
   position: absolute;
   top: 0;
   right: 0;
-}
-
-.form-control.dark {
-  border-color: #617083;
 }
 
 label {
@@ -17420,6 +17423,10 @@ input[type=number] {
   border-bottom-color: #ebecef;
 }
 
+.table > thead > tr > th {
+  color: #000;
+}
+
 .table.table-striped thead tr {
   background-color: #ebecef;
 }
@@ -17444,6 +17451,14 @@ input[type=number] {
   border-bottom-color: #2AA7ff;
 }
 
+.nav-tabs.sticky {
+  background-color: #fff;
+  z-index: 10;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 72px;
+}
+
 .tab-content {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -17452,7 +17467,7 @@ input[type=number] {
 .select2-container--default .select2-selection--single {
   height: calc(1.6em + 1.15rem + 4px);
   padding: 0.575rem 0.75rem;
-  border: 2px solid #617083;
+  border: 2px solid #dbdde3;
   border-radius: 0.8rem;
   font-size: 0.9em;
 }
@@ -17466,8 +17481,12 @@ input[type=number] {
   transform: translateY(-50%);
 }
 
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #2AA7ff;
+}
+
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border-color: #617083;
+  border-color: #dbdde3;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
@@ -17479,7 +17498,7 @@ input[type=number] {
 }
 
 .select2-dropdown {
-  border: 2px solid #617083;
+  border: 2px solid #2AA7ff;
 }
 
 /*** General Styles
@@ -17789,6 +17808,10 @@ h6 {
   align-items: center;
 }
 
+.heading.heading-detail-sp {
+  padding-right: 30%;
+}
+
 /*** text styles ***/
 
 .text-underline {
@@ -17832,7 +17855,7 @@ h6 {
 }
 
 .text-sm {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 .text-sm .btn,
@@ -17968,8 +17991,14 @@ h6 {
   float: right;
 }
 
+.list-detail.list-sp li span {
+  width: 70%;
+  display: inline-block;
+  text-align: right;
+}
+
 main[role=main] {
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: 2.5rem;
 }
 
@@ -18182,6 +18211,7 @@ main[role=main] {
 
 .trailer-block-bg {
   padding: 20px;
+  margin-top: -20px;
   background-color: #ebecef;
   border-radius: 0.5em;
 }
