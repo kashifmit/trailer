@@ -11,7 +11,7 @@
     @include('flash::message')
     <div class="page">
         <div class="content">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs sticky">
               <li><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
               <li class="active">
                 <a class="checkClass" data-toggle="tab" href="#trailer_details">
@@ -34,19 +34,14 @@
                 </a>
               </li>
             </ul>
-            <div class="row">&nbsp;</div>
-            <div class="row editClass">
-              <div class="col-md-9">&nbsp;</div>
-              <div class="col-md-3">
-                
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                  Trailer Record - {{$data->TrailerSerialNo}}
-              </div>
-            </div>
+            
             <div class="tab-content">
+              <header class="heading">
+                <h3 class="title">
+                  Trailer Record - {{$data->TrailerSerialNo}}
+                </h3>
+              </header>
+
                 <div id="home_details" class="tab-pane fade">
                     @include('trailers.forms.includes.trailer_home')
                 </div>

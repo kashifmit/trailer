@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs sticky">
     <li><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
     <li class="active"><a class="checkClass" data-toggle="tab" href="#trailer_details">Detail</a></li>
     <li><a class="checkClass" data-toggle="tab" href="#trailer_documents">Documents</a></li>
@@ -6,16 +6,16 @@
     <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
   </ul>
 {!! APFrmErrHelp::showErrorsNotice($errors) !!}
- @if(isset($data))
- <div class="row">&nbsp;</div>
- <div class="row">&nbsp;</div>
-  <div class="row">
-    <div class="col-md-12">
-      Trailer Record - {{$data->TrailerSerialNo}}
-    </div>
-  </div>
- @endif 
+
   <div class="tab-content">
+    @if(isset($data))
+        <header class="heading">
+          <h3 class="title">
+            Trailer Record - {{$data->TrailerSerialNo}}
+          </h3>
+        </header>
+    @endif 
+
     <div id="home_details" class="tab-pane fade">
         @include('trailers.forms.includes.trailer_home')
     </div>

@@ -33,6 +33,9 @@ h6 {
         align-items: center;
     }
 
+    &.heading-detail-sp {
+      padding-right: 30%;  
+    }
 }
 
 
@@ -78,7 +81,7 @@ h6 {
 }
 
 .text-sm {
-    font-size: $font-size-base - .1;
+    font-size: $font-size-base - .25;
 
     .btn,
     .form-control {

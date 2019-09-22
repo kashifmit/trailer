@@ -18,7 +18,7 @@
         @foreach($trailerData as $data)
         <tr>
             <td>
-                <a class="text-primary" href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
+                <a class="text-primary text-underline" href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
                     {{$data->TrailerSerialNo}}
                 </a>    
                 </td>
@@ -30,7 +30,7 @@
             <th>{{$data->PlateNo}}</th>
             <th>{{date('m/d/Y', strtotime($data->ExpireDate))}}</th>
             <td>
-                <a href="{{route('edit.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
+                <a class="text-primary text-underline" href="{{route('edit.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
                     {{$data->TrackingId}}
                 </a>    
             </td>

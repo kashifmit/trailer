@@ -4,7 +4,7 @@
     <div class="page">
         
         <div class="content">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs sticky">
                 <li class="active"><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
                 <li>
               </li>
