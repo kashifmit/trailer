@@ -584,9 +584,10 @@ class TrailerController extends Controller
         $result = $this->getDocs($request);
         $data = $result['data'];
         $invoiceData = $result['invoiceData'];
+        $docTypes = DataArrayHelper::docsTypes();
         $regData = $result['regData'];
         return response()->View('trailers.forms.includes.trailer_doc_table',
-        compact('data', 'invoiceData', 'regData'));
+        compact('data', 'invoiceData', 'regData', 'docTypes'));
 
     }
     public function downAllDocs(Request $request)

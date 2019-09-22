@@ -1,4 +1,4 @@
-
+<input type="hidden" id="check_Data_available" value="{{$regData ? 1 : 0}}">
 @if($regData)
 {!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
@@ -27,14 +27,7 @@
 @if(count($data))
 @foreach($data as $singleData)
 <div class="row">
-	<div class="col-md-4">{{str_replace("_", " ",$singleData->DocType)}}</div>
-	<div class="col-md-4">
-		@if ($singleData->mimetype)
-		<a href="{{public_path('docs/'.$singleData->FileName)}}" target="_blank">View</a>
-		@else
-			{{$singleData->FileName}}
-		@endif
-	</div>
+	<div class="col-md-4">{{ucwords(str_replace("_", " ",$singleData->DocType))}}</div>
 	<div class="col-md-4">
 		@if ( file_exists(public_path('docs/'.$singleData->FileName)) )
 		<a class="btn btn-primary" href="{{route('download.file',$singleData->Id)}}">Download</a>
@@ -47,7 +40,7 @@
 @else
 	@foreach($docTypes as $key => $value)
 		<div class="row">
-			<div class="col-md-4">{{str_replace("_", " ",$valu)}}</div>
+			<div class="col-md-4">{{ucwords(str_replace("_", " ",$value))}}</div>
 			<div class="col-md-4">Not Exists</div>
 		</div>
 	@endforeach
@@ -77,6 +70,7 @@
 					<tbody>
 						@if(count($invoiceData))
 							@foreach($invoiceData as $key =>$data)
+							@if($data->invoiceFiles)
 							@php
 								
 								$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
@@ -91,6 +85,7 @@
 								<td>{{$data->TrailerSerialNo}}</td>
 								<td>${{$data->TotalPrice}}</td>
 							</tr>
+							@endif
 							@endforeach
 						@else
 							<tr><td colspan="100%">No invoices found</td></tr>	

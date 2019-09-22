@@ -37553,8 +37553,12 @@ $(document).on('click', '.download-all-documents', function () {
   searchResult("/download-all-docs?", $("#all_docs_form").serialize(), classes);
 });
 $(document).on('click', '.search-docs-form', function () {
-  var classes = "";
-  searchResult("/search-docs-form", "", classes);
+  $.ajax({
+    url: "/search-docs-form",
+    method: "get"
+  }).done(function (response) {
+    $("#trailer_documents").html(response);
+  });
 });
 $(document).on('click', '.upload-documents', function () {
   var classes = "download_documents,search_documents";
@@ -37586,20 +37590,27 @@ $(document).on('submit', '#upload_documents', function (e) {
 });
 
 function searchResult(route, formData, classes) {
-  $(".docsClass").hide();
-  $.ajax({
-    url: route + formData,
-    method: "get"
-  }).done(function (response) {
-    if (classes != "") {
-      var array = classes.split(",");
-      $.each(array, function (key, item) {
-        $("." + item).show();
-      });
-    }
+  if (formData != "") {
+    $(".docsClass").hide();
+    $.ajax({
+      url: route + formData,
+      method: "get"
+    }).done(function (response) {
+      $("#trailer_documents").html(response);
 
-    $("#trailer_documents").html(response);
-  });
+      if (classes != "" && $("#check_Data_available").val() != "0") {
+        var array = classes.split(",");
+        $.each(array, function (key, item) {
+          $("." + item).show();
+        });
+      } else {
+        $(".search_documents").show();
+      }
+    });
+  } else {
+    $(".docsClass").hide();
+    $(".search_documents").show();
+  }
 }
 
 function searchTrailer(formData) {
@@ -40432,8 +40443,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/trailer/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/trailer/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\trailer\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\trailer\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -1,6 +1,5 @@
-
+<input type="hidden" id="check_Data_available" value="{{$regData ? 1 : 0}}">
 @if($regData)
-
 {!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 {!! Form::close() !!}
@@ -85,6 +84,7 @@
 					<tbody>
 						@if(count($invoiceData))
 							@foreach($invoiceData as $key =>$data)
+							@if($data->invoiceFiles)
 							@php
 								
 								$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
@@ -99,6 +99,7 @@
 								<td>{{App\Helpers\DataArrayHelper::getOrganizationName($regData->Owner)}}</td>
 								<td>${{$data->TotalPrice}}</td>
 							</tr>
+							@endif
 							@endforeach
 						@else
 							<tr><td colspan="100%">No invoices found</td></tr>	
