@@ -296,7 +296,7 @@ class TrailerController extends Controller
         // dd("213");
         try {
             $file = TrailerFilesModel::where('Id', $id)->firstOrFail();
-            $pathToFile = url('docs/'. $file->FileName);
+            $pathToFile = public_path('docs/'. $file->FileName);
             $fileName = $file->FileName;
             $headers = array(
                 'Content-Type: application/'.$file->mimetype
