@@ -1,9 +1,8 @@
+<header class="heading mb-0">
+    <h3 class="title">Search For a Trailer</h3>
+</header>
 <div class="trailer-contents">
     
-    <header class="heading">
-        <h3 class="title">Search For a Trailer</h3>
-    </header>
-
     <div class="mb-5">
         {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true, 'id' => 'search-by-trailer-number')) !!}
         <div class="form-group row mb-0">

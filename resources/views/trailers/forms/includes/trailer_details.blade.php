@@ -1,11 +1,19 @@
 
-<div class="trailer-contents">
-	@if(Route::currentRouteName() == 'create.trailer')
+@if(Route::currentRouteName() == 'create.trailer')
+	<header class="heading mb-0">
+		<h3 class="title">
+		Create New Trailer Record
+		</h3>
+	</header>
+	<div class="trailer-contents">
+
 	{!! Form::open(array('method' => 'post', 'route' => 'store.trailer', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
 	@else
+	<div class="trailer-contents">
 		{!! Form::open(array('method' => 'put', 'route' => array('update.trailer', $data->TrailerSerialNo), 'class' => 'form', 'files'=>true, 'id' => 'edit_trailer')) !!}
             {!! Form::hidden('TrailerSerialNo', $data->TrailerSerialNo) !!}
 	@endif
+
 	<div class="row">
 		<div class="col-md-4">
 			<div class="trailer-block">
@@ -120,13 +128,13 @@
 		</div>
 
 	</div>
-	<div class="form-actions">
+	<div class="form-actions mt-4">
 	@if(Route::currentRouteName() == 'create.trailer')
       {!! Form::button('Submit', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
     @else
     	{!! Form::button('Update', array('class'=>'btn btn-min-md btn-primary edit-class', 'type'=>'submit')) !!}
 	@endif
     </div>
-	{!! Form::close() !!}
-</div>
+	</div>
+{!! Form::close() !!}
 
