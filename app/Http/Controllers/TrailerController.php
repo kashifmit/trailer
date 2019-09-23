@@ -295,8 +295,12 @@ class TrailerController extends Controller
     {
     	$file = TrailerFilesModel::where('Id', $id)->firstOrFail();
     	$pathToFile = public_path('docs/'. $file->FileName);
+        $fileName = $file->FileName;
+        $headers = array(
+            'Content-Type: application/'.$file->mimetype
+        );
         dd($pathToFile);
-    	return response()->download($pathToFile);
+    	return response()->download($pathToFile, $fileName, $headers);
     }
 
     private function upDateEquipment($TrailerSerialNo, $request)
