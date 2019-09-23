@@ -1,4 +1,5 @@
-
+<input type="hidden" id="check_Data_available" value="{{$regData ? 1 : 0}}">
+<input type="hidden" id="enable_document" value="upload_all_documents">
 @if($regData)
 <div class="alert" style="display: none"></div>
 {!! Form::open(array('method' => 'get', 'route' => 'download.all.docs', 'class' => 'form', 'id' => 'all_docs_form')) !!}

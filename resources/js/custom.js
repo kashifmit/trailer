@@ -27,9 +27,25 @@ $(document).on('click', '.checkClass', function () {
   	$(".homeClass").hide();
   	$(".add_financial_invoice_top").hide();
   	if($("#enable_document").val()) {
-  		$(".upload_documents, .search_documents").show();
+      switch($("#enable_document").val()) {
+        case "search_documents":
+          $(".docsClass").hide();
+        break;
+        case "show_document_table":
+          $(".docsClass").hide();
+          $(".download_documents, .upload_documents, .search_documents").show();
+        break;
+        case "download_all_documents":
+          $(".docsClass").hide();
+          $(".upload_documents, .search_documents").show();
+        break;
+        case "upload_all_documents":
+          $(".docsClass").hide();
+          $(".download_documents, .search_documents").show();
+        break;
+      }
+      return false;
   	}
-  	return false;
   }
   if ($(this).attr('href') === "#trailer_locations") {
   	$(".homeClass").hide();
@@ -73,6 +89,7 @@ $(document).on('click', '.search-docs-form', function () {
 	    method:"get",
 	}).done(function (response) {
 	    $("#trailer_documents").html(response);
+      $(".docsClass").hide();
 	});
 });
 $(document).on('click', '.upload-documents', function () {

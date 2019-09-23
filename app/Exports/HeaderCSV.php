@@ -12,9 +12,15 @@ class HeaderCSV implements FromCollection, WithHeadings, ShouldAutoSize
     /**
     * @return \Illuminate\Support\Collection
     */
+    protected $id;
+
+    public function __construct($id)
+    {
+        $this->id = explode(",", $id); 
+    }
     public function collection()
     {
-        return MaintenanceInvoiceModel::select('InvoiceNo', 'InvoiceDate', 'Rebill', 'TrailerSerialNo', 'LaborTotal', 'PartsTotal', 'AccessoriesTotal', 'AnnualInspectionTotal', 'RegistrationTotal', 'SalesTax', 'TotalPrice')->get();
+        return MaintenanceInvoiceModel::select('InvoiceNo', 'InvoiceDate', 'Rebill', 'TrailerSerialNo', 'LaborTotal', 'PartsTotal', 'AccessoriesTotal', 'AnnualInspectionTotal', 'RegistrationTotal', 'SalesTax', 'TotalPrice')->whereIn('InvoiceNo', $this->id)->get();
     }
 
     public function headings(): array

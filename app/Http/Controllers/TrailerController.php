@@ -294,7 +294,7 @@ class TrailerController extends Controller
     public function dowLoadFile($id)
     {
     	$file = TrailerFilesModel::where('Id', $id)->firstOrFail();
-    	$pathToFile = public_path('docs/'. $file->FileName);
+    	$pathToFile = url('docs/'. $file->FileName);
     	return response()->download($pathToFile);
     }
 
@@ -545,10 +545,13 @@ class TrailerController extends Controller
     {
         $TrailerSerialNo = $request->input('TrailerSerialNo');
         $VehicleId_VIN = $request->input('VehicleId_VIN');
+        $message = "";
         if (!empty($request->input('TrackingId'))) {
             $trackData = EquipmentTrackingModel::select('TrailerSerialNo')->where('TrackingId', $request->input('TrackingId'))->first();
             if ($trackData) {
                 $TrailerSerialNo = $trackData->TrailerSerialNo;
+            } else { 
+                $message = "Trailer Not found against tracking Id";
             }
         }
         if (!empty($request->input('TrailerSerialNo'))) {
@@ -558,24 +561,32 @@ class TrailerController extends Controller
         if (!empty($request->input('VehicleId_VIN'))) {
             $TrailerSerialNo = "";
         }
-        $regData = RegistrationModel::select('TrailerSerialNo', 'PlateNo', 'VehicleId_VIN', 'Owner');
+        if (!empty($TrailerSerialNo) || !empty($request->input('VehicleId_VIN'))) {
+            $regData = RegistrationModel::select('TrailerSerialNo', 'PlateNo', 'VehicleId_VIN', 'Owner');    
+        }
         if (!empty($TrailerSerialNo)) {
-            $regData = $regData->where('TrailerSerialNo', $TrailerSerialNo);
+            $regData = $regData->where('TrailerSerialNo', $TrailerSerialNo)->first();
+            if (empty($regData)) {
+                $message = "Trailer Not found against Trailer Serial Number";
+            }
         }
         if (!empty($request->input('VehicleId_VIN'))) {
-            $regData = $regData->where('VehicleId_VIN', $VehicleId_VIN);
+            $regData = $regData->where('VehicleId_VIN', $VehicleId_VIN)->first();
+            if (empty($regData)) {
+                $message = "Trailer Not found against Vehicle Identification Number";
+            }
         }
-        $regData = $regData->first();
         $data = [];
         $invoiceData = [];
-        if ($regData) {
+        if (isset($regData)) {
             $data = TrailerFilesModel::where('TrailerSerialNo', $regData->TrailerSerialNo)->where('DocType', '!=','invoice')->get();
             $invoiceData = MaintenanceInvoiceModel::with('invoiceFiles')->where('TrailerSerialNo', $regData->TrailerSerialNo)->get();
         }
         return [
             "data" => $data,
             "invoiceData" => $invoiceData,
-            "regData" => $regData
+            "regData" => isset($regData) ? $regData : [],
+            "message" => $message
         ];
     }
 
@@ -584,10 +595,11 @@ class TrailerController extends Controller
         $result = $this->getDocs($request);
         $data = $result['data'];
         $invoiceData = $result['invoiceData'];
+        $message = $result['message'];
         $docTypes = DataArrayHelper::docsTypes();
         $regData = $result['regData'];
         return response()->View('trailers.forms.includes.trailer_doc_table',
-        compact('data', 'invoiceData', 'regData', 'docTypes'));
+        compact('data', 'invoiceData', 'regData', 'docTypes', 'message'));
 
     }
     public function downAllDocs(Request $request)

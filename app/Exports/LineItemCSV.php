@@ -12,9 +12,15 @@ class LineItemCSV implements FromCollection, WithHeadings, ShouldAutoSize
     /**
     * @return \Illuminate\Support\Collection
     */
+    protected $id;
+
+    public function __construct($id)
+    {
+        $this->id = explode(",", $id); 
+    }
     public function collection()
     {
-        return MaintenanceInvoiceDetailModel::select('InvoiceLine', 'UnitPrice', 'LaborHoursQty', 'InvoiceNo', 'LineType')->get();
+        return MaintenanceInvoiceDetailModel::select('InvoiceLine', 'UnitPrice', 'LaborHoursQty', 'InvoiceNo', 'LineType')->whereIn('InvoiceNo', $this->id)->get();
     }
 
     public function headings(): array

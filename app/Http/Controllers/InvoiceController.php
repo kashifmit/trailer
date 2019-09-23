@@ -363,14 +363,14 @@ class InvoiceController extends Controller
         }
     }
 
-    public function exportHeadCSV()
+    public function exportHeadCSV($ids)
     {
-        return Excel::download(new HeaderCSV, 'headerCSV_'.\Carbon\Carbon::now().'.xlsx');
+        return Excel::download(new HeaderCSV($ids), 'headerCSV_'.\Carbon\Carbon::now().'.xlsx');
     }
 
-    public function exportLineCSV()
+    public function exportLineCSV($ids)
     {
-        return Excel::download(new LineItemCSV, 'LINEITEMCSV_'.\Carbon\Carbon::now().'.xlsx');
+        return Excel::download(new LineItemCSV($ids), 'LINEITEMCSV_'.\Carbon\Carbon::now().'.xlsx');
     }
 
     public function editInvoiceLine($InvoiceNo, Request $request)

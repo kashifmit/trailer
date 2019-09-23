@@ -37513,10 +37513,29 @@ $(document).on('click', '.checkClass', function () {
     $(".add_financial_invoice_top").hide();
 
     if ($("#enable_document").val()) {
-      $(".upload_documents, .search_documents").show();
-    }
+      switch ($("#enable_document").val()) {
+        case "search_documents":
+          $(".docsClass").hide();
+          break;
 
-    return false;
+        case "show_document_table":
+          $(".docsClass").hide();
+          $(".download_documents, .upload_documents, .search_documents").show();
+          break;
+
+        case "download_all_documents":
+          $(".docsClass").hide();
+          $(".upload_documents, .search_documents").show();
+          break;
+
+        case "upload_all_documents":
+          $(".docsClass").hide();
+          $(".download_documents, .search_documents").show();
+          break;
+      }
+
+      return false;
+    }
   }
 
   if ($(this).attr('href') === "#trailer_locations") {
@@ -37558,6 +37577,7 @@ $(document).on('click', '.search-docs-form', function () {
     method: "get"
   }).done(function (response) {
     $("#trailer_documents").html(response);
+    $(".docsClass").hide();
   });
 });
 $(document).on('click', '.upload-documents', function () {
@@ -40443,8 +40463,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/trailer/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/trailer/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\trailer\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\trailer\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

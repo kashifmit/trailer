@@ -54,10 +54,10 @@
                 {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
               </td>
               <td>
-                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=>$value.'_UnitPrice_0', 'placeholder'=> 'Unit price' )) !!}
+                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=>$value.'_UnitPrice_0', 'placeholder'=> 'Unit Price' )) !!}
               </td>
               <td>
-                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_0', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_0', 'placeholder'=> 'Quantity / Hours' )) !!}
               </td>
               <td>
                 {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control selectable-box form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
@@ -77,10 +77,10 @@
               <td></td>
               <td></td>
               <td>
-                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=>$value.'_UnitPrice_'.$key1, 'placeholder'=> 'Unit price' )) !!}
+                {!! Form::text('UnitPrice[]', $value1['UnitPrice'], array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=>$value.'_UnitPrice_'.$key1, 'placeholder'=> 'Unit Price' )) !!}
               </td>
               <td>
-                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_'.$key1, 'placeholder'=> 'Labor Hour Quantity' )) !!}
+                {!! Form::text('LaborHoursQty[]', $value1['LaborHoursQty'], array('class'=>' form-control form-control-radius calculate-item', 'id'=>$value.'_LaborHoursQty_'.$key1, 'placeholder'=> 'Quantity / Hours' )) !!}
               </td>
               <td>
                 {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, $value1['FaultReasonCode'], array('class'=>'form-control selectable-box form-control-radius invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}
@@ -107,10 +107,10 @@
                 {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class calculate-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
               </td>
               <td>
-                {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=> $value.'_UnitPrice_0', 'placeholder'=> 'Unit price' )) !!}
+                {!! Form::text('UnitPrice[]', null, array('class'=>$value.' form-control form-control-radius calculate-item', 'id'=> $value.'_UnitPrice_0', 'placeholder'=> 'Unit Price' )) !!}
               </td>
               <td>
-                {!! Form::text('LaborHoursQty[]', null, array('class'=>'form-control form-control-radius calculate-item', 'id'=> $value.'_LaborHoursQty_0', 'placeholder'=> 'Labor Hour Quantity' )) !!}
+                {!! Form::text('LaborHoursQty[]', null, array('class'=>'form-control form-control-radius calculate-item', 'id'=> $value.'_LaborHoursQty_0', 'placeholder'=> 'Quantity / Hours' )) !!}
               </td>
               <td>
                 {!! Form::select('FaultReasonCode[]', ['' => 'Select Fault']+$getFaultCode, null, array('class'=>'form-control form-control-radius selectable-box invoices FaultReasonCode', 'id'=>'FaultReasonCode' )) !!}

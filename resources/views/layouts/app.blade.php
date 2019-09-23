@@ -126,13 +126,19 @@
                                 <a href="{{route('create.invoice')}}" class="nav-link">Add Invoice</a>
                             </li>
                             @if(count($data))
+                            @php
+                                $invoiceIds = [];
+                                foreach($data as $invoiceId) {
+                                    array_push($invoiceIds, $invoiceId->InvoiceNo);
+                                }
+                            @endphp
                             <li class="nav-item">
-                                <a href="{{route('export.headCSV')}}" class="nav-link">
+                                <a href="{{route('export.headCSV', implode(',',$invoiceIds))}}" class="nav-link">
                                     Download Header CSV
                                 </a>
                             </li>
                             <li class="nav-item">    
-                                <a href="{{route('export.lineCSV')}}" class="nav-link">
+                                <a href="{{route('export.lineCSV', implode(',',$invoiceIds))}}" class="nav-link">
                                     Download Line Item CSV
                                 </a>
                             </li>    

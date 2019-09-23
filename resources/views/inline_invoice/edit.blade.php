@@ -62,9 +62,9 @@
         '<td>&nbsp;</td>'+
         '<td></td>'+
         '<td>'+
-        '<input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_UnitPrice_'+num_item+'" placeholder="Unit price" name="UnitPrice[]" type="text">'+
+        '<input class="'+id[0]+' form-control form-control-radius calculate-item" id="'+id[0]+'_UnitPrice_'+num_item+'" placeholder="Unit Price" name="UnitPrice[]" type="text">'+
         '</td>'+
-        '<td><input class="form-control form-control-radius calculate-item" id="'+id[0]+'_LaborHoursQty_'+num_item+'" placeholder="Labor Hour Quantity" name="LaborHoursQty[]" type="text"></td>'+
+        '<td><input class="form-control form-control-radius calculate-item" id="'+id[0]+'_LaborHoursQty_'+num_item+'" placeholder="Quantity / Hours" name="LaborHoursQty[]" type="text"></td>'+
         '<td class="faultreason'+count+'"></td>'+
         '<td class="resolutioncode'+count+'"></td>'+
         '<td class=" partslabor'+count+'"></td>'+

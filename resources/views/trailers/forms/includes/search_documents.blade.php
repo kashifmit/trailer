@@ -1,3 +1,4 @@
+<input type="hidden" id="enable_document" value="search_documents">
 <header class="heading mb-0">
     <h3 class="title">Search For Documents By Trailer</h3>
 </header>

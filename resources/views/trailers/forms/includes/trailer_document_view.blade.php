@@ -1,7 +1,7 @@
+<input type="hidden" id="enable_document" value="download_all_documents">
 {!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$data->TrailerSerialNo}}">
 {!! Form::close() !!}
-<input type="hidden" id="enable_document" value="enable_document">
 <div class="trailer-contents">
 	<header class="heading">
 		<h4 class="title text-bold">
