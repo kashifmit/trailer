@@ -25,28 +25,18 @@
 		</div>
 	</div>
 </div>
-@if(count($data))
-@foreach($data as $singleData)
+@foreach($docData as $key => $value)
 <div class="row">
-	<div class="col-md-4">{{ucwords(str_replace("_", " ",$singleData->DocType))}}</div>
+	<div class="col-md-4">{{ucwords(str_replace("_", " ",$key))}}</div>
 	<div class="col-md-4">
-		@if ( file_exists(public_path('docs/'.$singleData->FileName)) )
-		<a class="btn btn-primary" href="{{route('download.file',$singleData->Id)}}">Download</a>
+		@if ($value)
+			<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>
 		@else
 			Document Unavailable
 		@endif
 	</div>
 </div>
 @endforeach
-@else
-	@foreach($docTypes as $key => $value)
-		<div class="row">
-			<div class="col-md-4">{{ucwords(str_replace("_", " ",$value))}}</div>
-			<div class="col-md-4">Not Exists</div>
-		</div>
-	@endforeach
-@endif
-
 <header class="heading">
 	<h4 class="title">
 		Equipment Invoices

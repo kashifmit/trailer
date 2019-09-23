@@ -209,8 +209,13 @@ class TrailerController extends Controller
             Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($getTrailerDetails['data']->filesData as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
     	return view('trailers.edit')
     	->with('data', $getTrailerDetails['data'])
+        ->with('docData', $docData)
         ->with('trailerData', '')
     	->with('etracking', DataArrayHelper::getTrackingsystems())
     	->with('make', DataArrayHelper::getMakes())
@@ -249,8 +254,13 @@ class TrailerController extends Controller
             Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($getTrailerDetails['data']->filesData as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
         return view('trailers.view')
         ->with('data', $getTrailerDetails['data'])
+        ->with('docData', $docData)
         ->with('trailerData', '')
         ->with('locations', DataArrayHelper::getSites())
         ->with('business', DataArrayHelper::businessList())
@@ -293,7 +303,6 @@ class TrailerController extends Controller
 
     public function downLoadFile($id)
     {
-        // dd("213");
         try {
             $file = TrailerFilesModel::where('Id', $id)->firstOrFail();
             $pathToFile = public_path('docs/'. $file->FileName);
@@ -302,18 +311,10 @@ class TrailerController extends Controller
                 'Content-Type: application/'.$file->mimetype
             );
             return response()->download($pathToFile, $fileName, $headers);
-            // dd($pathToFile);
 
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
-    	// $file = TrailerFilesModel::where('Id', $id)->firstOrFail();
-    	// $pathToFile = public_path('docs/'. $file->FileName);
-     //    $fileName = $file->FileName;
-     //    $headers = array(
-     //        'Content-Type: application/'.$file->mimetype
-     //    );
-    	// return response()->download($pathToFile, $fileName, $headers);
     }
 
     private function upDateEquipment($TrailerSerialNo, $request)
@@ -616,8 +617,12 @@ class TrailerController extends Controller
         $message = $result['message'];
         $docTypes = DataArrayHelper::docsTypes();
         $regData = $result['regData'];
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($data as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
         return response()->View('trailers.forms.includes.trailer_doc_table',
-        compact('data', 'invoiceData', 'regData', 'docTypes', 'message'));
+        compact('invoiceData', 'regData', 'docTypes', 'message', 'docData'));
 
     }
     public function downAllDocs(Request $request)
@@ -626,8 +631,12 @@ class TrailerController extends Controller
         $data = $result['data'];
         $invoiceData = $result['invoiceData'];
         $regData = $result['regData'];
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($data as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
         return response()->View('trailers.forms.includes.download_all_docs',
-        compact('data', 'invoiceData', 'regData'));
+        compact('docData', 'invoiceData', 'regData'));
     }
 
     public function searchDocsForm()

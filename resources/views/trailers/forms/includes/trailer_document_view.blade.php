@@ -1,5 +1,9 @@
-<input type="hidden" id="enable_document" value="download_all_documents">
+<input type="hidden" id="check_Data_available" value="{{(isset($data) && !empty($data)) ? 1 : 0}}">
+<input type="hidden" id="enable_document" value="show_document_table">
 {!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
+	<input type="hidden" name="TrailerSerialNo" value="{{$data->TrailerSerialNo}}">
+{!! Form::close() !!}
+{!! Form::open(array('method' => 'get', 'route' => 'download.all.docs', 'class' => 'form', 'id' => 'all_docs_form')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$data->TrailerSerialNo}}">
 {!! Form::close() !!}
 <div class="trailer-contents">

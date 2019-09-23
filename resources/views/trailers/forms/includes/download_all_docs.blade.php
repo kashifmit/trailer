@@ -34,20 +34,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if(count($data))
-				@foreach($data as $singleData)
-					@php	
-						$disabled = file_exists(public_path('docs/'.$singleData->FileName)) ? '' : 'disabled="disabled"'
-					@endphp
+				@if(count($docData))
+				@foreach($docData as $key => $value)
+					
 					<tr>
 						<td>
-							<input type="checkbox" value="{{$singleData->Id}}" {{$disabled}} name="Ids[]">
+							@if ($value)
+							<input type="checkbox" value="{{$value->Id}}" name="Ids[]">
+							@else
+							<input type="checkbox" disabled="disabled" name="Ids[]">
+							@endif
 						</td>
 						<td>
-							{{str_replace("_", " ",$singleData->DocType)}}
+							{{ucwords(str_replace("_", " ",$key))}}
 						</td>
 						<td>
-							{{ file_exists(public_path('docs/'.$singleData->FileName)) ? 'Exists' : 'File Not Available' }}
+							{{ $value && file_exists(public_path('docs/'.$value->FileName)) ? 'Exists' : 'File Not Available' }}
 						</td>
 					</tr>
 					@endforeach

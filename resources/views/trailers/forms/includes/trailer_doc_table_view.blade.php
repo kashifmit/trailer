@@ -1,37 +1,19 @@
-{!! Form::open(array('method' => 'get', 'route' => 'download.zip', 'class' => 'form')) !!}
 <div class="row">
 	<div class="col-lg-8">
-		<div class="table-responsive mb-4">
-			<table class="table table-striped text-sm table-hover">
-				<thead>
-					<tr>
-						<th>DownLoad</th>
-						<th>Document Name</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($data->filesData as $fileData)
-						@if($fileData->DocType !="invoice")
-						@php	
-							$disabled = file_exists(public_path('docs/'.$fileData->FileName)) ? '' : 'disabled="disabled"'
-						@endphp
-						<tr>
-							<td>
-								<input type="checkbox" value="{{$fileData->Id}}" {{$disabled}} name="Ids[]">
-							</td>
-							<td>
-								{{str_replace("_", " ",$fileData->DocType)}}
-							</td>
-							<td>
-								{{ file_exists(public_path('docs/'.$fileData->FileName)) ? 'Exists' : 'File Not Available' }}
-							</td>
-						</tr>
-						@endif
-					@endforeach
-				</tbody>
-			</table>
-		</div>	
+		@foreach($docData as $key => $value)
+		@if($key != "invoice")
+		<div class="row">
+			<div class="col-md-4">{{ucwords(str_replace("_", " ",$key))}}</div>
+			<div class="col-md-4">
+				@if ($value)
+					<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>
+				@else
+					Document Unavailable
+				@endif
+			</div>
+		</div>
+		@endif
+		@endforeach	
 	</div>
 </div>
 
@@ -89,8 +71,3 @@
 		</div>
 	</div>
 </div>
-@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
-	<input type="hidden" name="TrailerSerialNo" value="{{$data->filesData[0]->TrailerSerialNo}}">
-	{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
-@endif
-{!! Form::close() !!}
