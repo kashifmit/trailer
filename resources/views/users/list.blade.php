@@ -35,12 +35,6 @@
 
         </div>
         <div class="col-xl-9">
-            <div class="mb-4 text-right">
-                <a href="{{route('create.user')}}" class="btn btn-primary">
-                    Add New User
-                </a> 
-            </div>
-
             <div class="table-responsive">
                 <table class="table text-sm table-striped table-hover">
                     <thead>

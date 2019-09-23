@@ -121,6 +121,18 @@
                                     Add Invoice
                                 </a>
                             </li>
+                            @elseif(Route::currentRouteName() == 'users.list')
+                            <li class="nav-item">
+                                <a href="{{route('create.user')}}" class="nav-link">
+                                    Add New User
+                                </a>
+                            </li>
+                            @elseif(Route::currentRouteName() == 'create.user')
+                            <li class="nav-item">
+                                <a href="{{route('users.list')}}" class="nav-link">
+                                    Users
+                                </a>
+                            </li>
                             @elseif(Route::currentRouteName() == 'invoice.list')
                             <li class="nav-item">
                                 <a href="{{route('create.invoice')}}" class="nav-link">Add Invoice</a>
