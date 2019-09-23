@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/store-trailor', 'TrailerController@storetriler')->name('store.trailer');
 	Route::get('/edit-trailor/{TrailerSerialNo}', 'TrailerController@editTrailer')->name('edit.trailer');
 	Route::put('update-trailer/{TrailerSerialNo}', 'TrailerController@updateTrailer')->name('update.trailer');
-	Route::get('download-file/{id}', 'TrailerController@dowLoadFile')->name('download.file');
+	Route::get('download-file/{id}', 'TrailerController@downLoadFile')->name('download.file');
 	Route::get('download-zip', 'TrailerController@downLoadZip')->name('download.zip');
 	Route::post('/trailer-owners', 'TrailerController@trailerOwners')->name('trailer.owners');
 	Route::get('/trailer-financials', 'TrailerController@trailerfinancilas')->name('trailer.financilas');
