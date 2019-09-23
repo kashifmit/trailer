@@ -46,22 +46,36 @@
                 $("#get_financial_data").html(response);
             });
         });
-        $(document).on('click', '.display-table', function() {
-            $("#trailer_locaton_table").html();
-            var data = $("#search_trailer_location").serialize();
-            $.ajax({
-                url:"/trailer-location-table?"+data,
-                method:"get",
-            }).done(function (response) {
-                $("#trailer_locaton_table").html(response);
-            });
+
+        $('.display-table').on('click', this, function() {
+
+            var tableContent = $("#trailer_locaton_table").html();
+
+            if ( !tableContent ) {
+                $("#trailer_locaton_table").html();
+                var data = $("#search_trailer_location").serialize();
+                $.ajax({
+                    url:"/trailer-location-table?"+data,
+                    method:"get",
+                }).done(function (response) {
+                    $("#trailer_locaton_table").html(response);
+                });
+            }
+            else {
+                $("#trailer_locaton_table").fadeIn();
+            }
+
+            $('#map-block').hide();
+
         });
-        $(document).on('click', '.display-map', function() {
+
+        $('.display-map').on('click', this, function() {
+
             var data = $("#search_trailer_location").serialize();
             $.ajax({
                 url:"/search-trailer-location?"+data,
                 method:"get",
-            }).done(function (response) {
+            }).done(function (response) {                
                 var data = response.mapData;
                 if (response.success) {
                     $.each(data, function (index, value) {
@@ -71,6 +85,8 @@
                     maps[0].map.setCenter({lat: parseFloat(0), lng: parseFloat(0)});
                 }
             });
+            $("#map-block").fadeIn();
+            $("#trailer_locaton_table").hide();
         });
     });
 </script>    

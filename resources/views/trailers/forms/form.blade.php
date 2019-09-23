@@ -9,7 +9,7 @@
 
   <div class="tab-content">
     @if(isset($data))
-        <header class="heading">
+        <header class="heading mb-0">
           <h3 class="title">
             Trailer Record - {{$data->TrailerSerialNo}}
           </h3>
