@@ -489,4 +489,29 @@ class InvoiceController extends Controller
         flash('Invoice Line updated successfully!')->success();
         return Redirect::route('edit.invoice.line', $InvoiceNo);
     }
+
+    public function downLoadInvoiceFile($id)
+    {
+        // dd("213");
+        try {
+            $file = TrailerFilesModel::where('Id', $id)->firstOrFail();
+            $pathToFile = url('docs/'. $file->FileName);
+            $fileName = $file->FileName;
+            $headers = array(
+                'Content-Type: application/'.$file->mimetype
+            );
+            return response()->download($pathToFile, $fileName, $headers);
+            // dd($pathToFile);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+        // $file = TrailerFilesModel::where('Id', $id)->firstOrFail();
+        // $pathToFile = public_path('docs/'. $file->FileName);
+     //    $fileName = $file->FileName;
+     //    $headers = array(
+     //        'Content-Type: application/'.$file->mimetype
+     //    );
+        // return response()->download($pathToFile, $fileName, $headers);
+    }
 }

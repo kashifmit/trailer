@@ -140,6 +140,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('export-lineCSV/{invoiceIds}', 'InvoiceController@exportLineCSV')->name('export.lineCSV');
 	Route::get('/edit-invoice-line/{InvoiceNo}', 'InvoiceController@editInvoiceLine')->name('edit.invoice.line');
 	Route::put('update-invoice-line/{InvoiceNo}', 'InvoiceController@updateInvoiceLine')->name('update.invoice.line');
+	Route::get('download-invoice-file/{id}', 'InvoiceController@downLoadInvoiceFile')->name('download.invoice.file');
 	/**
 	*	Customer Routes
 	**/

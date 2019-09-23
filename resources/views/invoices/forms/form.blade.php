@@ -43,7 +43,7 @@
             && file_exists(public_path('docs/'.$data->FileName))
           )
           <div class="mt-4">
-            <a class="text-primary" href="{{route('download.file',$data->Id)}}">Download Invoice</a>
+            <a class="text-primary" href="{{route('download.invoice.file',$data->Id)}}">Download Invoice</a>
             {!! Form::hidden('Id', $data->Id) !!}
           </div>
         @endif
