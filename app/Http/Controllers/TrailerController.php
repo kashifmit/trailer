@@ -294,7 +294,8 @@ class TrailerController extends Controller
     public function dowLoadFile($id)
     {
     	$file = TrailerFilesModel::where('Id', $id)->firstOrFail();
-    	$pathToFile = url('docs/'. $file->FileName);
+    	$pathToFile = public_path('docs/'. $file->FileName);
+        dd($pathToFile);
     	return response()->download($pathToFile);
     }
 
