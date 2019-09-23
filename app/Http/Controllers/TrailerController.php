@@ -299,7 +299,6 @@ class TrailerController extends Controller
         $headers = array(
             'Content-Type: application/'.$file->mimetype
         );
-        dd($pathToFile);
     	return response()->download($pathToFile, $fileName, $headers);
     }
 
