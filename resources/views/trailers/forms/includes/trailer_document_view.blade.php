@@ -9,31 +9,37 @@
 <div class="trailer-contents">
 	<div class="row">
 		<div class="col-lg-8">
-			<header class="heading">
-				<h4 class="title text-bold">
-					Equipment Documents
-				</h4>
-			</header>
-	<div class="titles-masthead mb-4">
-		<ul class="list-title-masthead">
-			<li>
-				{!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
-				<span>{{(isset($data) && !empty($data)) ? $data->TrailerSerialNo : '---'}}</span>
-			</li>
-			<li>
-				{!! Form::label('VehicleId_VIN', 'VIN', ['class' => 'bold']) !!}
-				<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : '---'}}</span>
-			</li>
-			<li>
-				{!! Form::label('PlateNo', 'Plate Number', ['class' => 'bold']) !!}
-				<span>{{((isset($data) && !empty($data)) && $data->registrationData) ? $data->registrationData[0]->PlateNo : '---'}}</span>
-			</li>
-		</ul>
-	</div>
+			<div class="trailer-doc-block">
 
-	@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
-		@include('trailers.forms.includes.trailer_doc_table_view')
-	@endif
+				<header class="heading">
+					<h4 class="title text-bold">
+						Equipment Documents
+					</h4>
+				</header>
+
+				<div class="trailer-doc-contents">
+						<div class="row doc-row">
+							<div class="col-md-4"><span>Trailer Number</span></div>
+							<div class="col-md-4"><span>{{(isset($data) && !empty($data)) ? $data->TrailerSerialNo : '---'}}</span></div>
+						</div>
+						<div class="row doc-row">
+							<div class="col-md-4"><span>VIN</span></div>
+							<div class="col-md-4">
+								<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : '---'}}</span>
+							</div>
+						</div>
+						<div class="row doc-row">
+							<div class="col-md-4"><span>Plate Number</span></div>
+							<div class="col-md-4"><span>{{((isset($data) && !empty($data)) && $data->registrationData) ? $data->registrationData[0]->PlateNo : '---'}}</span></div>
+						</div>
+
+						@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
+							@include('trailers.forms.includes.trailer_doc_table_view')
+						@endif
+				</div>			
+			</div>
+
+
 		</div>
 		<div class="col-lg-4">
 			<embed src="" style="width: 100%; height: 500px;" 

@@ -18261,3 +18261,16 @@ main[role=main] {
   font-weight: 400;
 }
 
+.trailer-doc-block .doc-row {
+  margin-bottom: 1rem;
+}
+
+.trailer-doc-block .doc-row [class^=col] {
+  display: flex;
+  align-items: center;
+}
+
+.trailer-doc-block .doc-row [class^=col] label {
+  margin-bottom: 0;
+}
+

@@ -8,68 +8,66 @@
 	<div class="trailer-contents">
 		<div class="row">
 			<div class="col-lg-8">
-				<header class="heading">
-			<h4 class="title text-bold">
-				Equipment Documents
-			</h4>
-		</header>
-		<img src="{{url('images/Spinner.gif')}}" id="lazy_image" style="display: none;">
-		<div class="titles-masthead mb-4">
-			<ul class="list-title-masthead">
-				<li>
-					{!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
-					<span>{{$regData ? $regData->TrailerSerialNo : ''}}</span>
-				</li>
-				<li>
-					{!! Form::label('VehicleId_VIN', 'VIN', ['class' => 'bold']) !!}
-					<span>{{$regData ? $regData->VehicleId_VIN : ''}}</span>
-				</li>
-				<li>
-					{!! Form::label('PlateNo', 'Plate Number', ['class' => 'bold']) !!}
-					<span>{{$regData ? $regData->PlateNo : ''}}</span>
-				</li>
-			</ul>
-		</div>
-		
+				<div class="trailer-doc-block">
+					<header class="heading">
+						<h4 class="title text-bold">Equipment Documents</h4>
+					</header>
 
-	@if(count($docData))
-		@foreach($docTypes as $key => $value)
-		{!! Form::open(array('method' => 'post', 'route' => 'upload.documents', 'class' => 'form', 'id' => 'form_'.$value, 'files'=>true)) !!}
+					<div class="trailer-doc-contents">
+						<img src="{{url('images/Spinner.gif')}}" id="lazy_image" style="display: none;">
+						<div class="row doc-row">
+							<div class="col-md-4"><span>Trailer Number</span></div>
+							<div class="col-md-4"><span>{{$regData ? $regData->TrailerSerialNo : ''}}</span></div>
+						</div>
+						<div class="row doc-row">
+							<div class="col-md-4"><span>VIN</span></div>
+							<div class="col-md-4"><span>{{$regData ? $regData->VehicleId_VIN : ''}}</span></div>
+						</div>
+						<div class="row doc-row">
+							<div class="col-md-4"><span>Plate Number</span></div>
+							<div class="col-md-4"><span>{{$regData ? $regData->PlateNo : ''}}</span></div>
+						</div>
 
-		<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
-		<input type="hidden" name="VehicleId_VIN" value="{{$regData->VehicleId_VIN}}">
-		<div class="row">
-			{!! Form::hidden('DocType[]', $docData[$value] ? $docData[$value]->DocType : $value) !!}
-			@if($docData[$value])
-			{!! Form::hidden('Id[]', $docData[$value]->Id) !!}
-			@endif
-			<div class="col-md-3">{{$value =="fhwa" ? strtoupper($value) : ucwords(str_replace("_", " ",$value))}}</div>
-			<div class="col-md-3">
-				
-				@if ($docData[$value])
-					@if ($docData[$value]->mimetype == "pdf" || $docData[$value]->mimetype == "txt" || $docData[$value]->mimetype == "jpg" || $docData[$value]->mimetype == "png" || $docData[$value]->mimetype == "jpeg")
-					<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $docData[$value]->FileName)}}">view</a>
-					@else
-						{{$docData[$value]->FileName}}
-					@endif
-		 		@else
-		 			Not Exist
-		 		@endif
-			</div>
-			<div class="col-md-3">
-				<input type="file" name="FileName[]" id="file_{{$value}}">
-			</div>
-			<div class="col-md-3">
-				<input type="submit" class="btn btn-primary load-btn" value="Load">
-			</div>
-		</div>
-		{!! Form::close() !!}
-		@endforeach
-	@endif
+						@if(count($docData))
+							@foreach($docTypes as $key => $value)
+							{!! Form::open(array('method' => 'post', 'route' => 'upload.documents', 'class' => 'form', 'id' => 'form_'.$value, 'files'=>true)) !!}
+
+							<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
+							<input type="hidden" name="VehicleId_VIN" value="{{$regData->VehicleId_VIN}}">
+							<div class="row doc-row">
+								{!! Form::hidden('DocType[]', $docData[$value] ? $docData[$value]->DocType : $value) !!}
+								@if($docData[$value])
+								{!! Form::hidden('Id[]', $docData[$value]->Id) !!}
+								@endif
+								<div class="col-md-4">{{$value =="fhwa" ? strtoupper($value) : ucwords(str_replace("_", " ",$value))}}</div>
+								<div class="col-md-4">
+									@if ($docData[$value])
+										@if ($docData[$value]->mimetype == "pdf" || $docData[$value]->mimetype == "txt" || $docData[$value]->mimetype == "jpg" || $docData[$value]->mimetype == "png" || $docData[$value]->mimetype == "jpeg")
+										<a href="javascript:" class="get-file-view text-primary text-underline" file-name="{{url('docs/'. $docData[$value]->FileName)}}">view</a>
+										@else
+											{{$docData[$value]->FileName}}
+										@endif
+									@else
+										Not Exist
+									@endif
+								</div>
+								<div class="col-md-2">
+									<input type="file" name="FileName[]" id="file_{{$value}}">
+								</div>
+								<div class="col-md-2">
+									<input type="submit" class="btn btn-primary btn-sm load-btn" value="Load">
+								</div>
+							</div>
+							{!! Form::close() !!}
+							@endforeach
+						@endif
+
+					</div>
+				</div>
+
 			</div>
 			<div class="col-lg-4">
-				<embed src="" style="width: 100%; height: 500px;" 
- type="" id="image_previews">
+				<embed src="" style="width: 100%; height: 500px;" type="" id="image_previews">
 			</div>
 		</div>
 	</div>
