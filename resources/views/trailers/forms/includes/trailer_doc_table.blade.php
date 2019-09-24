@@ -7,10 +7,10 @@
 {!! Form::open(array('method' => 'get', 'route' => 'download.all.docs', 'class' => 'form', 'id' => 'all_docs_form')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 {!! Form::close() !!}
-@if (isset($successMessage))
-	<div class="alert alert-success">{{$successMessage}}</div>
-@endif
 <div class="trailer-contents">
+	@if (isset($successMessage))
+		<div class="alert alert-success">{{$successMessage}}</div>
+	@endif
 	<div class="row">
 		<div class="col-lg-8">
 			<header class="heading">

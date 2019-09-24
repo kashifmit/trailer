@@ -153,7 +153,7 @@ function upploadDocuments(formData) {
         $("#trailer_documents").html(response);
         setTimeout(function(){ 
           $(".alert-success").hide();
-        }, 2000);
+        }, 4000);
     });
 }
 
