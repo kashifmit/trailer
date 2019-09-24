@@ -1,27 +1,29 @@
 <input type="hidden" id="check_Data_available" value="{{$regData ? 1 : 0}}">
 <input type="hidden" id="enable_document" value="download_all_documents">
 @if($regData)
-{!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
-	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
-{!! Form::close() !!}
-<div class="row">Equipment Documents</div>
-<div class="row">
-	<div class="col-lg-8">
-		<div class="row">
-			<div class="col-md-6">Trailer Number</div>
-			<div class="col-md-6">{{$regData ? $regData->TrailerSerialNo : ''}}</div>
+	<div class="trailer-contents">
+		<header class="heading">
+			<h4 class="title text-bold">
+				Equipment Documents
+			</h4>
+		</header>
+		<div class="titles-masthead mb-4">
+			<ul class="list-title-masthead">
+				<li>
+					{!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
+					<span>{{$regData ? $regData->TrailerSerialNo : ''}}</span>
+				</li>
+				<li>
+					{!! Form::label('VehicleId_VIN', 'VIN', ['class' => 'bold']) !!}
+					<span>{{$regData ? $regData->VehicleId_VIN : ''}}</span>
+				</li>
+				<li>
+					{!! Form::label('PlateNo', 'Plate Number', ['class' => 'bold']) !!}
+					<span>{{$regData ? $regData->PlateNo : ''}}</span>
+				</li>
+			</ul>
 		</div>
-		<div class="row">
-			<div class="col-md-6">VIN #</div>
-			<div class="col-md-6">{{$regData ? $regData->VehicleId_VIN : ''}}</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">Licence #</div>
-			<div class="col-md-6">{{$regData ? $regData->PlateNo : ''}}</div>
-		</div>
-	</div>
-</div>
-{!! Form::open(array('method' => 'get', 'route' => 'download.zip', 'class' => 'form')) !!}
+		{!! Form::open(array('method' => 'get', 'route' => 'download.zip', 'class' => 'form')) !!}
 <div class="row">
 	<div class="col-lg-8">
 	<div class="table-responsive mb-4">
@@ -118,8 +120,15 @@
 	{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
 	@endif
 {!! Form::close() !!}
+	</div>
 @else
-	<div class="row">
-		Equipment Documents Not Found
+	<div class="trailer-contents">
+		<div class="titles-masthead mb-4">
+			<ul class="list-title-masthead">
+				<li>
+					Equipment Documents Not Found
+				</li>
+			</ul>
+		</div>
 	</div>
 @endif
