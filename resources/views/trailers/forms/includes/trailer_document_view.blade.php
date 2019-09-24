@@ -7,12 +7,13 @@
 	<input type="hidden" name="TrailerSerialNo" value="{{$data->TrailerSerialNo}}">
 {!! Form::close() !!}
 <div class="trailer-contents">
-	<header class="heading">
-		<h4 class="title text-bold">
-			Equipment Documents
-		</h4>
-	</header>
-
+	<div class="row">
+		<div class="col-lg-8">
+			<header class="heading">
+				<h4 class="title text-bold">
+					Equipment Documents
+				</h4>
+			</header>
 	<div class="titles-masthead mb-4">
 		<ul class="list-title-masthead">
 			<li>
@@ -33,6 +34,11 @@
 	@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
 		@include('trailers.forms.includes.trailer_doc_table_view')
 	@endif
-
+		</div>
+		<div class="col-lg-4">
+			<embed src="" style="width: 100%; height: 500px;" 
+ type="application/pdf" id="image_previews">
+		</div>
+	</div>
 </div>
 

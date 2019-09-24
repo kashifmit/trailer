@@ -3,7 +3,18 @@
 		@foreach($docData as $key => $value)
 		@if($key != "invoice")
 		<div class="row">
-			<div class="col-md-4">{{$key =="fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}</div>
+			<div class="col-md-4">
+			{{$key =="fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}
+			</div>
+			@if ($value)
+				@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
+				<a href="javascript:" class="get-file-view" fileattr={{url('docs/'. $value->FileName)}}>view</a>
+				@else
+					{{$value->FileName}}
+				@endif
+	 		@else
+	 			<a href="javascript:">view</a>
+	 		@endif
 			<div class="col-md-4">
 				@if ($value)
 					<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>

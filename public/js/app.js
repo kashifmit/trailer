@@ -37500,6 +37500,10 @@ $(document).ready(function () {
   $('.datepicker').datepicker();
   $('.selectable-box').select2();
 });
+$(document).on('click', '.get-file-view', function () {
+  var fileName = $(this).attr('fileattr');
+  $("#image_previews").attr('src', fileName);
+});
 $(document).on('click', '.checkClass', function () {
   if ($(this).attr('href') === "#home_details" || $(this).attr('href') === "#trailer_details") {
     $(".homeClass").show();

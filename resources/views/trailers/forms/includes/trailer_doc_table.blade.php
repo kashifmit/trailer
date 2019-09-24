@@ -9,7 +9,9 @@
 {!! Form::close() !!}
 
 <div class="trailer-contents">
-	<header class="heading">
+	<div class="row">
+		<div class="col-lg-8">
+			<header class="heading">
 		<h4 class="title text-bold">
 			Equipment Documents
 		</h4>
@@ -33,6 +35,19 @@
 	@foreach($docData as $key => $value)
 <div class="row">
 	<div class="col-md-4">{{$key == "fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}</div>
+	
+	<div class="col-md-4">
+		@if ($value)
+			@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
+			<a href="javascript:" class="get-file-view" fileattr={{url('docs/'. $value->FileName)}}>view</a>
+			@else
+				{{$value->FileName}}
+			@endif
+ 		@else
+ 			<a href="javascript:">view</a>
+ 		@endif
+	</div>
+	
 	<div class="col-md-4">
 		@if ($value)
 			<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>
@@ -51,47 +66,54 @@
 	</h5>
 </header>
 
-<div class="row">
-	<div class="col-lg-8">
-		<div class="table-responsive">
-			<table class="table table-striped text-sm table-hover">
-				<thead>
-					<tr>
-						<th>DownLoad Invoice</th>
-						<th>Invoice Number</th>
-						<th>Invoice Date</th>
-						<th>Trailer</th>
-						<th>Total Invoice</th>
-					</tr>
-					<tbody>
-						@if(count($invoiceData))
-							@foreach($invoiceData as $key =>$data)
-							@if($data->invoiceFiles)
-							@php
-								
-								$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
-							@endphp
-							<tr>
-								<td><input type="checkbox" {{$disabled}} name="Ids[]" value="{{$data->invoiceFiles->Id}}"></td>
-								<td>
-									<a href="{{route('edit.invoice', ['InvoiceNo' => $data->InvoiceNo])}}">
-										{{$data->InvoiceNo}}
-									</a></td>
-								<td>{{date('m/d/Y', strtotime($data->InvoiceDate))}}</td>
-								<td>{{$data->TrailerSerialNo}}</td>
-								<td>${{$data->TotalPrice}}</td>
-							</tr>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="table-responsive">
+				<table class="table table-striped text-sm table-hover">
+					<thead>
+						<tr>
+							<th>DownLoad Invoice</th>
+							<th>Invoice Number</th>
+							<th>Invoice Date</th>
+							<th>Trailer</th>
+							<th>Total Invoice</th>
+						</tr>
+						<tbody>
+							@if(count($invoiceData))
+								@foreach($invoiceData as $key =>$data)
+								@if($data->invoiceFiles)
+								@php
+									
+									$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
+								@endphp
+								<tr>
+									<td><input type="checkbox" {{$disabled}} name="Ids[]" value="{{$data->invoiceFiles->Id}}"></td>
+									<td>
+										<a href="{{route('edit.invoice', ['InvoiceNo' => $data->InvoiceNo])}}">
+											{{$data->InvoiceNo}}
+										</a></td>
+									<td>{{date('m/d/Y', strtotime($data->InvoiceDate))}}</td>
+									<td>{{$data->TrailerSerialNo}}</td>
+									<td>${{$data->TotalPrice}}</td>
+								</tr>
+								@endif
+								@endforeach
+							@else
+								<tr><td colspan="100%">No invoices found</td></tr>	
 							@endif
-							@endforeach
-						@else
-							<tr><td colspan="100%">No invoices found</td></tr>	
-						@endif
-					</tbody>
-				</thead>
-			</table>
+						</tbody>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</div>
+		</div>
+		<div class="col-lg-4">
+			<embed src="" style="width: 100%; height: 500px;" 
+ type="application/pdf" id="image_previews">
+		</div>
 	</div>
+	
 </div>
 @else
 	<div class="trailer-contents">

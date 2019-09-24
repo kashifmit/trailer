@@ -115,7 +115,7 @@
 			
 	</div>
 </div>
-@if(count($invoiceData) || count($data))
+@if(count($invoiceData) || count($docData))
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 	{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
 	@endif
