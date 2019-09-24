@@ -37615,7 +37615,7 @@ $(document).on('submit', '#form_fhwa', function (e) {
 $(document).on('submit', '#form_registration', function (e) {
   e.preventDefault();
 
-  if ($("#file_fhwa").val() == "") {
+  if ($("#file_registration").val() == "") {
     alert("Please select Registration file");
     return false;
   }
