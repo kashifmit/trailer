@@ -27,13 +27,30 @@
 
         .form-control {
             width: 130px;
-            font-size: .9em;
+            font-size: .85em;
 
             &.lg {
                 width: 260px;
             }
             &.sm {
                 width: 110px;
+            }            
+        }
+
+        .select2-container {
+            min-width: 130px;
+            font-size: .85em;
+
+            &.lg {
+                min-width: 260px;
+            }
+            &.sm {
+                min-width: 110px;
+            }
+
+            &.select2-container--default .select2-selection--single {
+                padding-top: 0.475rem;
+                padding-bottom: 0.475rem;
             }
         }
     }
