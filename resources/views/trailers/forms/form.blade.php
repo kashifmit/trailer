@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs sticky">
     <li><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
     <li class="active"><a class="checkClass" data-toggle="tab" href="#trailer_details">Detail</a></li>
-    <li><a class="checkClass" data-toggle="tab" href="#trailer_documents">Documents</a></li>
+    <li><a class="checkClass trailer_documents" data-toggle="tab" href="#trailer_documents">Documents</a></li>
     <li><a class="checkClass" data-toggle="tab" href="#trailer_locations">Locations</a></li>
     <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
   </ul>

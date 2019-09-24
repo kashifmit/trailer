@@ -9,7 +9,7 @@
                 <li>
               </li>
               <li>
-                <a class="checkClass" data-toggle="tab" href="#trailer_documents">
+                <a class="checkClass trailer_documents" data-toggle="tab" href="#trailer_documents">
                   Documents
                 </a>
               </li>

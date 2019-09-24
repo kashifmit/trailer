@@ -13,7 +13,7 @@
 					{{$value->FileName}}
 				@endif
 	 		@else
-	 			<a href="javascript:">view</a>
+	 			Document Unavailable
 	 		@endif
 			<div class="col-md-4">
 				@if ($value)

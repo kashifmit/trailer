@@ -71,9 +71,5 @@
  type="" id="image_previews">
 			</div>
 		</div>
-
-	<!-- <div class="row">
-		<input type="submit" class="btn btn-primary" name="Upload" value="Upload">
-	</div> -->
 	</div>
 @endif

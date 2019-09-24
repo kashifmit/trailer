@@ -151,6 +151,7 @@ function upploadDocuments(formData) {
         processData:false,
     }).done(function(response){
         $("#trailer_documents").html(response);
+        $(".trailer_documents").click();
         setTimeout(function(){ 
           $(".alert-success").hide();
         }, 4000);
