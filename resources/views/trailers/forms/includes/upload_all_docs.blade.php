@@ -6,7 +6,9 @@
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 {!! Form::close() !!}
 	<div class="trailer-contents">
-		<header class="heading">
+		<div class="row">
+			<div class="col-lg-8">
+				<header class="heading">
 			<h4 class="title text-bold">
 				Equipment Documents
 			</h4>
@@ -27,44 +29,51 @@
 				</li>
 			</ul>
 		</div>
-		{!! Form::open(array('method' => 'post', 'route' => 'upload.documents', 'class' => 'form', 'id' => 'upload_documents', 'files'=>true)) !!}
-
-<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
-<input type="hidden" name="VehicleId_VIN" value="{{$regData->VehicleId_VIN}}">
+		
 
 	@if(count($docData))
 		@foreach($docTypes as $key => $value)
+		{!! Form::open(array('method' => 'post', 'route' => 'upload.documents', 'class' => 'form', 'id' => 'form_'.$value, 'files'=>true)) !!}
+
+		<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
+		<input type="hidden" name="VehicleId_VIN" value="{{$regData->VehicleId_VIN}}">
 		<div class="row">
 			{!! Form::hidden('DocType[]', $docData[$value] ? $docData[$value]->DocType : $value) !!}
 			@if($docData[$value])
 			{!! Form::hidden('Id[]', $docData[$value]->Id) !!}
 			@endif
-			<div class="col-md-4">{{$value =="fhwa" ? strtoupper($value) : ucwords(str_replace("_", " ",$value))}}</div>
-			<div class="col-md-4">
-				@if($docData[$value])
-				{{$docData[$value]->FileName}}
-				@else
-				Not Exist
-				@endif
-
+			<div class="col-md-3">{{$value =="fhwa" ? strtoupper($value) : ucwords(str_replace("_", " ",$value))}}</div>
+			<div class="col-md-3">
+				
+				@if ($docData[$value])
+					@if ($docData[$value]->mimetype == "pdf" || $docData[$value]->mimetype == "txt" || $docData[$value]->mimetype == "jpg" || $docData[$value]->mimetype == "png" || $docData[$value]->mimetype == "jpeg")
+					<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $docData[$value]->FileName)}}">view</a>
+					@else
+						{{$docData[$value]->FileName}}
+					@endif
+		 		@else
+		 			Not Exist
+		 		@endif
 			</div>
-			<div class="col-md-4">
-				<input type="file" name="FileName[]" value="{{$value}}">
+			<div class="col-md-3">
+				<input type="file" name="FileName[]" id="file_{{$value}}">
+			</div>
+			<div class="col-md-3">
+				<input type="submit" class="btn btn-primary" value="Load">
 			</div>
 		</div>
-		@endforeach
-		@else
-		@foreach($docTypes as $key => $value)
-		<div class="row">
-			<div class="col-md-4">{{ucwords(str_replace("_", " ",$value))}}</div>
-			{!! Form::hidden('DocType[]', $value) !!}
-			<div class="col-md-4"><input type="file" name="FileName[]" value="{{$value}}"></div>
-		</div>
+		{!! Form::close() !!}
 		@endforeach
 	@endif
+			</div>
+			<div class="col-lg-4">
+				<embed src="" style="width: 100%; height: 500px;" 
+ type="" id="image_previews">
+			</div>
+		</div>
 
-	<div class="row">
+	<!-- <div class="row">
 		<input type="submit" class="btn btn-primary" name="Upload" value="Upload">
-	</div>
+	</div> -->
 	</div>
 @endif

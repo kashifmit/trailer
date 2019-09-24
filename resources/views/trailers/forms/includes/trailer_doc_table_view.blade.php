@@ -8,7 +8,7 @@
 			</div>
 			@if ($value)
 				@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
-				<a href="javascript:" class="get-file-view" fileattr={{url('docs/'. $value->FileName)}}>view</a>
+				<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $value->FileName)}}">view</a>
 				@else
 					{{$value->FileName}}
 				@endif

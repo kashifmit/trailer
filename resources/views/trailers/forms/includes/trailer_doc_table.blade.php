@@ -7,7 +7,9 @@
 {!! Form::open(array('method' => 'get', 'route' => 'download.all.docs', 'class' => 'form', 'id' => 'all_docs_form')) !!}
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 {!! Form::close() !!}
-
+@if (isset($successMessage))
+	<div class="alert alert-success">{{$successMessage}}</div>
+@endif
 <div class="trailer-contents">
 	<div class="row">
 		<div class="col-lg-8">
@@ -39,7 +41,7 @@
 	<div class="col-md-4">
 		@if ($value)
 			@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
-			<a href="javascript:" class="get-file-view" fileattr={{url('docs/'. $value->FileName)}}>view</a>
+			<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $value->FileName)}}">view</a>
 			@else
 				{{$value->FileName}}
 			@endif
@@ -110,7 +112,7 @@
 		</div>
 		<div class="col-lg-4">
 			<embed src="" style="width: 100%; height: 500px;" 
- type="application/pdf" id="image_previews">
+ type="" id="image_previews">
 		</div>
 	</div>
 	

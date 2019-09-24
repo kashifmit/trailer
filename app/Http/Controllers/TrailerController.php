@@ -562,6 +562,7 @@ class TrailerController extends Controller
 
     private function getDocs($request)
     {
+
         $TrailerSerialNo = $request->input('TrailerSerialNo');
         $VehicleId_VIN = $request->input('VehicleId_VIN');
         $message = "";
@@ -579,6 +580,10 @@ class TrailerController extends Controller
 
         if (!empty($request->input('VehicleId_VIN'))) {
             $TrailerSerialNo = "";
+        }
+        if (!empty($request->input('TrailerSerialNo')) && !empty($request->input('VehicleId_VIN'))) {
+            $TrailerSerialNo = $request->input('TrailerSerialNo');
+            $VehicleId_VIN = $request->input('VehicleId_VIN');
         }
         if (!empty($TrailerSerialNo) || !empty($request->input('VehicleId_VIN'))) {
             $regData = RegistrationModel::select('TrailerSerialNo', 'PlateNo', 'VehicleId_VIN', 'Owner');    
@@ -682,7 +687,22 @@ class TrailerController extends Controller
 
     public function uploadNewDocuments(Request $request)
     {
+        // dd($request->all());
         $result = $this->uploadDocuments($request->input('TrailerSerialNo'), $request->input('VehicleId_VIN'), $request);
-        return $result;
+
+        $result = $this->getDocs($request);
+        $data = $result['data'];
+        $invoiceData = $result['invoiceData'];
+        $message = $result['message'];
+        $docTypes = DataArrayHelper::docsTypes();
+        $regData = $result['regData'];
+        $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
+        foreach ($data as $key => $value) {
+            $docData[$value->DocType] = $value; 
+        }
+        $successMessage = "Document Uploaded successfully";
+        return response()->View('trailers.forms.includes.trailer_doc_table',
+        compact('invoiceData', 'regData', 'docTypes', 'message', 'docData', 'successMessage'));
+        // return $result;
     }
 }

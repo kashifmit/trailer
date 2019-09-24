@@ -37501,8 +37501,10 @@ $(document).ready(function () {
   $('.selectable-box').select2();
 });
 $(document).on('click', '.get-file-view', function () {
-  var fileName = $(this).attr('fileattr');
+  var fileName = $(this).attr('file-name');
+  var filetype = $(this).attr('file-type');
   $("#image_previews").attr('src', fileName);
+  $("#image_previews").attr('image_previews', 'application/' + filetype);
 });
 $(document).on('click', '.checkClass', function () {
   if ($(this).attr('href') === "#home_details" || $(this).attr('href') === "#trailer_details") {
@@ -37588,30 +37590,66 @@ $(document).on('click', '.upload-documents', function () {
   var classes = "download_documents,search_documents";
   searchResult("/upload-all-docs?", $("#upload_all_docs").serialize(), classes);
 });
-$(document).on('submit', '#upload_documents', function (e) {
+$(document).on('submit', '#form_inspection_document', function (e) {
   e.preventDefault();
+
+  if ($("#file_inspection_document").val() == "") {
+    alert("Please select Inspection document File file");
+    return false;
+  }
+
+  var formData = $(this)[0];
+  upploadDocuments(formData);
+});
+$(document).on('submit', '#form_fhwa', function (e) {
+  e.preventDefault();
+
+  if ($("#file_fhwa").val() == "") {
+    alert("Please select FHWA file");
+    return false;
+  }
+
+  var formData = $(this)[0];
+  upploadDocuments(formData);
+});
+$(document).on('submit', '#form_registration', function (e) {
+  e.preventDefault();
+
+  if ($("#file_fhwa").val() == "") {
+    alert("Please select Registration file");
+    return false;
+  }
+
+  var formData = $(this)[0];
+  upploadDocuments(formData);
+});
+$(document).on('submit', '#form_tracking_installation_sheet', function (e) {
+  e.preventDefault();
+
+  if ($("#file_tracking_installation_sheet").val() == "") {
+    alert("Please select Tracking Installation Sheet file");
+    return false;
+  }
+
+  var formData = $(this)[0];
+  upploadDocuments(formData);
+});
+
+function upploadDocuments(formData) {
   $.ajax({
     url: "/upload-documents",
     type: "POST",
-    data: new FormData($(this)[0]),
+    data: new FormData(formData),
     contentType: false,
     cache: false,
     processData: false
   }).done(function (response) {
-    if (response.success) {
-      $(".alert").addClass('alert-success').html(response.message).show();
-      setTimeout(function () {
-        $(".alert").removeClass('alert-success').html('').hide();
-      }, 3000);
-    } else {
-      $(".alert").addClass('alert-danger').html(response.message).show();
-      setTimeout(function () {
-        $(".alert").removeClass('alert-danger').html('').hide();
-      }, 3000);
-      console.log(response.technical_message);
-    }
+    $("#trailer_documents").html(response);
+    setTimeout(function () {
+      $(".alert-success").hide();
+    }, 2000);
   });
-});
+}
 
 function searchResult(route, formData, classes) {
   if (formData != "") {
