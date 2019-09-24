@@ -3,10 +3,6 @@
 @section('content')
     @include('flash::message')
     <div class="page">
-        <header class="heading space-between">
-          <h3 class="title">{{ __('Edit Invoice') }}</h3>
-        </header>
-
         <div class="content">
             {!! Form::open(array('method' => 'put', 'route' => array('update.invoice', $data->InvoiceNo), 'class' => 'form', 'files'=>true)) !!}
             {!! Form::hidden('InvoiceNo', $data->InvoiceNo) !!}
