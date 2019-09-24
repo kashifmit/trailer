@@ -13,6 +13,7 @@
 				Equipment Documents
 			</h4>
 		</header>
+		<img src="{{url('images/Spinner.gif')}}" id="lazy_image" style="display: none;">
 		<div class="titles-masthead mb-4">
 			<ul class="list-title-masthead">
 				<li>
@@ -59,7 +60,7 @@
 				<input type="file" name="FileName[]" id="file_{{$value}}">
 			</div>
 			<div class="col-md-3">
-				<input type="submit" class="btn btn-primary" value="Load">
+				<input type="submit" class="btn btn-primary load-btn" value="Load">
 			</div>
 		</div>
 		{!! Form::close() !!}

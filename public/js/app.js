@@ -37636,6 +37636,8 @@ $(document).on('submit', '#form_tracking_installation_sheet', function (e) {
 });
 
 function upploadDocuments(formData) {
+  $(".load-btn").attr('disabled', true);
+  $("#lazy_image").show();
   $.ajax({
     url: "/upload-documents",
     type: "POST",
@@ -37644,6 +37646,8 @@ function upploadDocuments(formData) {
     cache: false,
     processData: false
   }).done(function (response) {
+    $(".load-btn").attr('disabled', false);
+    $("#lazy_image").hide();
     $("#trailer_documents").html(response);
     $(".trailer_documents").click();
     setTimeout(function () {
