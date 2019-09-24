@@ -18202,7 +18202,7 @@ main[role=main] {
 
 .trailer-block .form-group .form-control {
   width: 130px;
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 
 .trailer-block .form-group .form-control.lg {
@@ -18211,6 +18211,24 @@ main[role=main] {
 
 .trailer-block .form-group .form-control.sm {
   width: 110px;
+}
+
+.trailer-block .form-group .select2-container {
+  min-width: 130px;
+  font-size: 0.85em;
+}
+
+.trailer-block .form-group .select2-container.lg {
+  min-width: 260px;
+}
+
+.trailer-block .form-group .select2-container.sm {
+  min-width: 110px;
+}
+
+.trailer-block .form-group .select2-container.select2-container--default .select2-selection--single {
+  padding-top: 0.475rem;
+  padding-bottom: 0.475rem;
 }
 
 .trailer-block-bg {
