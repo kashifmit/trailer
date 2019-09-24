@@ -35,7 +35,7 @@
 			@if($docData[$value])
 			{!! Form::hidden('Id[]', $docData[$value]->Id) !!}
 			@endif
-			<div class="col-md-4">{{ucwords(str_replace("_", " ",$value))}}</div>
+			<div class="col-md-4">{{$value =="fhwa" ? strtoupper($value) : ucwords(str_replace("_", " ",$value))}}</div>
 			<div class="col-md-4">
 				@if($docData[$value])
 				{{$docData[$value]->FileName}}

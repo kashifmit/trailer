@@ -83,5 +83,13 @@
         searchTrailer(formData);
       });
     });
+    function searchTrailer(formData) {
+      $.ajax({
+            url: "/trailer-data?"+formData,
+            method: "GET",
+        }).done(function(response) {
+            $("#home_data_table").html(response);
+        });
+    }
 </script> 
 @endsection

@@ -36,7 +36,6 @@
 			<tbody>
 				@if(count($docData))
 				@foreach($docData as $key => $value)
-					
 					<tr>
 						<td>
 							@if ($value)
@@ -46,7 +45,7 @@
 							@endif
 						</td>
 						<td>
-							{{ucwords(str_replace("_", " ",$key))}}
+							{{$key == "fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}
 						</td>
 						<td>
 							{{ $value && file_exists(public_path('docs/'.$value->FileName)) ? 'Exists' : 'File Not Available' }}
