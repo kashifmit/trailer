@@ -33,9 +33,8 @@
 							<div class="col-md-4"><span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->PlateNo : '---'}}</span></div>
 						</div>
 
-						@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
+						
 							@include('trailers.forms.includes.trailer_doc_table_view')
-						@endif
 				</div>			
 			</div>
 

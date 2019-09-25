@@ -6,6 +6,7 @@
         <header class="heading">
             <h3>{{ __('Search For a Trailer Repair History') }}</h3>
         </header>
+        @if(count($data) == 0)
         <div class="mb-5">
             {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
@@ -49,6 +50,44 @@
             </div>
             {!! Form::close() !!}
         </div>
+        @else
+            @php
+                $totalLabor = 0;
+                $totalAnnualInspection = 0;
+                $totalParts = 0;
+                $totalRegistration = 0;
+                $totalAccessories = 0;
+                $totalTax = 0;
+                foreach ($data as $single) {
+                    $totalLabor += $single->LaborTotal;
+                    $totalAnnualInspection += $single->AnnualInspectionTotal;
+                    $totalParts += $single->PartsTotal;
+                    $totalRegistration += $single->RegistrationTotal;
+                    $totalAccessories += $single->AccessoriesTotal;
+                    $totalTax += $single->SalesTax;
+            }
+            @endphp
+            <div class="mb-5">
+                <div class="form-group row mb-0">
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Labor</label>
+                    <div class="col-md-3">{{$totalLabor}}</div>
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Annual Inspections</label>
+                    <div class="col-md-3">{{$totalAnnualInspection}}</div>
+                </div>
+                <div class="form-group row mb-0">
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Parts</label>
+                    <div class="col-md-3">{{$totalParts}}</div>
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Registrations</label>
+                    <div class="col-md-3">{{$totalRegistration}}</div>
+                </div>
+                <div class="form-group row mb-0">
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Accessories</label>
+                    <div class="col-md-3">{{$totalAccessories}}</div>
+                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Total Tax</label>
+                    <div class="col-md-3">{{$totalTax}}</div>
+                </div>
+            </div>
+        @endif
         <div class="content">
             <div class="table-container">
                 <div class="table-responsive">
