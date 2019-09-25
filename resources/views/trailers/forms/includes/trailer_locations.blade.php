@@ -1,8 +1,8 @@
+<div class="trailer-contents">
 @if(Route::currentRouteName() == 'trailer.list')
-    <header class="heading mb-0">
+    <header class="heading mb-20-minus">
         <h3 class="title">Search For a Trailer</h3>
     </header>
-    <div class="trailer-contents">
         {!! Form::open(array('method' => 'get', 'route' => 'search.trailer.location', 'class' => 'form', 'files'=>true, 'id' => 'search_trailer_location')) !!}
 
         <div class="mb-5">
@@ -19,7 +19,6 @@
                 <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Tracking Unit Id') }}</label>
                 <div class="col-md-3">
                     <div class="form-control-wrap">
-                        
                         {!! Form::select('TrailerUnitNo', ['' => '--Tracking Unit Id--']+$getTrackingUnits, null, array('class'=>'form-control form-control-radius selectable-box', 'id'=>'TrailerUnitNo')) !!}
                     </div>
                 </div>
@@ -47,19 +46,18 @@
         {!! Form::close() !!}
 @endif
 
+
 @if(Route::currentRouteName() == 'trailer.list')
     <div class="row justify-content-md-center mb-4 mt-4">
 @else 
     <div class="row justify-content-md-center mb-4">
 @endif
-
         <div class="col-md-10">
             <div class="map-block"  id="map-block">
                 {!! Mapper::render() !!}
             </div>
         </div>
     </div>
-
     <div id="trailer_locaton_table">@include('trailers.forms.includes.location_table')</div>
 
 </div>

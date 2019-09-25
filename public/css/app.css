@@ -17730,6 +17730,10 @@ input[type=number] {
   padding-top: 50px;
 }
 
+.mb-20-minus {
+  margin-top: -20px;
+}
+
 .pt-0 {
   padding-top: 0 !important;
 }

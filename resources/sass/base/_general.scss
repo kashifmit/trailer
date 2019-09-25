@@ -115,6 +115,10 @@
 @include padding-class(30, "up");
 @include padding-class(50, "up");
 
+.mb-20-minus {
+    margin-top: -20px;
+}
+
 .pt-0 {
     padding-top: 0 !important;
 }
