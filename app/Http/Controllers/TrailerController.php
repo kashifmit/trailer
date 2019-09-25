@@ -79,7 +79,7 @@ class TrailerController extends Controller
             $allData['totalPrice'] ? $allData['totalPrice'] : 0, 
             'Total_Maintenance_Expense');
         $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
-            'Total Tariler Count Lease & Owned', 
+            'Total Trailer Count Lease & Owned', 
              $allData['totalLeased_owned'] ? $allData['totalLeased_owned'] : 0, 
             'Total_trailer_count_owned');
     	return view('trailers.index')
@@ -125,7 +125,7 @@ class TrailerController extends Controller
             $allData['totalPrice'], 
             'Total_Maintenance_Expense');
         $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
-            'Total Tariler Count Lease & Owned', 
+            'Total Trailer Count Lease & Owned', 
              $allData['totalLeased_owned'], 
             'Total_trailer_count_owned');
     	return view('trailers.add')
@@ -429,7 +429,7 @@ class TrailerController extends Controller
             'Total_Maintenance_Expense'
         );
         $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
-            'Total Tariler Count Lease & Owned', 
+            'Total Trailer Count Lease & Owned', 
              $allData['totalLeased_owned'], 
             'Total_trailer_count_owned'
         );
@@ -454,7 +454,7 @@ class TrailerController extends Controller
             $allData['totalPrice'], 
             'Total_Maintenance_Expense');
         $TrailerLeasedCountAndOwned = DataArrayHelper::getChart(
-            'Total Tariler Count Lease & Owned', 
+            'Total Trailer Count Lease & Owned', 
              $allData['totalLeased_owned'], 
             'Total_trailer_count_owned');
         return [
