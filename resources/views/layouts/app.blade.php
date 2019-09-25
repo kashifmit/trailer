@@ -138,26 +138,10 @@
                                 <a href="{{route('create.invoice')}}" class="nav-link">Add Invoice</a>
                             </li>
                             @if(count($data))
-                            <li class="nav-item">
-                                <a href="{{route('invoice.list')}}" class="nav-link">Search</a>
-                            </li>
-                            @php
-                                $invoiceIds = [];
-                                foreach($data as $invoiceId) {
-                                    array_push($invoiceIds, $invoiceId->InvoiceNo);
-                                }
-                            @endphp
-                            <li class="nav-item">
-                                <a href="{{route('export.headCSV', implode(',',$invoiceIds))}}" class="nav-link">
-                                    Download Header CSV
-                                </a>
-                            </li>
-                            <li class="nav-item">    
-                                <a href="{{route('export.lineCSV', implode(',',$invoiceIds))}}" class="nav-link">
-                                    Download Line Item CSV
-                                </a>
-                            </li>    
-                                @endif
+                                <li class="nav-item">
+                                    <a href="{{route('invoice.list')}}" class="nav-link">Search</a>
+                                </li>    
+                            @endif
                             @elseif (Route::currentRouteName() == 'edit.invoice')
                                 @if(isset($data)) 
                             <li class="nav-item">

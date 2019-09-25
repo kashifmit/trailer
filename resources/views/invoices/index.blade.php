@@ -87,6 +87,14 @@
                     <div class="col-md-3">{{$totalTax}}</div>
                 </div>
             </div>
+            @php
+                $invoiceIds = [];
+                foreach($data as $invoiceId) {
+                    array_push($invoiceIds, $invoiceId->InvoiceNo);
+                }
+            @endphp
+            <a href="{{route('export.headCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Header CSV</a>
+            <a href="{{route('export.lineCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Line Item CSV</a>
         @endif
         <div class="content">
             <div class="table-container">
