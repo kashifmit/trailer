@@ -1,6 +1,9 @@
 <input type="hidden" id="check_Data_available" value="{{$regData ? 1 : 0}}">
 <input type="hidden" id="enable_document" value="download_all_documents">
 @if($regData)
+{!! Form::open(array('method' => 'get', 'route' => 'upload.all.docs', 'class' => 'form', 'id' => 'upload_all_docs')) !!}
+	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
+{!! Form::close() !!}
 	<div class="trailer-contents">
 		<header class="heading">
 			<h4 class="title text-bold">
