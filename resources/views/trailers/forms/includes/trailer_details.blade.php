@@ -1,6 +1,4 @@
-@php
-	dd($data);
-@endphp
+
 @if(Route::currentRouteName() == 'create.trailer')
 	<header class="heading mb-0">
 		<h3 class="title">
