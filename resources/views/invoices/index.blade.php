@@ -67,24 +67,24 @@
                     $totalTax += $single->SalesTax;
             }
             @endphp
-            <div class="mb-5">
+            <div class="mb-3">
                 <div class="form-group row mb-0">
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Labor</label>
-                    <div class="col-md-3">{{$totalLabor}}</div>
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Annual Inspections</label>
-                    <div class="col-md-3">{{$totalAnnualInspection}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Labor</div>
+                    <div class="col-md-3 mb-4">{{$totalLabor}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Annual Inspections</div>
+                    <div class="col-md-3 mb-4">{{$totalAnnualInspection}}</div>
                 </div>
                 <div class="form-group row mb-0">
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Parts</label>
-                    <div class="col-md-3">{{$totalParts}}</div>
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Registrations</label>
-                    <div class="col-md-3">{{$totalRegistration}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Parts</div>
+                    <div class="col-md-3 mb-4">{{$totalParts}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Registrations</div>
+                    <div class="col-md-3 mb-4">{{$totalRegistration}}</div>
                 </div>
                 <div class="form-group row mb-0">
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Accessories</label>
-                    <div class="col-md-3">{{$totalAccessories}}</div>
-                    <label class="col-md-3 col-form-label text-md-right">YTD - Total Total Tax</label>
-                    <div class="col-md-3">{{$totalTax}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Accessories</div>
+                    <div class="col-md-3 mb-4">{{$totalAccessories}}</div>
+                    <div class="col-md-3 mb-4">YTD - Total Total Tax</div>
+                    <div class="col-md-3 mb-4">{{$totalTax}}</div>
                 </div>
             </div>
             @php
