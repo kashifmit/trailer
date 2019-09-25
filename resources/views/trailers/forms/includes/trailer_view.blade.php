@@ -35,7 +35,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('Owner', 'Owners', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? App\Helpers\DataArrayHelper::getOrganizationName($data->registrationData[0]->Owner) : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? App\Helpers\DataArrayHelper::getOrganizationName($data->registrationData[0]->Owner) : null}}</span>
 					</div>
 					<div class="form-group">
 						{!! Form::label('business', 'Business', ['class' => 'bold']) !!}
@@ -57,20 +57,20 @@
 				<div class="text">
 					<div class="form-group">
 						{!! Form::label('VehicleId_VIN', 'Vehicle identification Number', ['class' => 'bold']) !!} 
-						<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : null}}</span>
 					</div>
 
 					<div class="form-group">
 						{!! Form::label('PlateNo', 'Plate Number', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && $data->registrationData) ? $data->registrationData[0]->PlateNo : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->PlateNo : null}}</span>
 					</div>
 					<div class="form-group">
 						{!! Form::label('StateAbbreviation', 'State Register', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && $data->registrationData ) ? $data->registrationData[0]->StateAbbreviation : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData) ) ? $data->registrationData[0]->StateAbbreviation : null}}</span>
 					</div>
 					<div class="form-group">
 						{!! Form::label('TitleNo', 'Title Number', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? $data->registrationData[0]->TitleNo : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->TitleNo : null}}</span>
 					</div>
 					<div class="form-group">
 						{!! Form::label('LastInsepctionDate', 'Last Registration', ['class' => 'bold']) !!}
@@ -78,11 +78,11 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('ExpireDate', 'Last Registration Expire', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->ExpireDate)) : null}}</span>
 					</div>
 					<div class="form-group">
 						{!! Form::label('RegistrationDate', 'Date Acquire', ['class' => 'bold']) !!}
-						<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->RegistrationDate)) : null}}</span>
+						<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? date('m/d/Y', strtotime($data->registrationData[0]->RegistrationDate)) : null}}</span>
 					</div>
 				</div>
 			</div>

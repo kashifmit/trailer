@@ -275,7 +275,6 @@ class DataArrayHelper {
      		// ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
      		}
      	 $mapData = $mapData->orderBy('id', 'ASC')->get();
-     	 dd(DB::getQueryLog());
         }
         
         return $mapData;
