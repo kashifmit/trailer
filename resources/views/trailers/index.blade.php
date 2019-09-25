@@ -48,10 +48,8 @@
         });
 
         $('.display-table').on('click', this, function() {
-
             var tableContent = $("#trailer_locaton_table").html();
-
-            if ( !tableContent ) {
+            // if ( !tableContent ) {
                 $("#trailer_locaton_table").html();
                 var data = $("#search_trailer_location").serialize();
                 $.ajax({
@@ -60,12 +58,12 @@
                 }).done(function (response) {
                     $("#trailer_locaton_table").html(response);
                 });
-            }
-            else {
-                $("#trailer_locaton_table").fadeIn();
-            }
+            // }
+            // else {
+            //     $("#trailer_locaton_table").fadeIn();
+            // }
 
-            $('#map-block').hide();
+            // $('#map-block').hide();
 
         });
 
@@ -86,7 +84,7 @@
                 }
             });
             $("#map-block").fadeIn();
-            $("#trailer_locaton_table").hide();
+            // $("#trailer_locaton_table").hide();
         });
     });
 </script>    
