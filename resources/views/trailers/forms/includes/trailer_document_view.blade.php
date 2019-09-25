@@ -25,12 +25,12 @@
 						<div class="row doc-row">
 							<div class="col-md-4"><span>VIN</span></div>
 							<div class="col-md-4">
-								<span>{{((isset($data) && !empty($data)) && isset($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : '---'}}</span>
+								<span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->VehicleId_VIN : '---'}}</span>
 							</div>
 						</div>
 						<div class="row doc-row">
 							<div class="col-md-4"><span>Plate Number</span></div>
-							<div class="col-md-4"><span>{{((isset($data) && !empty($data)) && $data->registrationData) ? $data->registrationData[0]->PlateNo : '---'}}</span></div>
+							<div class="col-md-4"><span>{{((isset($data) && !empty($data)) && count($data->registrationData)) ? $data->registrationData[0]->PlateNo : '---'}}</span></div>
 						</div>
 
 						@if((isset($data) && !empty($data)) && count($data->filesData) > 0)
