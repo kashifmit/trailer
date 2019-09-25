@@ -44,7 +44,7 @@
 								</div>
 							@else
 								<div class="col-md-4">
-									<span>Document Unavailable</span>
+									<span><a href="javascript:">view</a></span>
 								</div>
 							@endif
 						

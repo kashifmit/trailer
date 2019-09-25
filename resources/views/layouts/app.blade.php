@@ -138,6 +138,9 @@
                                 <a href="{{route('create.invoice')}}" class="nav-link">Add Invoice</a>
                             </li>
                             @if(count($data))
+                            <li class="nav-item">
+                                <a href="{{route('invoice.list')}}" class="nav-link">Search</a>
+                            </li>
                             @php
                                 $invoiceIds = [];
                                 foreach($data as $invoiceId) {
