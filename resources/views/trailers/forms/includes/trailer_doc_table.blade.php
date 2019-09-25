@@ -13,106 +13,105 @@
 	@endif
 	<div class="row">
 		<div class="col-lg-8">
-			<header class="heading">
-		<h4 class="title text-bold">
-			Equipment Documents
-		</h4>
-	</header>
-	<div class="titles-masthead mb-4">
-		<ul class="list-title-masthead">
-			<li>
-				{!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
-				<span>{{$regData ? $regData->TrailerSerialNo : ''}}</span>
-			</li>
-			<li>
-				{!! Form::label('VehicleId_VIN', 'VIN', ['class' => 'bold']) !!}
-				<span>{{$regData ? $regData->VehicleId_VIN : ''}}</span>
-			</li>
-			<li>
-				{!! Form::label('PlateNo', 'Plate Number', ['class' => 'bold']) !!}
-				<span>{{$regData ? $regData->PlateNo : ''}}</span>
-			</li>
-		</ul>
-	</div>
-	@foreach($docData as $key => $value)
-<div class="row">
-	<div class="col-md-4">{{$key == "fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}</div>
-	
-	<div class="col-md-4">
-		@if ($value)
-			@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
-			<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $value->FileName)}}">view</a>
-			@else
-				{{$value->FileName}}
-			@endif
- 		@else
- 			Document Unavailable
- 		@endif
-	</div>
-	
-	<div class="col-md-4">
-		@if ($value)
-			<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>
-		@else
-			Document Unavailable
-		@endif
-	</div>
-</div>
-@endforeach
-<header class="heading">
-	<h4 class="title">
-		Equipment Invoices
-	</h4>
-	<h5>
-		Click the Invioce Number to View the Invoice
-	</h5>
-</header>
+			<div class="trailer-doc-block">
+				<header class="heading">
+					<h4 class="title text-bold">Equipment Documents</h4>
+				</header>
+				<div class="trailer-doc-contents">
+					<div class="row doc-row">
+						<div class="col-md-4"><span>Trailer Number</span></div>
+						<div class="col-md-4"><span>{{$regData ? $regData->TrailerSerialNo : ''}}</span></div>
+					</div>
+					<div class="row doc-row">
+						<div class="col-md-4"><span>VIN</span></div>
+						<div class="col-md-4"><span>{{$regData ? $regData->VehicleId_VIN : ''}}</span></div>
+					</div>
+					<div class="row doc-row">
+						<div class="col-md-4"><span>Plate Number</span></div>
+						<div class="col-md-4"><span>{{$regData ? $regData->PlateNo : ''}}</span></div>
+					</div>
 
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="table-responsive">
-				<table class="table table-striped text-sm table-hover">
-					<thead>
-						<tr>
-							<th>DownLoad Invoice</th>
-							<th>Invoice Number</th>
-							<th>Invoice Date</th>
-							<th>Trailer</th>
-							<th>Total Invoice</th>
-						</tr>
-						<tbody>
-							@if(count($invoiceData))
-								@foreach($invoiceData as $key =>$data)
-								@if($data->invoiceFiles)
-								@php
-									
-									$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
-								@endphp
-								<tr>
-									<td><input type="checkbox" {{$disabled}} name="Ids[]" value="{{$data->invoiceFiles->Id}}"></td>
-									<td>
-										<a href="{{route('edit.invoice', ['InvoiceNo' => $data->InvoiceNo])}}">
-											{{$data->InvoiceNo}}
-										</a></td>
-									<td>{{date('m/d/Y', strtotime($data->InvoiceDate))}}</td>
-									<td>{{$data->TrailerSerialNo}}</td>
-									<td>${{$data->TotalPrice}}</td>
-								</tr>
-								@endif
-								@endforeach
+					@foreach($docData as $key => $value)
+						<div class="row doc-row">
+							<div class="col-md-4">{{$key == "fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}</div>
+							@if ($value)
+								<div class="col-md-4">
+									@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
+									<a href="javascript:" class="get-file-view text-primary text-underline" file-name="{{url('docs/'. $value->FileName)}}">view</a>
+									@else
+										{{$value->FileName}}
+									@endif
+								</div>
 							@else
-								<tr><td colspan="100%">No invoices found</td></tr>	
+								<div class="col-md-4">
+									<span>Document Unavailable</span>
+								</div>
 							@endif
-						</tbody>
-					</thead>
-				</table>
+						
+							<div class="col-md-4">
+								@if ($value)
+									<a class="btn btn-primary btn-sm" href="{{route('download.file',$value->Id)}}">Download</a>
+								@else
+									Document Unavailable
+								@endif
+							</div>
+						</div>
+					@endforeach
+
+					<header class="heading mt-5">
+						<h4 class="title">Equipment Invoices</h4>
+						<h5>Click the Invioce Number to View the Invoice</h5>
+					</header>
+
+					<div class="row">
+						<div class="col-lg-9">
+							<div class="table-responsive">
+								<table class="table table-striped text-sm table-hover">
+									<thead>
+										<tr>
+											<th>DownLoad Invoice</th>
+											<th>Invoice Number</th>
+											<th>Invoice Date</th>
+											<th>Trailer</th>
+											<th>Total Invoice</th>
+										</tr>
+										<tbody>
+											@if(count($invoiceData))
+												@foreach($invoiceData as $key =>$data)
+												@if($data->invoiceFiles)
+												@php
+													
+													$disabled = file_exists(public_path('docs/'.$data->invoiceFiles->FileName)) ? '' : 'disabled="disabled"'
+												@endphp
+												<tr>
+													<td><input type="checkbox" {{$disabled}} name="Ids[]" value="{{$data->invoiceFiles->Id}}"></td>
+													<td>
+														<a href="{{route('edit.invoice', ['InvoiceNo' => $data->InvoiceNo])}}">
+															{{$data->InvoiceNo}}
+														</a></td>
+													<td>{{date('m/d/Y', strtotime($data->InvoiceDate))}}</td>
+													<td>{{$data->TrailerSerialNo}}</td>
+													<td>${{$data->TotalPrice}}</td>
+												</tr>
+												@endif
+												@endforeach
+											@else
+												<tr><td colspan="100%">No invoices found</td></tr>	
+											@endif
+										</tbody>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
+
 		</div>
-	</div>
-		</div>
+
 		<div class="col-lg-4">
-			<embed src="" style="width: 100%; height: 500px;" 
- type="" id="image_previews">
+			<embed src="" style="width: 100%; height: 500px;" type="" id="image_previews">
 		</div>
 	</div>
 	

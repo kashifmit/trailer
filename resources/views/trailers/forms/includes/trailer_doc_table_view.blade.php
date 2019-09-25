@@ -1,44 +1,40 @@
-<div class="row">
-	<div class="col-lg-8">
-		@foreach($docData as $key => $value)
-		@if($key != "invoice")
-		<div class="row">
+@foreach($docData as $key => $value)
+	@if($key != "invoice")
+		<div class="row doc-row">
 			<div class="col-md-4">
-			{{$key =="fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}
+				{{$key =="fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}
 			</div>
 			@if ($value)
-				@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
-				<a href="javascript:" class="get-file-view" file-name="{{url('docs/'. $value->FileName)}}">view</a>
-				@else
-					{{$value->FileName}}
-				@endif
-	 		@else
-	 			Document Unavailable
-	 		@endif
+				<div class="col-md-4">
+					@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
+					<a href="javascript:" class="get-file-view text-primary text-underline" file-name="{{url('docs/'. $value->FileName)}}">view</a>
+					@else
+						{{$value->FileName}}
+					@endif				
+				</div>
+			@else
+				<div class="col-md-4">
+					<span>Document Unavailable</span>
+				</div>
+			@endif
 			<div class="col-md-4">
 				@if ($value)
-					<a class="btn btn-primary" href="{{route('download.file',$value->Id)}}">Download</a>
+					<a class="btn btn-primary btn-sm" href="{{route('download.file',$value->Id)}}">Download</a>
 				@else
-					Document Unavailable
+					<span>Document Unavailable</span>
 				@endif
 			</div>
 		</div>
-		@endif
-		@endforeach	
-	</div>
-</div>
+	@endif
+@endforeach	
 
-<header class="heading">
-	<h4 class="title">
-		Equipment Invoices
-	</h4>
-	<h5>
-		Click the Invioce Number to View the Invoice
-	</h5>
+<header class="heading mt-5">
+	<h4 class="title">Equipment Invoices</h4>
+	<h5>Click the Invioce Number to View the Invoice</h5>
 </header>
 
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-lg-9">
 		<div class="table-responsive">
 			<table class="table table-striped text-sm table-hover">
 				<thead>

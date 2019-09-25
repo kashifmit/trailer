@@ -1,10 +1,8 @@
-<div class="trailer-contents">
-
-    @if(Route::currentRouteName() == 'trailer.list')
-        <header class="heading mb-0">
-            <h3 class="title">Search For a Trailer</h3>
-        </header>
-
+@if(Route::currentRouteName() == 'trailer.list')
+    <header class="heading mb-0">
+        <h3 class="title">Search For a Trailer</h3>
+    </header>
+    <div class="trailer-contents">
         {!! Form::open(array('method' => 'get', 'route' => 'search.trailer.location', 'class' => 'form', 'files'=>true, 'id' => 'search_trailer_location')) !!}
 
         <div class="mb-5">
@@ -47,13 +45,13 @@
             {!! Form::button('Display Table', array('class'=>'btn display-table btn-min-md btn-primary submit-class', 'type'=>'button', 'id' => 'display-table')) !!}
         </div>
         {!! Form::close() !!}
-    @endif
+@endif
 
-    @if(Route::currentRouteName() == 'trailer.list')
-        <div class="row justify-content-md-center mb-4 mt-4">
-    @else 
-        <div class="row justify-content-md-center mb-4">
-    @endif
+@if(Route::currentRouteName() == 'trailer.list')
+    <div class="row justify-content-md-center mb-4 mt-4">
+@else 
+    <div class="row justify-content-md-center mb-4">
+@endif
 
         <div class="col-md-10">
             <div class="map-block"  id="map-block">
