@@ -1,5 +1,9 @@
 .map-block {
-    height: 300px;
+    height: 250px;
+
+    @media (min-width: $md) {
+        height: 300px;
+    }
 }
 
 .trailer-contents {
