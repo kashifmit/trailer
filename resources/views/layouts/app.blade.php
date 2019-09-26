@@ -25,7 +25,7 @@
         <header class="site-header">
             <div class="site-header-bar">
                 <div class="hd-left">
-                    <button class="nav-trigger">
+                    <button class="nav-trigger nav-trigger-main">
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="site-logo">
@@ -34,6 +34,9 @@
                         </a>
                     </div>
                 </div>
+                <button class="nav-trigger nav-trigger-hd">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
                 <nav class="hd-right">
                     <ul class="list-hd">
                         @guest

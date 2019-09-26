@@ -4,7 +4,7 @@
 <div class="page">
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="heading">
                 <h3 class="title">
                     Reporting Locations
@@ -24,12 +24,12 @@
                 {!! Form::close() !!}
             </div>
 
-            <div class="map-block">
+            <div class="map-block mb-5 mb-lg-0">
                 {!! Mapper::render() !!}
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="heading heading-detail-sp">
                 <h3 class="title text-right">
                     Trailer Details

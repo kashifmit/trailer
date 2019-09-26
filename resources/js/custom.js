@@ -1,7 +1,11 @@
 $(document).ready(function () {
     
-    $('.nav-trigger').on('click', this, function(){
+    $('.nav-trigger-main').on('click', this, function(){
         $('body').toggleClass('menu-collapsed');
+    });
+
+    $('.nav-trigger-hd').on('click', this, function(){
+      $('.hd-right').toggleClass('active');
     });
 
     $('.nav-overlay').on('click', this, function(){
@@ -11,6 +15,32 @@ $(document).ready(function () {
     $('.datepicker').datepicker();
 
     $('.selectable-box').select2();
+    
+    var liCount = 0;
+    checkMenuList();
+
+    $('.nav-tabs a, .sidebar-nav a').on('click', this, function(){
+      checkMenuList();
+    });
+
+    function checkMenuList() {
+      $('.nav-trigger-hd').addClass('hidden');
+
+      $('.list-hd li').each(function() {
+
+        if ( $(this).is(':visible') ) {
+          liCount++;
+        }
+
+        if (liCount) {
+          $('.nav-trigger-hd').removeClass('hidden');
+        }
+
+      });
+
+    }
+
+
     
 });
 
