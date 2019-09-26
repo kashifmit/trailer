@@ -40,10 +40,16 @@
 			</thead>
 			<tbody>
 				@if(count($docData))
+				@php
+					$isData = false;
+				@endphp
 				@foreach($docData as $key => $value)
 					<tr>
 						<td>
 							@if ($value)
+							@php
+								$isData = true;
+							@endphp
 							<input type="checkbox" value="{{$value->Id}}" name="Ids[]">
 							@else
 							<input type="checkbox" disabled="disabled" name="Ids[]">
@@ -118,7 +124,7 @@
 			
 	</div>
 </div>
-@if(count($invoiceData) || count($docData))
+@if(count($invoiceData) || $isData)
 	<input type="hidden" name="TrailerSerialNo" value="{{$regData->TrailerSerialNo}}">
 	{!! Form::button('Download Selected Documents', array('class'=>'btn btn-primary save-email', 'type'=>'submit')) !!}
 	@endif
