@@ -52,7 +52,7 @@
             <h3 class="title">Search For a Trailer by Location & Business</h3>
         </header>
         {!! Form::open(array('method' => 'GET', 'route' => 'trailer.list', 'class' => 'form', 'files'=>true, 'id' => 'search-trailer')) !!}
-        <div class="form-group row mb-5">
+        <div class="form-group row">
             <div class="col-md-6 col-lg-4">
                 {!! Form::select('business', ['' => '--All business System--']+$business, \Request::get('business') ? \Request::get('business') : null, array('class'=>'form-control form-control-radius mb-2 mb-lg-0', 'id'=>'business')) !!}
             </div>
@@ -67,7 +67,7 @@
         {!! Form::close() !!}
     </div>
     <input type="hidden" name="search" value="search">
-        <span id="home_data_table">
-            @include('trailers.forms.includes.home_data_table')
-        </span>
+    <div id="home_data_table">
+        @include('trailers.forms.includes.home_data_table')
+    </div>
 </div>

@@ -99,12 +99,15 @@ label {
 
 
 .btn {
-    &-min-md {
-        min-width: 200px;
-    }
     &-action {
         padding: 5px;
         display: inline-block;
+    }
+
+    @media (min-width: $md) {
+        &-min-md {
+            min-width: 200px;
+        }    
     }
 }
 
@@ -180,14 +183,6 @@ input[type=number] {
             }
         }
     }
-
-
-    &.sticky {
-        background-color: $white;
-        z-index: 10;
-        position: sticky;
-        top: 72px;
-    }
 }
 
 .tab-content {
@@ -238,4 +233,14 @@ input[type=number] {
 }
 .select2-dropdown {
     border: 2px solid $primary;
+}
+
+
+.pagination {
+    flex-wrap: wrap;
+
+    > li {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
 }

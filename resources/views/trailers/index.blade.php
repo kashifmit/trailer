@@ -4,18 +4,21 @@
     <div class="page">
         
         <div class="content">
-            <ul class="nav nav-tabs sticky">
-                <li class="active"><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
+            <div class="nav-tabs-wrap sticky">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a class="checkClass" data-toggle="tab" href="#home_details">Home</a></li>
+                    <li>
+                </li>
                 <li>
-              </li>
-              <li>
-                <a class="checkClass trailer_documents" data-toggle="tab" href="#trailer_documents">
-                  Documents
-                </a>
-              </li>
-                <li><a class="checkClass" data-toggle="tab" href="#trailer_locations">Locations</a></li>
-                <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
-            </ul>
+                    <a class="checkClass trailer_documents" data-toggle="tab" href="#trailer_documents">
+                    Documents
+                    </a>
+                </li>
+                    <li><a class="checkClass" data-toggle="tab" href="#trailer_locations">Locations</a></li>
+                    <li><a class="checkClass" data-toggle="tab" href="#trailer_financials">Financials</a></li>
+                </ul>
+            </div>
+
             <div class="tab-content">
                 <div id="home_details" class="tab-pane fade show in active">
                     @include('trailers.forms.includes.trailer_home')

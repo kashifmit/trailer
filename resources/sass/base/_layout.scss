@@ -98,3 +98,19 @@ main[role="main"] {
         }
     }
 }
+
+
+.nav-tabs-wrap {
+    overflow-x: auto;
+    
+    &.sticky {
+        background-color: $white;
+        z-index: 10;
+        position: sticky;
+        top: 72px;
+    }
+
+    .nav-tabs {
+        flex-wrap: nowrap;
+    }
+}
