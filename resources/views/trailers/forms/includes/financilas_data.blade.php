@@ -39,7 +39,7 @@
 					</mark>
 				</li>
 				<li>
-					<span>Total Tariler Count Lease & Owned (All Locations)</span>
+					<span>Total Trailer Count Lease & Owned (All Locations)</span>
 					<mark>
 						{{$allData['totalLeased_owned'] ? '$'. number_format($allData['totalLeased_owned'], 2) : 0}}
 					</mark>
