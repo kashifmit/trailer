@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
           {!! Form::label('InvoiceNo', 'Invoice Number', ['class' => 'bold']) !!} 
-          {!! Form::text('InvoiceNo', isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius sm', 'id'=>'InvoiceNo', 'placeholder'=>'Invoice Number', 'disabled' => isset($data) )) !!}
+          {!! Form::text('InvoiceNo', isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'InvoiceNo', 'placeholder'=>'Invoice Number', 'disabled' => isset($data) )) !!}
         </div>
         <div class="form-group">
           {!! Form::label('InvoiceDate', 'Invoice Date', ['class' => 'bold']) !!}
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
           {!! Form::label('MaintenanceOrderNo', 'Maintenance / PO Number', ['class' => 'bold']) !!}
-          {!! Form::text('MaintenanceOrderNo',isset($data) ? $data->MaintenanceOrderNo : null, array('class'=>'form-control form-control-radius', 'id'=>'MaintenanceOrderNo', 'placeholder'=>'Maintenance / PO Number', 'disabled' => isset($data) )) !!}
+          {!! Form::text('MaintenanceOrderNo',isset($data) ? $data->MaintenanceOrderNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'MaintenanceOrderNo', 'placeholder'=>'Maintenance / PO Number', 'disabled' => isset($data) )) !!}
 
         </div>
         <div class="form-group">
