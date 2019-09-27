@@ -9,7 +9,7 @@
             <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Enter Trailer Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap search">
-                    <input type="text" class="form-control form-control-radius" name="TrailerSerialNo" id="TrailerSerialNo_docs" autocomplete="off" placeholder="Trailer Number">
+                    <input type="text" class="form-control form-control-radius mb-2 mb-lg-0" name="TrailerSerialNo" id="TrailerSerialNo_docs" autocomplete="off" placeholder="Trailer Number">
                 </div>
             </div>
             <div class="col-md-3">
@@ -23,7 +23,7 @@
             <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Enter VIN Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap search">
-                    <input type="text" class="form-control form-control-radius" name="VehicleId_VIN" id="VehicleId_VIN_docs" autocomplete="off" placeholder="VIN Number">
+                    <input type="text" class="form-control form-control-radius mb-2 mb-lg-0" name="VehicleId_VIN" id="VehicleId_VIN_docs" autocomplete="off" placeholder="VIN Number">
                 </div>
             </div>
             <div class="col-md-3">
@@ -37,7 +37,7 @@
             <label for="TrackingId" class="col-md-3 col-form-label text-md-right">{{ __('Tracking Number') }}</label>
             <div class="col-md-3">
                 <div class="form-control-wrap search">
-                    <input type="text" class="form-control form-control-radius" name="TrackingId" id="TrackingId_docs" autocomplete="off" placeholder="Tracking Number">
+                    <input type="text" class="form-control form-control-radius mb-2 mb-lg-0" name="TrackingId" id="TrackingId_docs" autocomplete="off" placeholder="Tracking Number">
                 </div>
             </div>
             <div class="col-md-3">

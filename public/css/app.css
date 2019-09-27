@@ -17389,13 +17389,15 @@ label.col-form-label {
   font-size: 0.9em;
 }
 
-.btn-min-md {
-  min-width: 200px;
-}
-
 .btn-action {
   padding: 5px;
   display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .btn-min-md {
+    min-width: 200px;
+  }
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -17451,14 +17453,6 @@ input[type=number] {
   border-bottom-color: #2AA7ff;
 }
 
-.nav-tabs.sticky {
-  background-color: #fff;
-  z-index: 10;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 72px;
-}
-
 .tab-content {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -17503,6 +17497,15 @@ input[type=number] {
 
 .select2-dropdown {
   border: 2px solid #2AA7ff;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+.pagination > li {
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 /*** General Styles
@@ -18101,6 +18104,22 @@ main[role=main] {
   }
 }
 
+.nav-tabs-wrap {
+  overflow-x: auto;
+}
+
+.nav-tabs-wrap.sticky {
+  background-color: #fff;
+  z-index: 10;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 72px;
+}
+
+.nav-tabs-wrap .nav-tabs {
+  flex-wrap: nowrap;
+}
+
 .site-header {
   width: 100%;
   padding: 15px;
@@ -18121,7 +18140,7 @@ main[role=main] {
 
 .nav-trigger {
   width: 30px;
-  padding: 5px;
+  padding: 8px 5px;
   font-size: 1.5em;
   line-height: 1em;
   background-color: transparent;
@@ -18140,8 +18159,7 @@ main[role=main] {
 
 .site-logo {
   width: 100px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 3px 5px;
   font-size: 1.25rem;
   color: #2AA7ff;
   display: inline-block;
@@ -18197,6 +18215,7 @@ main[role=main] {
 .list-hd .nav-link {
   color: #617083;
   border-radius: 0.5rem;
+  font-size: 0.9em;
   background-color: #ebecef;
 }
 

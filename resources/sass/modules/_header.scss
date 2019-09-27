@@ -18,7 +18,7 @@
 
 .nav-trigger {
     width: 30px;
-    padding: 5px;
+    padding: 8px 5px;
     font-size: 1.5em;
     line-height: 1em;
     background-color: transparent;
@@ -38,8 +38,7 @@
 
 .site-logo {
     width: 100px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 3px 5px;
     font-size: $font-size-lg;
     color: $primary;
     display: inline-block;
@@ -92,6 +91,7 @@
     .nav-link {
         color: $body-color;
         border-radius: .5rem;
+        font-size: .9em;
         background-color: $gray-200;
 
         &:hover {
