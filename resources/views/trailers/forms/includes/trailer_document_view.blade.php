@@ -8,7 +8,7 @@
 {!! Form::close() !!}
 <div class="trailer-contents">
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-xl-8">
 			<div class="trailer-doc-block">
 
 				<header class="heading">
@@ -37,12 +37,11 @@
 							@include('trailers.forms.includes.trailer_doc_table_view')
 				</div>			
 			</div>
-
-
 		</div>
-		<div class="col-lg-4">
-			<embed src="" style="width: 100%; height: 500px;" 
- type="application/pdf" id="image_previews">
+		<div class="col-md-6 col-lg-4">
+			<div class="doc-preview-wrap">
+				<embed src="" type="application/pdf" id="image_previews">
+			</div>
 		</div>
 	</div>
 </div>

@@ -7,7 +7,7 @@
 {!! Form::close() !!}
 	<div class="trailer-contents">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-xl-8">
 				<div class="trailer-doc-block">
 					<header class="heading">
 						<h4 class="title text-bold">Equipment Documents</h4>
@@ -66,8 +66,10 @@
 				</div>
 
 			</div>
-			<div class="col-lg-4">
-				<embed src="" style="width: 100%; height: 500px;" type="" id="image_previews">
+			<div class="col-md-6 col-lg-4">
+				<div class="doc-preview-wrap">
+					<embed src="" type="" id="image_previews">
+				</div>
 			</div>
 		</div>
 	</div>

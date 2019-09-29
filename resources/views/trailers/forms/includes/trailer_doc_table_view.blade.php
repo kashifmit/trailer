@@ -5,7 +5,7 @@
 				{{$key =="fhwa" ? strtoupper($key) : ucwords(str_replace("_", " ",$key))}}
 			</div>
 			@if ($value)
-				<div class="col-md-4">
+				<div class="col-md-6 col-xl-4">
 					@if ($value->mimetype == "pdf" || $value->mimetype == "txt" || $value->mimetype == "jpg" || $value->mimetype == "png" || $value->mimetype == "jpeg")
 					<a href="javascript:" class="get-file-view text-primary text-underline" file-name="{{url('docs/'. $value->FileName)}}">view</a>
 					@else
@@ -13,7 +13,7 @@
 					@endif				
 				</div>
 			@else
-				<div class="col-md-4">
+				<div class="col-md-6 col-xl-4">
 					<span><a href="javascript:">view</a></span>
 				</div>
 			@endif

@@ -69,27 +69,55 @@
                     array_push($invoiceIds, $single->InvoiceNo);
                 }
             @endphp
-            <div class="mb-3">
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Labor</div>
-                    <div class="col-md-3 mb-4">{{$totalLabor}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Annual Inspections</div>
-                    <div class="col-md-3 mb-4">{{$totalAnnualInspection}}</div>
+
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Labor</div>
+                            <div class="col-lg-6 mb-4">{{$totalLabor}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Annual Inspections</div>
+                            <div class="col-lg-6 mb-4">{{$totalAnnualInspection}}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Parts</div>
-                    <div class="col-md-3 mb-4">{{$totalParts}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Registrations</div>
-                    <div class="col-md-3 mb-4">{{$totalRegistration}}</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Parts</div>
+                            <div class="col-lg-6 mb-4">{{$totalParts}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Registrations</div>
+                            <div class="col-lg-6 mb-4">{{$totalRegistration}}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Accessories</div>
-                    <div class="col-md-3 mb-4">{{$totalAccessories}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Tax</div>
-                    <div class="col-md-3 mb-4">{{$totalTax}}</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Accessories</div>
+                            <div class="col-lg-6 mb-4">{{$totalAccessories}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Tax</div>
+                            <div class="col-lg-6">{{$totalTax}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="mb-4">
+
+            <div class="mb-4 button-bar">
                 <a href="{{route('export.headCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Header CSV</a>
                 <a href="{{route('export.lineCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Line Item CSV</a>
             </div>
