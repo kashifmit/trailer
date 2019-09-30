@@ -37,6 +37,7 @@
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
+        $(".highcharts-exporting-group").hide();
         $(document.body).on('change', '.form-submit', function () {
             var business = $("#business_financial").val();
             var SiteId = $("#SiteId_financial").val();
@@ -47,6 +48,7 @@
                 method: "GET",
             }).done(function(response) {
                 $("#get_financial_data").html(response);
+                $(".highcharts-exporting-group").hide();
             });
         });
 

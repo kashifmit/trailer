@@ -218,31 +218,31 @@ class DataArrayHelper {
         'text' => $title,
     	])
 	    ->chart([
-	        'type'     => 'bar', // pie , columnt ect
+	        'type'     => 'column', // pie , columnt ect
 	        'renderTo' => $id, // render the chart into your div with id
 	    ])
 	    ->subtitle([
 	        'text' => $title,
 	    ])
 	    ->colors([
-	        '#0c2959'
+	        '#0086E6'
 	    ])
-	    ->xaxis([
+	    // ->xaxis([
 	        // 'categories' => [
 	        //     'Lease Expense'
 	        // ],
-	        'labels'     => [
-	            'rotation'  => 0,
-	            'align'     => 'bottom',
-	        ],
-	    ])
+	        // 'labels'     => [
+	        //     'rotation'  => 0,
+	        //     'align'     => 'bottom',
+	        // ],
+	    // ])
 	    // ->yaxis([
 	    //     'text' => 'This Y Axis',
 	    // ])
 	    ->legend([
-	        // 'layout'        => 'vertikal',
-	        // 'align'         => 'left',
-	        'verticalAlign' => 'middle',
+	        'layout'        => 'vertikal',
+	        'align'         => 'center',
+	        'verticalAlign' => 'bottom',
 	    ])
 	    ->series(
 	        [
