@@ -24,7 +24,7 @@
                         <div class="form-group row mb-4">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email Address') }}</label>
         
-                            <div class="col-md-6">
+                            <div class="col-md-7 col-xl-6">
                                 <input id="email" type="email" class="form-control form-control-radius @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
         
                                 @error('email')

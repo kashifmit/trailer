@@ -10,13 +10,13 @@
         <div class="mb-5">
             {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
-                <label for="TrailerSerialNo" class="col-md-3 col-form-label text-md-right">{{ __('Enter Trailer Number') }}</label>
-                <div class="col-md-3">
+                <label for="TrailerSerialNo" class="col-xl-3 col-form-label text-xl-right">{{ __('Enter Trailer Number') }}</label>
+                <div class="col-md-6 col-lg-5 col-xl-3">
                     <div class="form-control-wrap search">
-                        <input type="text" class="form-control form-control-radius" name="TrailerSerialNo" id="TrailerSerialNo" autocomplete="off" placeholder="Trailer Number" value="{{\Request::get('TrailerSerialNo')}}">
+                        <input type="text" class="form-control form-control-radius mb-2 mb-md-0" name="TrailerSerialNo" id="TrailerSerialNo" autocomplete="off" placeholder="Trailer Number" value="{{\Request::get('TrailerSerialNo')}}">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-5 col-xl-3">
                     {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
@@ -24,13 +24,13 @@
             <div class="mt-4 mb-4">Or</div>
             {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
-                <label for="VehicleId_VIN" class="col-md-3 col-form-label text-md-right">{{ __('Enter VIN Number') }}</label>
-                <div class="col-md-3">
+                <label for="VehicleId_VIN" class="col-xl-3 col-form-label text-xl-right">{{ __('Enter VIN Number') }}</label>
+                <div class="col-md-6 col-lg-5 col-xl-3">
                     <div class="form-control-wrap search">
-                        <input type="text" class="form-control form-control-radius" name="VehicleId_VIN" id="VehicleId_VIN" autocomplete="off" placeholder="VIN Number" value="{{\Request::get('VehicleId_VIN')}}">
+                        <input type="text" class="form-control form-control-radius mb-2 mb-md-0" name="VehicleId_VIN" id="VehicleId_VIN" autocomplete="off" placeholder="VIN Number" value="{{\Request::get('VehicleId_VIN')}}">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-5 col-xl-3">
                 {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
@@ -38,13 +38,13 @@
             <div class="mt-4 mb-4">Or</div>
             {!! Form::open(array('method' => 'GET', 'route' => 'invoice.list', 'class' => 'form', 'files'=>true)) !!}
             <div class="form-group row mb-0">
-                <label for="TrackingId" class="col-md-3 col-form-label text-md-right">{{ __('Enter TrailerTracking Number') }}</label>
-                <div class="col-md-3">
+                <label for="TrackingId" class="col-xl-3 col-form-label text-xl-right">{{ __('Enter TrailerTracking Number') }}</label>
+                <div class="col-md-6 col-lg-5 col-xl-3">
                     <div class="form-control-wrap search">
-                        <input type="text" class="form-control form-control-radius" name="TrackingId" id="TrackingId" autocomplete="off" placeholder="Tracking Number" value="{{\Request::get('TrackingId')}}">
+                        <input type="text" class="form-control form-control-radius mb-2 mb-md-0" name="TrackingId" id="TrackingId" autocomplete="off" placeholder="Tracking Number" value="{{\Request::get('TrackingId')}}">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-5 col-xl-3">
                 {!! Form::button('Find', array('class'=>'btn btn-min-md btn-primary', 'type'=>'submit')) !!}
                 </div>
             </div>
@@ -69,27 +69,55 @@
                     array_push($invoiceIds, $single->InvoiceNo);
                 }
             @endphp
-            <div class="mb-3">
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Labor</div>
-                    <div class="col-md-3 mb-4">{{$totalLabor}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Annual Inspections</div>
-                    <div class="col-md-3 mb-4">{{$totalAnnualInspection}}</div>
+
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Labor</div>
+                            <div class="col-lg-6 mb-4">{{$totalLabor}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Annual Inspections</div>
+                            <div class="col-lg-6 mb-4">{{$totalAnnualInspection}}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Parts</div>
-                    <div class="col-md-3 mb-4">{{$totalParts}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Registrations</div>
-                    <div class="col-md-3 mb-4">{{$totalRegistration}}</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Parts</div>
+                            <div class="col-lg-6 mb-4">{{$totalParts}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Registrations</div>
+                            <div class="col-lg-6 mb-4">{{$totalRegistration}}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-3 mb-4">YTD - Total Accessories</div>
-                    <div class="col-md-3 mb-4">{{$totalAccessories}}</div>
-                    <div class="col-md-3 mb-4">YTD - Total Tax</div>
-                    <div class="col-md-3 mb-4">{{$totalTax}}</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Accessories</div>
+                            <div class="col-lg-6 mb-4">{{$totalAccessories}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">YTD - Total Tax</div>
+                            <div class="col-lg-6">{{$totalTax}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="mb-4">
+
+            <div class="mb-4 button-bar">
                 <a href="{{route('export.headCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Header CSV</a>
                 <a href="{{route('export.lineCSV', implode(',',$invoiceIds))}}" class="btn btn-primary">Download Line Item CSV</a>
             </div>

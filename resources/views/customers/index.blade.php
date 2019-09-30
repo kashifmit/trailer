@@ -4,7 +4,7 @@
     <div class="page">
 
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-md-7 col-xl-3">
 
                 <header class="heading">
                     <h3 class="title">{{ __('All Customers') }}</h3>

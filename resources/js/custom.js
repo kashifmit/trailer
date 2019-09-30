@@ -47,8 +47,7 @@ $(document).ready(function () {
 $(document).on('click', '.get-file-view', function(){
   var fileName = $(this).attr('file-name');
   var filetype = $(this).attr('file-type');
-  $("#image_previews").attr('src', fileName);
-  $("#image_previews").attr('image_previews', 'application/'+filetype);
+  $("#image_previews").attr({'src': fileName, 'image_previews': 'application/'+filetype}).addClass('document-loaded'); 
 });
 
 $(document).on('click', '.checkClass', function () {

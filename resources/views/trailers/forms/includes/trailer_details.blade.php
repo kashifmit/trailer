@@ -15,8 +15,8 @@
 	@endif
 
 	<div class="row">
-		<div class="col-md-4">
-			<div class="trailer-block">
+		<div class="col-md-6 col-xl-4">
+			<div class="trailer-block mb-4 mb-lg-0">
 				<header class="heading">
 					<h5 class="text-bold">Equipment Details</h5>
 				</header>
@@ -55,11 +55,10 @@
 					</div>
 				</div>			
 			</div>
-
 		</div>
 
-		<div class="col-md-4">
-			<div class="trailer-block trailer-block-bg">
+		<div class="col-md-6 col-xl-4">
+			<div class="trailer-block mb-4 mb-lg-0 trailer-block-bg">
 				<header class="heading">
 					<h5 class="text-bold">Registration Details</h5>
 				</header>
@@ -105,10 +104,9 @@
 
 				</div>
 			</div>
-
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-6 col-xl-4">
 			<div class="trailer-block">
 				<header class="heading">
 					<h5 class="text-bold">Tracking Details</h5>
@@ -124,7 +122,6 @@
 					</div>			
 				</div>
 			</div>
-
 		</div>
 
 	</div>
