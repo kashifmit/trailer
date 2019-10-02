@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
                 <header class="heading">
-                    <h3 class="title mb-2">{{ __('Welcome') }}</h3>
+                    <h3 class="title mb-2">{{ __('Welcome!') }}</h3>
                     <h5 class="title">{{ __('Account Email / Username and Password') }}</h5>
                 </header>
                 @include('flash::message')
