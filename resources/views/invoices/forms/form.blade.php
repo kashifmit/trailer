@@ -9,52 +9,51 @@
       <header class="heading">
         <h4>Input Trailer Expense Invoice</h4>
       </header>
-      <div class="text">
-      <div class="trailer-block">
-      
-        <div class="form-group">
-          {!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
-          {!! Form::select('TrailerSerialNo', ['' => 'Select Trailer Number']+$trailers, isset($data) ? $data->TrailerSerialNo : $invoiceId, array('class'=>'form-control form-control-radius selectable-box lg vendor-name', 'id'=>'TrailerSerialNo', 'disabled' => isset($data) )) !!}
-        </div>
-        <div class="form-group">
-          {!! Form::label('VendorName', 'Vendor Name', ['class' => 'bold']) !!}
-          {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius lg', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
-        </div>
-        <div class="form-group">
-          {!! Form::label('InvoiceNo', 'Invoice Number', ['class' => 'bold']) !!} 
-          {!! Form::text('InvoiceNo', isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'InvoiceNo', 'placeholder'=>'Invoice Number', 'disabled' => isset($data) )) !!}
-        </div>
-        <div class="form-group">
-          {!! Form::label('InvoiceDate', 'Invoice Date', ['class' => 'bold']) !!}
-          <div class="form-control-wrap date-picker">
-            {!! Form::text('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
-          <label class="picker-icon" for="InvoiceDate"><i class="far fa-calendar-alt"></i></label>
+      <div class="text mb-5 mb-md-0">
+        <div class="trailer-block trail-block-md">
+        
+          <div class="form-group">
+            {!! Form::label('TrailerSerialNo', 'Trailer Number', ['class' => 'bold']) !!}
+            {!! Form::select('TrailerSerialNo', ['' => 'Select Trailer Number']+$trailers, isset($data) ? $data->TrailerSerialNo : $invoiceId, array('class'=>'form-control form-control-radius selectable-box lg vendor-name', 'id'=>'TrailerSerialNo', 'disabled' => isset($data) )) !!}
           </div>
-        </div>
-        <div class="form-group">
-          {!! Form::label('MaintenanceOrderNo', 'Maintenance / PO Number', ['class' => 'bold']) !!}
-          {!! Form::text('MaintenanceOrderNo',isset($data) ? $data->MaintenanceOrderNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'MaintenanceOrderNo', 'placeholder'=>'Maintenance / PO Number', 'disabled' => isset($data) )) !!}
-
-        </div>
-        <div class="form-group">
-          {!! Form::file('FileName', null, array('id'=>'invoice_document')) !!}
-        </div>
-          @if(isset($data) && !empty($data->FileName)
-            && file_exists(public_path('docs/'.$data->FileName))
-          )
-          <div class="mt-4">
-            <a class="text-primary" href="{{route('download.invoice.file',$data->Id)}}">Download Invoice</a>
-            {!! Form::hidden('Id', $data->Id) !!}
+          <div class="form-group">
+            {!! Form::label('VendorName', 'Vendor Name', ['class' => 'bold']) !!}
+            {!! Form::select('VendorName', ['' => 'Select Vendor Name']+$vendors, isset($data) ? $data->Owner : null, array('class'=>'form-control form-control-radius lg', 'id'=>'VendorName', 'disabled' => isset($data) )) !!}
           </div>
-        @endif
+          <div class="form-group">
+            {!! Form::label('InvoiceNo', 'Invoice Number', ['class' => 'bold']) !!} 
+            {!! Form::text('InvoiceNo', isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'InvoiceNo', 'placeholder'=>'Invoice Number', 'disabled' => isset($data) )) !!}
+          </div>
+          <div class="form-group">
+            {!! Form::label('InvoiceDate', 'Invoice Date', ['class' => 'bold']) !!}
+            <div class="form-control-wrap date-picker">
+              {!! Form::text('InvoiceDate',isset($data) ? date('m/d/Y', strtotime($data->InvoiceDate)) : null,array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'InvoiceDate', 'placeholder'=>'Invoice Date')) !!}
+            <label class="picker-icon" for="InvoiceDate"><i class="far fa-calendar-alt"></i></label>
+            </div>
+          </div>
+          <div class="form-group">
+            {!! Form::label('MaintenanceOrderNo', 'Maintenance / PO Number', ['class' => 'bold']) !!}
+            {!! Form::text('MaintenanceOrderNo',isset($data) ? $data->MaintenanceOrderNo : null, array('class'=>'form-control form-control-radius lg', 'id'=>'MaintenanceOrderNo', 'placeholder'=>'Maintenance / PO Number', 'disabled' => isset($data) )) !!}
 
-      </div>
+          </div>
+          <div class="form-group">
+            {!! Form::file('FileName', null, array('id'=>'invoice_document')) !!}
+          </div>
+            @if(isset($data) && !empty($data->FileName)
+              && file_exists(public_path('docs/'.$data->FileName))
+            )
+            <div class="mt-4">
+              <a class="text-primary" href="{{route('download.invoice.file',$data->Id)}}">Download Invoice</a>
+              {!! Form::hidden('Id', $data->Id) !!}
+            </div>
+          @endif
 
+        </div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <header class="heading text-right">
+      <header class="heading text-md-right">
         <h4>Input Trailer Invoice Detail</h4>
       </header>
       <div class="text">
