@@ -64,6 +64,18 @@
         }
     }
 
+    .control-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .btn {
+            margin-left: 10px;
+        }
+    }
+
     &-bg {
         padding: 20px;
         background-color: $gray-200;
@@ -71,6 +83,21 @@
 
         @media (min-width: $md) {
             margin-top: -20px;
+        }
+    }
+
+    &.trail-block-md {
+        @media (max-width: $md-max) {
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .control-wrap {
+                .form-control {
+                    width: 100%;
+                }
+            }
+            
         }
     }
 }

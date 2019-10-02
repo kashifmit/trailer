@@ -17335,6 +17335,10 @@ button:focus {
   outline: none;
 }
 
+hr.hr-dark {
+  border-top-color: #000;
+}
+
 .form-control:disabled,
 .form-control[readonly] {
   border-color: #dbdde3;
@@ -18312,6 +18316,18 @@ main[role=main] {
   padding-bottom: 0.475rem;
 }
 
+.trailer-block .control-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trailer-block .control-wrap .btn {
+  margin-left: 10px;
+}
+
 .trailer-block-bg {
   padding: 20px;
   background-color: #ebecef;
@@ -18321,6 +18337,17 @@ main[role=main] {
 @media (min-width: 768px) {
   .trailer-block-bg {
     margin-top: -20px;
+  }
+}
+
+@media (max-width: 720px) {
+  .trailer-block.trail-block-md .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .trailer-block.trail-block-md .control-wrap .form-control {
+    width: 100%;
   }
 }
 
