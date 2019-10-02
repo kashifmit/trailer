@@ -29,7 +29,7 @@
         
                                 @error('email')
                                     <p class="mt-4">
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     </p>
