@@ -118,7 +118,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('TrackingId', 'Tracking Number', ['class' => 'bold']) !!}                    
-						{!! Form::text('TrackingId', (isset($data) && isset($data->equipmentTracking) ) ? $data->equipmentTracking[0]->TrackingId : null, array('class'=>'form-control form-control-radius sm', 'id'=>'TrackingId', 'placeholder'=>'Tracking Number')) !!}
+						{!! Form::text('TrackingId', (isset($data) && count($data->equipmentTracking) ) ? $data->equipmentTracking[0]->TrackingId : null, array('class'=>'form-control form-control-radius sm', 'id'=>'TrackingId', 'placeholder'=>'Tracking Number')) !!}
 					</div>			
 				</div>
 			</div>
