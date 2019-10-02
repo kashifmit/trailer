@@ -44,6 +44,7 @@ class SkybizApiCall extends Command
         $json = json_encode($xml);
         $dataArray = json_decode($json,TRUE);
         if ($dataArray['error'] == 0) {
+            SkyBizTrackingModel::truncate();
             foreach ($dataArray['gls'] as $key => $value) {
                 if (isset($value['latitude']) && isset($value['longitude']) &&
                     isset($value['mtsn']) && (isset($value['landmark']) && isset($value['landmark']['geoname'])) && 
