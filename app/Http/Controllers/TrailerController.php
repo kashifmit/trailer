@@ -487,11 +487,11 @@ class TrailerController extends Controller
             'site.SiteName',
             'site.Division'
         ])
-        ->where('site.SiteId', '!=', '')
-        ->join('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
-        ->join('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
-        ->join('site', 'equipment.SiteId', '=', 'site.SiteId')
-        ->join('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId');
+        // ->where('site.SiteId', '!=', '')
+        ->leftjoin('registration', 'equipment.TrailerSerialNo', '=', 'registration.TrailerSerialNo')
+        ->leftjoin('equipment_tracking', 'equipment.TrailerSerialNo', '=', 'equipment_tracking.TrailerSerialNo')
+        ->leftjoin('site', 'equipment.SiteId', '=', 'site.SiteId')
+        ->leftjoin('trailer_manufacturer', 'equipment.ManufacturerId', '=', 'trailer_manufacturer.MakeId');
         
         if (null !== $request->query('TrailerSerialNo')) {
             $trailerData = $trailerData->where('equipment.TrailerSerialNo', $request->query('TrailerSerialNo'));

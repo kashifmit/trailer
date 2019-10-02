@@ -1,4 +1,3 @@
-
 <div class="trailer-contents">
 	
 	<div class="row">
@@ -99,7 +98,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('TrackingId', 'Tracking Number', ['class' => 'bold']) !!}
-						<span class="trailer-form-text">{{((isset($data) && !empty($data)) && isset($data->equipmentTracking) ) ? $data->equipmentTracking[0]->TrackingId : null}}</span>
+						<span class="trailer-form-text">{{((isset($data) && !empty($data)) && count($data->equipmentTracking) ) ? $data->equipmentTracking[0]->TrackingId : null}}</span>
 					</div>			
 				</div>
 			</div>
