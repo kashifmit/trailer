@@ -17341,7 +17341,11 @@ hr.hr-dark {
 
 .form-control:disabled,
 .form-control[readonly] {
-  border-color: #dbdde3;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: right;
+  background-color: transparent;
+  border-color: transparent;
   box-shadow: none;
 }
 
@@ -17381,6 +17385,19 @@ hr.hr-dark {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+select:disabled,
+select[readonly] {
+  direction: rtl;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+select:disabled::-ms-expand,
+select[readonly]::-ms-expand {
+  display: none;
 }
 
 label {
@@ -18001,12 +18018,8 @@ h6 {
 }
 
 .list-detail li mark {
-  padding: 0.6rem 1rem;
-  margin-top: -0.3rem;
-  line-height: 1;
   font-weight: 400;
-  border-radius: 0.5rem;
-  background-color: #ebecef;
+  background-color: transparent;
   float: right;
 }
 

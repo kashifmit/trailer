@@ -31,7 +31,7 @@
         <header class="site-header">
             <div class="site-header-bar">
                 <div class="hd-left">
-                    <button class="nav-trigger">
+                    <button class="nav-trigger nav-trigger-main">
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="site-logo">

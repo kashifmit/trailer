@@ -3,16 +3,31 @@ $(document).ready(function () {
     $('.nav-trigger-main').on('click', this, function(){
         $('body').toggleClass('menu-collapsed');
     });
+    $('.nav-overlay').on('click', this, function(){
+        $('body').removeClass('menu-collapsed');
+    });
 
     $('.nav-trigger-hd').on('click', this, function(){
       $('.hd-right').toggleClass('active');
     });
 
-    $('.nav-overlay').on('click', this, function(){
-        $('body').removeClass('menu-collapsed');
-    });
 
-    $('.datepicker').datepicker();
+    var datePickerClickCount = 0;
+
+    var datepicker = $('.datepicker')
+      .datepicker()
+      .on('changeDate', function() {
+
+        datePickerClickCount += 1;
+
+        if ( datePickerClickCount > 1 ) {
+          $(datepicker).datepicker('hide');
+        }
+
+        setTimeout(function () {
+          datePickerClickCount = 0;        
+        }, 225);
+    });
 
     $('.selectable-box').select2();
     
