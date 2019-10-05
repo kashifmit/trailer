@@ -158,7 +158,7 @@ class DataArrayHelper {
 
 	public static function getAtaCode()
 	{
-		return AtaCodeModel::select('FaultAreaDescription', 'ATACodeId')->pluck('FaultAreaDescription', 'ATACodeId')->toArray();
+		return AtaCodeModel::select('FaultAreaDescription', 'ATACodeId')->groupBy('FaultAreaDescription')->pluck('FaultAreaDescription', 'ATACodeId')->toArray();
 	}
 
 	public static function PartsLaborCode()
