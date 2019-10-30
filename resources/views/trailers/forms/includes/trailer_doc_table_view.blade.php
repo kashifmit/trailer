@@ -39,7 +39,7 @@
 			<table class="table table-striped text-sm table-hover">
 				<thead>
 					<tr>
-						<th>DownLoad Invoice</th>
+						<th>Download Invoice</th>
 						<th>Invoice Number</th>
 						<th>Invoice Date</th>
 						<th>Vendor</th>
