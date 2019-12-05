@@ -1,0 +1,82 @@
+// Main Menu
+.menu {
+    @include list-unstyled;
+    margin-bottom: 0;
+
+    li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        &.active {
+            a {
+                color: $primary;
+                border-left-width: 4px;
+
+                &::before {
+                    width: 4px;
+                }
+            }
+        }
+    }
+    a {
+        padding: 6px 20px;
+        display: block;
+        position: relative;
+        
+        i + span {
+            margin-left: 10px;
+        }
+        
+        &::before {
+            width: 0px;
+            height: 100%;
+            display: block;
+            background-color: $primary;
+            content: '';
+            transition: all 0.4s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+
+.list-unstyled {
+    margin-bottom: 0;
+}
+
+.list-detail {
+    @include list-unstyled;
+    margin-bottom: 0;
+    
+    li {
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        font-size: .9em;
+        text-transform: uppercase;
+
+        mark {
+            // padding: 0.6rem 1rem;
+            // margin-top: -0.3rem;
+            // line-height: 1;
+            font-weight: 400;
+            // border-radius: 0.5rem;
+            // background-color: $gray-200;
+            background-color: transparent;
+            float: right;
+        }
+    }
+
+    &.list-sp {
+        li {
+            span {
+                width: 70%;
+                display: inline-block;
+                text-align: right;
+            }
+            
+        }
+
+    }
+}

@@ -1,0 +1,114 @@
+.site-header {
+    width: 100%;
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+    background-color: $white;
+    z-index: 11;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .site-header-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.nav-trigger {
+    width: 30px;
+    padding: 8px 5px;
+    font-size: 1.5em;
+    line-height: 1em;
+    background-color: transparent;
+    border: 0;
+
+    &.nav-trigger-main {
+        margin-right: 10px;
+    }
+
+    &.nav-trigger-hd {
+        
+        @media (min-width: $md) {
+            display: none;
+        }
+    }
+}
+
+.site-logo {
+    width: 100px;
+    padding: 3px 5px;
+    font-size: $font-size-lg;
+    color: $primary;
+    display: inline-block;
+
+    a {
+        display: block;
+    }
+}
+
+.hd-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.hd-right {
+    min-width: 200px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #dbdde3;
+    box-shadow: -3px 3px 5px rgba(0,0,0,0.1);
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    &.active {
+        display: block;
+    }
+
+    @media (min-width: $md) {
+        min-width: auto;
+        padding: 0 15px 0 0;
+        position: static;
+        border: 0;
+        box-shadow: none;
+        display: block;
+    }
+
+}
+
+.list-hd {
+    @include list-unstyled;
+    margin-bottom: 0;
+
+    li + li {
+        margin-top: .5rem;        
+    }
+
+    .nav-link {
+        color: $body-color;
+        border-radius: .5rem;
+        font-size: .9em;
+        background-color: $gray-200;
+
+        &:hover {
+            background-color: darken($gray-200, 6%);
+        }
+        &:active:focus {
+            box-shadow: 0 0 0 0.2rem darken($gray-200, 15%);
+        }
+    }
+
+    @media (min-width: $md) {
+        li {
+            display: inline-block;
+        }
+        li + li {
+            margin-top: 0;
+        }
+
+    }
+}

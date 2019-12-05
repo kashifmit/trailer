@@ -154,14 +154,19 @@ return [
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
-        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,   
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Cornford\Googlmapper\MapperServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        RezaAr\Highcharts\Provider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -191,6 +196,7 @@ return [
     'aliases' => [
 
         'App' => Illuminate\Support\Facades\App::class,
+        'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
@@ -220,11 +226,22 @@ return [
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
+        'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
-
+        'APFrmErrHelp' => App\Helpers\FormErrorHelper::class,
+        'ImgUploader' => App\Helpers\ImageUploadingHelper::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Chart' => RezaAr\Highcharts\Facade::class,
+        'Curl'  => Ixudra\Curl\Facades\Curl::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
-   
+
 ];

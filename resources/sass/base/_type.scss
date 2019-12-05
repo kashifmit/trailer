@@ -1,0 +1,148 @@
+::selection {
+    color: $white;
+    background-color: $secondary;
+}
+
+::-moz-selection {
+    color: $white;
+    background-color: $secondary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
+}
+
+
+/*** Heading ***/
+.heading {
+    margin-bottom: 30px;
+
+    .title {
+        margin-bottom: 0;
+    }
+
+    &.space-between {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &.heading-detail-sp {
+      padding-right: 30%;  
+    }
+}
+
+
+/*** text styles ***/
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+.text-bold {
+    font-weight: 600;
+}
+
+.text-medium {
+    font-weight: 400;
+}
+
+.text-linethrough {
+    text-decoration: line-through;
+}
+
+.text-dark {
+    color: $gray-700 !important;
+}
+
+.text-black {
+    color: $black;
+}
+
+.text-bright {
+    color: #808080;
+}
+
+.text-brighter {
+    color: #ccc;
+}
+
+.text-white {
+    color: $white;
+}
+
+.text-sm {
+    font-size: $font-size-base - .25;
+
+    .btn,
+    .form-control {
+        font-size: $font-size-base - .15;
+    }
+}
+
+.text-md {
+    font-size: $h5-font-size;
+}
+
+.text-lg {
+    font-size: $font-size-base + .5;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+    @include list-unstyled;
+    margin-left: -5px;
+
+    >li {
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+
+@media (min-width: $md) {
+    .text-sm-right {
+        text-align: right;
+    }
+}
+
+@media (min-width: $lg) {
+    .text-md-right {
+        text-align: right;
+    }
+}
+
+@media (min-width: $xl) {
+    .text-lg-right {
+        text-align: right;
+    }
+}
+
+.list-unstyled {
+    @include list-unstyled;
+}
+
+.list-inline {
+    @include list-unstyled;
+    margin-left: -5px;
+
+    >li {
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}

@@ -1,11 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
+/public/docs
 /storage/*.key
 /vendor
+.env.backup
 .env
+/public/trailerDocs.zip
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+composer.lock

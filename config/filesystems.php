@@ -55,22 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
-        /*'s3' => [
+        's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
-        ],
-        */
-        's3' => [
-            'driver' => 's3',
-            'key' => 'AKIAJUHGF3PADKCMTLUA',
-            'secret' => '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',
-            'region' => 'ap-south-1',
-            'bucket' => 'trailerappproject',
-            'url' => 'http://trailerappproject.s3-aws-region.amazonaws.com',
         ],
 
     ],

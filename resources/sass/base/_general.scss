@@ -1,0 +1,162 @@
+@mixin margin-class($margin, $direction) {
+    @if $direction=="up" {
+        .#{'mt-' + $margin} {
+            margin-top: $margin + px;
+
+            &.heading {
+                margin-top: $margin + px;
+            }
+        }
+    }
+
+    @else if $direction=="right" {
+        .#{'mr-' + $margin} {
+            margin-right: $margin + px;
+
+            &.heading {
+                margin-right: $margin + px;
+            }
+        }
+    }
+
+    @else if $direction=="left" {
+        .#{'ml-' + $margin} {
+            margin-left: $margin + px;
+
+            &.heading {
+                margin-left: $margin + px;
+            }
+        }
+    }
+
+    @else {
+        .#{'mb-' + $margin} {
+            margin-bottom: $margin + px;
+
+            &.heading {
+                margin-bottom: $margin + px;
+            }
+        }
+    }
+
+}
+
+@mixin padding-class($padding, $direction) {
+    @if $direction=="up" {
+        .#{'pt-' + $padding} {
+            padding-top: $padding + px;
+
+            &.heading {
+                padding-top: $padding + px;
+            }
+        }
+    }
+
+    @else {
+        .#{'pb-' + $padding} {
+            padding-bottom: $padding + px;
+
+            &.heading {
+                padding-bottom: $padding + px;
+            }
+        }
+    }
+
+}
+
+
+/*** General Styles
+  --------------------------------------------- ***/
+
+/*** Margins and Paddings ***/
+@include margin-class(5, "bottom");
+@include margin-class(10, "bottom");
+@include margin-class(20, "bottom");
+@include margin-class(30, "bottom");
+@include margin-class(40, "bottom");
+@include margin-class(50, "bottom");
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+@include margin-class(5, "up");
+@include margin-class(10, "up");
+@include margin-class(20, "up");
+@include margin-class(30, "up");
+@include margin-class(40, "up");
+@include margin-class(50, "up");
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+
+@include margin-class(5, "right");
+@include margin-class(10, "right");
+@include margin-class(20, "right");
+
+@include margin-class(5, "left");
+@include margin-class(10, "left");
+@include margin-class(20, "left");
+
+
+@include padding-class(20, "bottom");
+@include padding-class(30, "bottom");
+@include padding-class(50, "bottom");
+
+.pb-0 {
+    padding-bottom: 0 !important;
+}
+
+@include padding-class(10, "up");
+@include padding-class(15, "up");
+@include padding-class(20, "up");
+@include padding-class(30, "up");
+@include padding-class(50, "up");
+
+.mb-20-minus {
+    margin-top: -20px;
+}
+
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.hr {
+    border-top: 2px solid $border-color;
+}
+
+.button {
+    display: inline-block;
+
+    &.disabled {
+        filter: grayscale(100%);
+        opacity: .3;
+        pointer-events: none;
+    }
+}
+
+.button-bar {
+    .btn {
+        margin-bottom: .25rem;
+    }
+}
+
+/*** Scrollbar ***/
+.scrollbar {
+    &::-webkit-scrollbar-track {
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-500;
+    }
+}
+
