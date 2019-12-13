@@ -14,4 +14,19 @@ class MaintenanceInvoiceDetailModel extends Model
     {
     	return $this->belongsTo('App\MaintenanceInvoiceModel', 'InvoiceNo');
     }
+
+    public function ataCode()
+    {
+    	return $this->belongsTo('App\AtaCodeModel', 'ATACodeId', 'ATACodeId');
+    }
+
+    public function faultCode()
+    {
+    	return $this->belongsTo('App\FaultCodeModel', 'FaultReasonCode', 'FaultReasonCode');
+    }
+
+    public function resolutionCode()
+    {
+    	return $this->belongsTo('App\ResolutionCodeModel', 'ResolutionCodeId', 'ResolutionCodeId');
+    }
 }
