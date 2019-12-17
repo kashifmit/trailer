@@ -6,7 +6,7 @@
 <div class="titles-masthead mb-4">
   <ul class="list-title-masthead">
     <li>
-      <label>Invoice Number afsd</label>
+      <label>Invoice Number</label>
       <span>
         {!! Form::select('InvoiceNo', ['' => 'Select Invoice Number']+$invoices, isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius invoices', 'id'=>'InvoiceNo', 'disabled' => isset($data) )) !!}
       </span>
