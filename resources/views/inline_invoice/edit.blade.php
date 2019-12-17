@@ -110,6 +110,10 @@
           $("#"+totalamount).blur();
         }
       });
+    function toFixCurrency(number) {
+      number = number.toFixed(2);
+      return number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
 </script>    
 @endsection
 

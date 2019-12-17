@@ -84,7 +84,8 @@
                     $.each(data, function (index, value) {
                     maps[0].map.setCenter({lat: parseFloat(value.Latitude), lng: parseFloat(value.Longitude)});
                     });    
-                } else {
+                } 
+                else {
                     maps[0].map.setCenter({lat: parseFloat(0), lng: parseFloat(0)});
                 }
             });

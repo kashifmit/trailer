@@ -83,7 +83,7 @@
 					<div class="form-group">
 						{!! Form::label('LastInsepctionDate', 'Last Registration', ['class' => 'bold']) !!}
 						<div class="form-control-wrap date-picker">
-							{!! Form::text('', isset($data) ? date('m/d/Y', strtotime($data->LastInsepctionDate)) : null, array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'LastInsepctionDate', 'placeholder'=>'Last Registration')) !!}
+							{!! Form::text('LastInsepctionDate', isset($data) ? date('m/d/Y', strtotime($data->LastInsepctionDate)) : null, array('class'=>'form-control form-control-radius sm datepicker', 'id'=>'LastInsepctionDate', 'placeholder'=>'Last Registration')) !!}
 							<label class="picker-icon" for="LastInsepctionDate"><i class="far fa-calendar-alt"></i></label>
 						</div>
 					</div>

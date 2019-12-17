@@ -41,21 +41,24 @@ class HomeController extends Controller
     {
         $allData = DataArrayHelper::getfinancials('', $request);
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
                 [
+                    'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
+        if (count($mapData)) {
+
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
                 Mapper::informationWindow($value->Latitude, $value->Longitude,$content
                 );
             }    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         return view('home')
         ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())

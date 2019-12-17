@@ -261,7 +261,6 @@ class DataArrayHelper {
         $end_date = date('Y-m-d H:59:59');
         $mapData = [];
         if (!empty($TrailerNo) || !empty($TrailerIds) || !empty($TrailerUnitNo)) {
-        	DB::enableQueryLog();
         	$mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);
