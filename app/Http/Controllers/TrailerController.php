@@ -334,10 +334,20 @@ class TrailerController extends Controller
 
     private function updateTracking($TrailerSerialNo, $request)
     {
-        $EquipmentTracking = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
+        $findData = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->first();
+        if ($findData) { 
+            $EquipmentTracking = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
             'TrackingId' => $request->input('TrackingId'),
             'trackingProvider' => $request->input('etrack_id')
-        ]);
+            ]);
+        } else {
+            $EquipmentTracking = new EquipmentTrackingModel();
+            $EquipmentTracking->TrackingId = $request->input('TrackingId');
+            $EquipmentTracking->TrailerSerialNo = $TrailerSerialNo;
+            $EquipmentTracking->trackingProvider = $request->input('etrack_id');
+            $EquipmentTracking->save();
+        }
+        
         
     }
 
