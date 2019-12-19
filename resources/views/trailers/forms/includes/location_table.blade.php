@@ -1,7 +1,6 @@
 @if($displayTable)
 	@if(count($mapData))
 		{!! Form::open(array('method' => 'post', 'route' => 'download.trailer.location.csv', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
-		<input type="hiddes" name="trailerId" value="{{}}">
 		<div class="mt-4 mb-3">
 			<button class="btn btn-large btn-primary edit-class" type="submit">Download CSV</button>
 		</div>
