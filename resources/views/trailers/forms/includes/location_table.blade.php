@@ -1,6 +1,7 @@
 @if($displayTable)
 	@if(count($mapData))
 		{!! Form::open(array('method' => 'post', 'route' => 'download.trailer.location.csv', 'class' => 'form', 'files'=>true, 'id' => 'add_trailer')) !!}
+		<input type="hiddes" name="trailerId" value="{{}}">
 		<div class="mt-4 mb-3">
 			<button class="btn btn-large btn-primary edit-class" type="submit">Download CSV</button>
 		</div>
@@ -21,7 +22,7 @@
 		                <th>Distance From Land Mark</th>
 		                <th>Battery Status</th>
 		                <th>Motion</th>
-		                <!-- <th>Time</th> -->
+		                <th>Date Time</th>
 		            </tr>
 	        	</thead>
 	        	<tbody>
@@ -40,7 +41,7 @@
 	        			<td>{{$data->DistanceFromLandmark}}</td>
 	        			<td>{{$data->BatteryStatus}}</td>
 	        			<td>{{$data->Motion_status}}</td>
-	        			<!-- <td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td> -->
+	        			<td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td>
 	        		</tr>
 	        		@endforeach
 	        		@else
