@@ -44,7 +44,7 @@ class SkybizApiCall extends Command
         $json = json_encode($xml);
         $dataArray = json_decode($json,TRUE);
         if ($dataArray['error'] == 0) {
-            SkyBizTrackingModel::truncate();
+            // SkyBizTrackingModel::truncate();
             foreach ($dataArray['gls'] as $key => $value) {
                 if (isset($value['latitude']) && isset($value['longitude']) &&
                     isset($value['mtsn']) && (isset($value['landmark']) && isset($value['landmark']['geoname'])) && 
@@ -56,7 +56,7 @@ class SkybizApiCall extends Command
                         isset($value['time'])
 
                     ) {
-                    $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->cout();
+                    $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->count();
                     if ($checkdata >= 90) {
                         SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->delete();
                     } else {
