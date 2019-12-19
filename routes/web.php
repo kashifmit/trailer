@@ -104,6 +104,9 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	*	Trailer Routes
 	**/
+	Route::get('/excel-View', 'TrailerController@excelView')->name('excel.View');
+	Route::post('/import-Excel', 'TrailerController@importExcel')->name('import.Excel');
+
 	Route::get('/trailers-list', 'TrailerController@index')->name('trailer.list');
 	Route::get('/trailer-data', 'TrailerController@trailerData')->name('trailer.data');
 	Route::get('/create-trailor', 'TrailerController@createtriler')->name('create.trailer');

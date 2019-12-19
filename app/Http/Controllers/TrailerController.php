@@ -15,7 +15,12 @@ use App\TrailerFilesModel;
 use App\RegistrationModel;
 use App\EquipmentTrackingModel;
 use App\SiteModel;
+use App\ManufacturerModel;
 use App\MaintenanceInvoiceModel;
+use App\TrailerRentedViaModel;
+use App\RentalModel;
+use App\rentedViaModel;
+use App\modelYearModel;
 use Carbon\Carbon;
 use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
@@ -27,6 +32,70 @@ use DataTables;
 
 class TrailerController extends Controller
 {
+    public function excelView()
+    {
+        return view('trailers.excelView');
+        # code...
+    }
+    
+    public function importExcel(Request $request)
+    {
+        $path = $request->file('file')->getRealPath();
+        $data = Excel::load($path)->get();
+        $i = 1;
+        foreach ($data->toArray() as $key => $value) {
+            $findTrailer = EquipmentModel::where('TrailerSerialNo', $value['unit_no._shipped'])->first();
+            if (!$findTrailer) {
+
+
+                $equipmentData = new EquipmentModel();
+                $equipmentData->TrailerSerialNo = $value['unit_no._shipped'];
+                $equipmentData->SiteId = $value['siteid'];
+                $equipmentData->ModelYear = $this->getModelYear($value['year']);
+                if ($value['skybitz']) {
+                    $equipmentData->etrack_id = 1;
+                }
+                $equipmentData->ManufacturerId = $this->getMakingName($value['make']);
+                $equipmentData->save();
+                $registration = new RegistrationModel();
+                $registration->VehicleId_VIN = $value['vin'];
+                $registration->PlateNo = $value['plate'];
+                $registration->TrailerSerialNo = $value['unit_no._shipped'];
+                $registration->Owner = $value['organizationid'];
+                $registration->StateAbbreviation = $value['plate_state'];
+                $registration->save();
+                if ($value['skybitz']) { 
+                    $tracking = new EquipmentTrackingModel();
+                    $tracking->TrackingId = $value['skybitz'];
+                    $tracking->TrailerSerialNo = $value['unit_no._shipped'];
+                    $tracking->trackingProvider = 1;
+                    $tracking->save();
+                }
+
+                $rental = new RentalModel();
+                $rental->RentalTransId = $i;
+                $rental->VendorId = $value['vendorid'];
+                $rental->SiteId = $value['siteid'];
+                $rental->save();
+
+                $trailerRentedVia = new TrailerRentedViaModel();
+                $trailerRentedVia->Price = $value['monthly_rent'];
+                $trailerRentedVia->RentalStartDate = date('Y-m-d', strtotime($value['lease_acceptance_date']));
+                $trailerRentedVia->RentalEndDate = date('Y-m-d', strtotime($value['lease_end_date']));
+                $trailerRentedVia->RentalTransId = $rental->RentalTransId;
+                $trailerRentedVia->TrailerSerialNo = $value['unit_no._shipped'];
+                $trailerRentedVia->save();
+                
+                $rentedVia = new rentedViaModel();
+                $rentedVia->TrailerSerialNo = $value['unit_no._shipped'];
+                $rentedVia->RentalTransId = $trailerRentedVia->RentalTransId;
+                $rentedVia->save();
+                $i++;
+            }
+
+        }
+        dd("data saved successfully");
+    }
     public function index(Request $request)
     {
         $trailerData = '';
@@ -726,5 +795,43 @@ class TrailerController extends Controller
         return response()->View('trailers.forms.includes.trailer_doc_table',
         compact('invoiceData', 'regData', 'docTypes', 'message', 'docData', 'successMessage'));
         // return $result;
+    }
+
+    private function getMakingName($make)
+    {
+        if (!empty($make)) {
+            $data = ManufacturerModel::where('MakeName', $make)->first();
+            if ($data) {
+                return $data->MakeId;
+            } else {
+                $data = new ManufacturerModel();
+                $data->MakeName = $make;
+                $data->save();
+                return $data->MakeId;
+            }
+        } else {
+            $MakeId = "12";
+            return $MakeId;
+        }
+        
+    }
+
+    private function getModelYear($model)
+    {
+        if (!empty($model)) {
+            $modelYear = modelYearModel::where('ModelYear', $model)->first();
+            if ($modelYear) {
+                return $modelYear->ModelYear;
+            } else {
+                $modelYear = new modelYearModel();
+                $modelYear->ModelYear = $model;
+                $modelYear->save();
+                return $modelYear->ModelYear;
+            }    
+        } else {
+            $ModelYear = "Unknown";
+            return $ModelYear;
+        }
+        
     }
 }
