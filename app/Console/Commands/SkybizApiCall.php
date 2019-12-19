@@ -56,20 +56,26 @@ class SkybizApiCall extends Command
                         isset($value['time'])
 
                     ) {
-                    $skyBizData = new SkyBizTrackingModel();
-                    $skyBizData->TrailerNo = isset($value['assetid']) ? $value['assetid'] : NULL;
-                    $skyBizData->TrailerUnitNo = isset($value['mtsn']) ? $value['mtsn'] : NULL;
-                    $skyBizData->Latitude = isset($value['latitude']) ? $value['latitude'] : NULL;
-                    $skyBizData->Longitude = isset($value['longitude']) ? $value['longitude'] : NULL;
-                    $skyBizData->Longitude = isset($value['longitude']) ? $value['longitude'] : NULL;
-                    $skyBizData->ClosestLandMark = isset($value['landmark']) && isset($value['landmark']['geoname']) ? $value['landmark']['geoname'] : NULL;
-                    $skyBizData->State = isset($value['landmark']) && isset($value['landmark']['state']) ? $value['landmark']['state'] : NULL;
-                    $skyBizData->Country = isset($value['landmark']) && isset($value['landmark']['country']) ? $value['landmark']['country'] : NULL;
-                    $skyBizData->DistanceFromLandmark = isset($value['landmark']) && isset($value['landmark']['distance']) ? $value['landmark']['distance'] : NULL;
-                    $skyBizData->BatteryStatus = isset($value['battery']) ? $value['battery'] : NULL;
-                    $skyBizData->Motion_status = isset($value['serial']) && isset($value['serial']['serialdata']) ? $value['serial']['serialdata'] : NULL;
-                    $skyBizData->track_date_time = isset($value['time']) ? date('Y-m-d h:i:s', strtotime($value['time'])) : NULL;
-                    $skyBizData->save();
+                    $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->cout();
+                    if ($checkdata >= 90) {
+                        SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->delete();
+                    } else {
+                        $skyBizData = new SkyBizTrackingModel();
+                        $skyBizData->TrailerNo = isset($value['assetid']) ? $value['assetid'] : NULL;
+                        $skyBizData->TrailerUnitNo = isset($value['mtsn']) ? $value['mtsn'] : NULL;
+                        $skyBizData->Latitude = isset($value['latitude']) ? $value['latitude'] : NULL;
+                        $skyBizData->Longitude = isset($value['longitude']) ? $value['longitude'] : NULL;
+                        $skyBizData->Longitude = isset($value['longitude']) ? $value['longitude'] : NULL;
+                        $skyBizData->ClosestLandMark = isset($value['landmark']) && isset($value['landmark']['geoname']) ? $value['landmark']['geoname'] : NULL;
+                        $skyBizData->State = isset($value['landmark']) && isset($value['landmark']['state']) ? $value['landmark']['state'] : NULL;
+                        $skyBizData->Country = isset($value['landmark']) && isset($value['landmark']['country']) ? $value['landmark']['country'] : NULL;
+                        $skyBizData->DistanceFromLandmark = isset($value['landmark']) && isset($value['landmark']['distance']) ? $value['landmark']['distance'] : NULL;
+                        $skyBizData->BatteryStatus = isset($value['battery']) ? $value['battery'] : NULL;
+                        $skyBizData->Motion_status = isset($value['serial']) && isset($value['serial']['serialdata']) ? $value['serial']['serialdata'] : NULL;
+                        $skyBizData->track_date_time = isset($value['time']) ? date('Y-m-d h:i:s', strtotime($value['time'])) : NULL;
+                        $skyBizData->save();
+                    }
+                    
                 }
             }    
         }

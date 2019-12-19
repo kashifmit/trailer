@@ -56,6 +56,7 @@ class TrailerController extends Controller
         }
         Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
                     'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
@@ -106,21 +107,24 @@ class TrailerController extends Controller
     {
         $allData = DataArrayHelper::getfinancials('', $request);
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
+                    'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
+        if (count($mapData)) {
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
                 Mapper::informationWindow($value->Latitude, $value->Longitude,$content
                 );
             }    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
             'Total Maintenance Expense', 
@@ -200,6 +204,7 @@ class TrailerController extends Controller
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
         Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
                     'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
@@ -242,19 +247,22 @@ class TrailerController extends Controller
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
             [
                 'marker' => false,
+                'zoom' => 5,
                 'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
-            ]);
+            ]
+        );
+        if (count($mapData)) {
             $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
             $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
                 Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
                 );    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
         foreach ($getTrailerDetails['data']->filesData as $key => $value) {

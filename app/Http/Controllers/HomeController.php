@@ -43,6 +43,7 @@ class HomeController extends Controller
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
         Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
                     'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]

@@ -101,7 +101,11 @@ class DataArrayHelper {
 	public static function getConditionName($ConditionStatusId)
 	{
 		$data = conditionModel::select('ConditionType')->where('ConditionStatusId', $ConditionStatusId)->first();
-		return $data->ConditionType;
+		if ($data) {
+			return $data->ConditionType;
+		} else {
+			return "";
+		}
 	}
 
 	public static function getState()
