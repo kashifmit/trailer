@@ -277,4 +277,9 @@ class HomeController extends Controller
         }
         
     }
+
+    public function waitingForApproval(Request $request)
+    {
+        return view('not-allowed');
+    }
 }

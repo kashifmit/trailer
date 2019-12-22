@@ -1,6 +1,6 @@
 <nav class="sidebar-nav">
   <ul class="menu">
-    
+    @if(Auth::user()->is_verified == 1)
     <li class="{{Route::currentRouteName() == 'home' ? 'active' : ''}}">
       <a href="{{ route('home') }}">
         <i class="fas fa-home"></i>
@@ -54,6 +54,7 @@
             <span>{{ __('Account') }}</span>
         </a>    
     </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">

@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('not-allowed', 'HomeController@waitingForApproval')->name('not.allowed');
+	Route::get('/home', 'HomeController@index')->middleware('IsUserVerified')->name('home');
 	/**
 	*	organization routes
 	**/
