@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['verifyUSer']]);
     }
 
     /**
@@ -281,5 +281,19 @@ class HomeController extends Controller
     public function waitingForApproval(Request $request)
     {
         return view('not-allowed');
+    }
+
+    public function verifyUSer($token)
+    {
+        $data = User::where('is_verified', 0)->where('verification_token', $token)->first();
+        if ($data) {
+            $data->is_verified = 1;
+            $data->save();
+            flash('Your account is verified. Please login')->success();
+            return Redirect::route('login');
+        } else {
+            flash('Either Token Is Invalid or your account already verified.')->error();
+            return Redirect::route('login');
+        }
     }
 }

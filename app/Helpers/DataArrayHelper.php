@@ -7,6 +7,7 @@ use File;
 use ImgUploader;
 use Auth;
 use DB;
+use Mail;
 use Input;
 use Redirect;
 use Chart;
@@ -287,4 +288,24 @@ class DataArrayHelper {
 	{
 		return ["inspection_document", "fhwa", "registration", "tracking_installation_sheet"];
 	}
+
+	public static function sendverificationMail($user, $data)
+    {
+        Mail::send('emails.email', $data, function ($m) use ($user) {
+            $m->to($user->email, $user->name);
+            $m->subject('User verification');
+        });
+    }
+
+    public static function randomString($len)
+    {
+        $result = "";
+        $chars = "abcdefghijklmnopqrstuvwxyz0123456789$11";
+        $charArray = str_split($chars);
+        for($i = 0; $i < $len; $i++){
+            $randItem = array_rand($charArray);
+            $result .= "".$charArray[$randItem];
+        }
+        return $result;
+    }
 }

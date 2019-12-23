@@ -8,7 +8,7 @@
                 <header class="heading">
                     <h2 class="title">{{ __('Welcome!') }}</h2>
                 </header>
-        
+                @include('flash::message')
                 <div class="content">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

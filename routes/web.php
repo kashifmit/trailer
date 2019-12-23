@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('user-verification/{token}', 'HomeController@verifyUSer')->name('user.verification');
+
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('not-allowed', 'HomeController@waitingForApproval')->name('not.allowed');
