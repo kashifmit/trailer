@@ -1,6 +1,6 @@
 <nav class="sidebar-nav">
   <ul class="menu">
-    @if(Auth::user()->is_verified == 1)
+    @if(Auth::user()->is_verified == 1 && Auth::user()->is_authorized == 1)
     <li class="{{Route::currentRouteName() == 'home' ? 'active' : ''}}">
       <a href="{{ route('home') }}">
         <i class="fas fa-home"></i>

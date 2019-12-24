@@ -13,9 +13,12 @@
             <div class="form-block mb-5">
                 @if(Auth::user()->is_verified == 0)
                 <p>Your account is not verified yet. Please verify your account by clicking on the link provided in the email.</p>
-                @endif
-                @if(Auth::user()->is_authorized == 0)
+                @elseif(Auth::user()->is_authorized == 0)
                     <p>Your Account is waiting for approval.</p>
+                @else
+                <script type="text/javascript">
+                    window.location = "/home";
+                </script>
                 @endif
             </div>
         </div>
