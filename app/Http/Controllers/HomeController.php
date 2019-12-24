@@ -192,6 +192,8 @@ class HomeController extends Controller
                 $user->email = $request->input('email');
                 $user->organization_id = $request->input('organization');
                 $user->Role_id = $request->input('role');
+                $user->is_verified = $request->input('is_verified');
+                $user->is_authorized = $request->input('is_authorized');
                 $user->save();
                 flash('User has been created successfully!')->success();
                 return Redirect::route('create.user');
@@ -254,8 +256,8 @@ class HomeController extends Controller
             $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password',
+            // 'password' => 'required',
+            // 'confirm_password' => 'required|same:password',
             'organization' => 'required',
             'role' => 'required',
         ]);
@@ -263,9 +265,13 @@ class HomeController extends Controller
                 $user = User::findOrFail($id);
                 $user->name = $request->input('name');
                 $user->last_name = $request->input('last_name');
-                $user->password = Hash::make($request->input('password'));
+               if (!empty($request->input('password'))) {
+                    $user->password = Hash::make($request->input('password'));
+               }
                 $user->organization_id = $request->input('organization');
                 $user->Role_id = $request->input('role');
+                $user->is_verified = $request->input('is_verified');
+                $user->is_authorized = $request->input('is_authorized');
                 $user->save();
                 flash('User has been updated successfully!')->success();
                 return Redirect::route('edit.user', $id);

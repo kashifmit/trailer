@@ -15,7 +15,7 @@ class IsUserVerified
      */
     public function handle($request, Closure $next)
     {
-        if (!(bool)$request->user()->is_verified) {
+        if (!(bool)$request->user()->is_verified || !(bool)$request->user()->is_authorized) {
             return \Redirect::route('not.allowed');
         }
         return $next($request);
