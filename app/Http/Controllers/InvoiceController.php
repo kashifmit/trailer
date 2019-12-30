@@ -171,12 +171,14 @@ class InvoiceController extends Controller
             'InvoiceDate' => 'required',
         ]);
         try {
+            $url = $this->invoiceUrl($InvoiceNo);
             // $this->updateRequestMaintenance($request->input('RequestOrderNo'), $request);
             // $this->updateMaintenance($request->input('MaintenanceOrderNo'), $request, $request->input('RequestOrderNo'));
             $this->updateMaintenanceInvoice($InvoiceNo, $request);
             // $this->updateMaintenanceInvoiceDetail($request->input('InvoiceLine'), $request);
             $this->uploadFile($request, $InvoiceNo);
-            flash('Trailer has been updated successfully!')->success();
+            $btn = '<a href="'.$url.'" class="pull-right">Back to Invoice List</a>';
+            flash('Trailer Invoice has been updated successfully!'. $btn)->success();
             return Redirect::route('edit.invoice', ['InvoiceNo' => $InvoiceNo]);
         } catch(QueryException $e) {
           return back()->withError($e->getMessage());
@@ -356,7 +358,9 @@ class InvoiceController extends Controller
             $invoice_detail->LineType = $value;
                 $invoice_detail->save();
             }
-            flash('Invoice Line Added successfully!')->success();
+            $url = $this->invoiceUrl($InvoiceNo);
+            $btn = '<a href="'.$url.'" class="pull-right">Back to Invoice List</a>';
+            flash('Invoice Line Added successfully!'. $btn)->success();
             return Redirect::route('create.line.item', $InvoiceNo);
         } catch (ModelNotFoundException $e) {
             return back()->withError($e->getMessage());
@@ -486,7 +490,9 @@ class InvoiceController extends Controller
                 $this->updateMaintenanceInvoiceDetail($invoice_detail->InvoiceLine, $request, $key);
             }
         }
-        flash('Invoice Line updated successfully!')->success();
+        $url = $this->invoiceUrl($InvoiceNo);
+        $btn = '<a href="'.$url.'" class="pull-right">Back to Invoice List</a>';
+        flash('Invoice Line updated successfully!'. $btn)->success();
         return Redirect::route('edit.invoice.line', $InvoiceNo);
     }
 
@@ -504,5 +510,12 @@ class InvoiceController extends Controller
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+    private function invoiceUrl($InvoiceNo)
+    {
+        $data = MaintenanceInvoiceModel::select('TrailerSerialNo')->where('InvoiceNo', $InvoiceNo)->first();
+            $url = url('invoice-list?TrailerSerialNo='.$data->TrailerSerialNo);
+            return $url;
     }
 }

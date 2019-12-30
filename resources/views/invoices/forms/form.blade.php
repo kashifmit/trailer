@@ -67,32 +67,32 @@
 
               <div class="form-group">
                 {!! Form::label('LaborTotal', 'Labor Total', ['class' => 'bold']) !!}
-                {!! Form::text('LaborTotal', isset($data) ? $data->LaborTotal : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'LaborTotal', 'placeholder'=>'Labor Total')) !!}
+                {!! Form::text('LaborTotal', isset($data) ? number_format((float)$data->LaborTotal, 2) : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'LaborTotal', 'placeholder'=>'Labor Total')) !!}
               </div>
               <div class="form-group">
                 {!! Form::label('PartsTotal', 'Labor Parts', ['class' => 'bold']) !!}
-                {!! Form::text('PartsTotal', isset($data) ? $data->PartsTotal : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'PartsTotal', 'placeholder'=>'Labor Parts' )) !!}
+                {!! Form::text('PartsTotal', isset($data) ? number_format((float)$data->PartsTotal, 2) : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'PartsTotal', 'placeholder'=>'Labor Parts' )) !!}
               </div>
               <div class="form-group">
                 {!! Form::label('AccessoriesTotal', 'Accessories Total', ['class' => 'bold']) !!}
-                {!! Form::text('AccessoriesTotal',isset($data) ? $data->AccessoriesTotal : 0,  array('class'=>'form-control form-control-radius sm calculate', 'id'=>'AccessoriesTotal', 'placeholder'=>'Accessories Total')) !!}
+                {!! Form::text('AccessoriesTotal',isset($data) ? number_format((float)$data->AccessoriesTotal, 2) : 0,  array('class'=>'form-control form-control-radius sm calculate', 'id'=>'AccessoriesTotal', 'placeholder'=>'Accessories Total')) !!}
               </div>
               <div class="form-group">
                 {!! Form::label('AnnualInspectionTotal', 'Annual Inspection Total', ['class' => 'bold']) !!}
-                {!! Form::text('AnnualInspectionTotal',isset($data) ? $data->AnnualInspectionTotal : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'AnnualInspectionTotal', 'placeholder'=>'Accessories Total')) !!}
+                {!! Form::text('AnnualInspectionTotal',isset($data) ? number_format((float)$data->AnnualInspectionTotal, 2) : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'AnnualInspectionTotal', 'placeholder'=>'Accessories Total')) !!}
               </div>
               <div class="form-group">
                 {!! Form::label('RegistrationTotal', 'Registration Total', ['class' => 'bold']) !!}
-                {!! Form::text('RegistrationTotal',isset($data) ? $data->RegistrationTotal : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'RegistrationTotal', 'placeholder'=>'Registration Total')) !!}
+                {!! Form::text('RegistrationTotal',isset($data) ? number_format((float)$data->RegistrationTotal, 2) : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'RegistrationTotal', 'placeholder'=>'Registration Total')) !!}
               </div>
               <div class="form-group">
                 {!! Form::label('SalesTax', 'Tax Total', ['class' => 'bold']) !!}
-                {!! Form::text('SalesTax',isset($data) ? $data->SalesTax : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'SalesTax', 'placeholder'=>'Tax Total')) !!}
+                {!! Form::text('SalesTax',isset($data) ? number_format((float)$data->SalesTax, 2) : 0, array('class'=>'form-control form-control-radius sm calculate', 'id'=>'SalesTax', 'placeholder'=>'Tax Total')) !!}
               </div>
               <span><hr></span>
               <div class="form-group">
                 {!! Form::label('TotalPrice', 'Total Invoice Amount', ['class' => 'bold']) !!}
-                {!! Form::text('TotalPrice', isset($data) ? $data->TotalPrice : 0, array('class'=>'form-control form-control-radius sm', 'id'=>'TotalPrice','readonly'=>true, 'placeholder'=>'Total Invoice Amount')) !!}
+                {!! Form::text('TotalPrice', isset($data) ? number_format((float)$data->TotalPrice, 2) : 0, array('class'=>'form-control form-control-radius sm', 'id'=>'TotalPrice','readonly'=>true, 'placeholder'=>'Total Invoice Amount')) !!}
               </div>
 
             </div>

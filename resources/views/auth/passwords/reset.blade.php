@@ -7,7 +7,7 @@
 
                 <header class="heading">
                     <h3 class="title">
-                        {{ __('Reset Password asdk') }}
+                        {{ __('Reset Password') }}
                     </h3>
                 </header>
         

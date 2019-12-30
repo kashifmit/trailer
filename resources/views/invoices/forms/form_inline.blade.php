@@ -33,7 +33,7 @@
         <div class="form-group">
           <label>Labor Total</label>
           <div class="control-wrap">
-            {!! Form::text('LaborTotal', isset($data) ? $data->LaborTotal : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'LaborTotal', 'placeholder'=>'Labor Total')) !!}
+            {!! Form::text('LaborTotal', isset($data) ? number_format((float)$data->LaborTotal,2 ) : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'LaborTotal', 'placeholder'=>'Labor Total')) !!}
             <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
           <label>Parts Total</label>
           <div class="control-wrap">
-          {!! Form::text('PartsTotal', isset($data) ? $data->PartsTotal : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'PartsTotal', 'placeholder'=>'Labor Parts' )) !!}
+          {!! Form::text('PartsTotal', isset($data) ? number_format((float)$data->PartsTotal, 2) : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'PartsTotal', 'placeholder'=>'Labor Parts' )) !!}
           <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
           <label>Accessories Total</label>
           <div class="control-wrap">
-          {!! Form::text('AccessoriesTotal',isset($data) ? $data->AccessoriesTotal : 0,  array('class'=>'form-control form-control-radius calculate', 'id'=>'AccessoriesTotal', 'placeholder'=>'Accessories Total')) !!}
+          {!! Form::text('AccessoriesTotal',isset($data) ? number_format((float)$data->AccessoriesTotal, 2) : 0,  array('class'=>'form-control form-control-radius calculate', 'id'=>'AccessoriesTotal', 'placeholder'=>'Accessories Total')) !!}
           <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="form-group">
           <label>Annual Inspection Total</label>
           <div class="control-wrap">
-          {!! Form::text('AnnualInspectionTotal',isset($data) ? $data->AnnualInspectionTotal : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'AnnualInspectionTotal', 'placeholder'=>'Accessories Total')) !!}
+          {!! Form::text('AnnualInspectionTotal',isset($data) ? number_format((float)$data->AnnualInspectionTotal, 2) : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'AnnualInspectionTotal', 'placeholder'=>'Accessories Total')) !!}
           <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="form-group">
           <label>Registration Total</label>
           <div class="control-wrap">
-            {!! Form::text('RegistrationTotal',isset($data) ? $data->RegistrationTotal : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'RegistrationTotal', 'placeholder'=>'Registration Total')) !!}
+            {!! Form::text('RegistrationTotal',isset($data) ? number_format((float)$data->RegistrationTotal, 2) : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'RegistrationTotal', 'placeholder'=>'Registration Total')) !!}
             <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="form-group">
           <label>Tax Total</label>
           <div class="control-wrap">
-            {!! Form::text('SalesTax',isset($data) ? $data->SalesTax : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'SalesTax', 'placeholder'=>'Tax Total')) !!}
+            {!! Form::text('SalesTax',isset($data) ? number_format((float)$data->SalesTax, 2) : 0, array('class'=>'form-control form-control-radius calculate', 'id'=>'SalesTax', 'placeholder'=>'Tax Total')) !!}
             <a href="{{route('edit.invoice.line', $data->InvoiceNo)}}" class="btn btn-sm btn-primary">Add Line Items</a>
           </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="form-group">
           <label>Total Invoice Amount</label>
           <div class="control-wrap">
-            {!! Form::text('TotalPrice', isset($data) ? $data->TotalPrice : 0, array('class'=>'form-control form-control-radius', 'id'=>'TotalPrice','readonly'=>true, 'placeholder'=>'Total Invoice Amount')) !!}
+            {!! Form::text('TotalPrice', isset($data) ? number_format((float)$data->TotalPrice, 2) : 0, array('class'=>'form-control form-control-radius', 'id'=>'TotalPrice','readonly'=>true, 'placeholder'=>'Total Invoice Amount')) !!}
           </div>
         </div>
 

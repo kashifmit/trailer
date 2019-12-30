@@ -52,23 +52,26 @@ class TrailerController extends Controller
             $invoices = MaintenanceInvoiceModel::where('TrailerSerialNo', $trailerSerNo)->get();
         } else {
             $allData = DataArrayHelper::getfinancials('', $request);
-            $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
+            $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']), '');
         }
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
+                    'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
+        if (count($mapData)) {
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
                 Mapper::informationWindow($value->Latitude, $value->Longitude,$content
                 );
             }    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
 
         $leaseExpenseChart = DataArrayHelper::getChart(
             'Total Lease Expense', 
@@ -104,21 +107,24 @@ class TrailerController extends Controller
     {
         $allData = DataArrayHelper::getfinancials('', $request);
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
+                    'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
+        if (count($mapData)) {
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
                 Mapper::informationWindow($value->Latitude, $value->Longitude,$content
                 );
             }    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         $leaseExpenseChart = DataArrayHelper::getChart('Total Lease Expense', $allData['leaseExpense'], 'lease_expense_chart');
         $TotalMaintenanceExpense = DataArrayHelper::getChart(
             'Total Maintenance Expense', 
@@ -196,18 +202,18 @@ class TrailerController extends Controller
     public function editTrailer($TrailerSerialNo, Request $request)
     {
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
+        Mapper::map(39.381266, -97.922211,
+                [
+                    'marker' => false,
+                    'zoom' => 5,
+                    'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
+                ]
+            );
         if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
-            [
-                'marker' => false,
-                'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
-            ]);
             $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
             $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
                 Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
                 );    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
         }
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
@@ -241,19 +247,22 @@ class TrailerController extends Controller
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
             [
                 'marker' => false,
+                'zoom' => 5,
                 'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
-            ]);
+            ]
+        );
+        if (count($mapData)) {
             $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
             $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
                 Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
                 );    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         $getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
         $docData = array("inspection_document"=> '', "fhwa" => '', "tracking_installation_sheet" => '', "registration" => '');
         foreach ($getTrailerDetails['data']->filesData as $key => $value) {
@@ -333,23 +342,43 @@ class TrailerController extends Controller
 
     private function updateTracking($TrailerSerialNo, $request)
     {
-        $EquipmentTracking = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
+        $findData = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->first();
+        if ($findData) { 
+            $EquipmentTracking = EquipmentTrackingModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
             'TrackingId' => $request->input('TrackingId'),
             'trackingProvider' => $request->input('etrack_id')
-        ]);
+            ]);
+        } else {
+            $EquipmentTracking = new EquipmentTrackingModel();
+            $EquipmentTracking->TrackingId = $request->input('TrackingId');
+            $EquipmentTracking->TrailerSerialNo = $TrailerSerialNo;
+            $EquipmentTracking->trackingProvider = $request->input('etrack_id');
+            $EquipmentTracking->save();
+        }
+        
         
     }
 
     private function updateRegistration($TrailerSerialNo, $request)
     {
-        $registration = RegistrationModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
-            'PlateNo' => $request->input('PlateNo'),
-            'StateAbbreviation' => $request->input('StateAbbreviation'),
-            'TitleNo' => $request->input('TitleNo'),
-            'ExpireDate' => date('Y-m-d', strtotime($request->input('ExpireDate'))),
-            'RegistrationDate' => date('Y-m-d', strtotime($request->input('RegistrationDate'))),
-            'Owner' => $request->input('Owner')
-        ]);
+        $findData = RegistrationModel::where('TrailerSerialNo', $TrailerSerialNo)->first();
+        if ($findData) {
+            $registration = RegistrationModel::where('TrailerSerialNo', $TrailerSerialNo)->update([
+                'PlateNo' => $request->input('PlateNo'),
+                'StateAbbreviation' => $request->input('StateAbbreviation'),
+                'TitleNo' => $request->input('TitleNo'),
+                'ExpireDate' => date('Y-m-d', strtotime($request->input('ExpireDate'))),
+                'RegistrationDate' => date('Y-m-d', strtotime($request->input('RegistrationDate'))),
+                'Owner' => $request->input('Owner')
+            ]);
+        } else {
+            $registration = new RegistrationModel();
+            $registration->VehicleId_VIN = $request->input('VehicleId_VIN');
+            $registration->TrailerSerialNo = $TrailerSerialNo;
+            $registration->save();
+            $this->updateRegistration($TrailerSerialNo, $request);
+        }
+        
     }
 
     private function uploadDocuments($TrailerSerialNo, $VehicleId_VIN, $request) {

@@ -60,15 +60,43 @@
     <div class="form-group row {!! APFrmErrHelp::hasError($errors, 'password') !!}">
         {!! Form::label('password', 'Password', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-4">
-            {!! Form::password('password', array('required', 'class'=>'form-control form-control-radius', 'placeholder'=>'Password')) !!}
+            {!! Form::password('password', array( 'class'=>'form-control form-control-radius', 'placeholder'=>'Password')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'Password') !!}
         </div>
     </div>
     <div class="form-group row {!! APFrmErrHelp::hasError($errors, 'confirm_password') !!}">
         {!! Form::label('confirm_password', 'Confirm Password', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-4">
-            {!! Form::password('confirm_password', array('required', 'class'=>'form-control form-control-radius', 'placeholder'=>'Confirm Password')) !!}
+            {!! Form::password('confirm_password', array( 'class'=>'form-control form-control-radius', 'placeholder'=>'Confirm Password')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'confirm_password') !!}
+        </div>
+        <!-- <div class="col-md-4">
+            {!! Form::button('Save', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}
+        </div> -->
+    </div>
+    <header class="heading">
+        <h5 class="title">{{ __('Account Authorization') }}</h5>
+    </header>
+    @php
+        $verified = isset($data) && $data->is_verified == 1 ? 'checked="checked"' : '';
+        $not_verified = isset($data) && $data->is_verified == 0 ? 'checked="checked"' : '';
+
+        $authorized = isset($data) && $data->is_authorized == 1 ? 'checked="checked"' : '';
+        $not_authorized = isset($data) && $data->is_authorized == 0 ? 'checked="checked"' : '';
+    @endphp
+    <div class="form-group row" >
+        {!! Form::label('is_verified', 'Email Verified', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
+        <div class="col-md-4">
+            <input type="radio" name="is_verified" value="1" {{$verified}}>Yes
+            &nbsp;&nbsp;&nbsp;<input type="radio" name="is_verified" value="0" {{$not_verified}}>No
+        </div>
+    </div>
+
+    <div class="form-group row" >
+        {!! Form::label('is_authorized', 'Authorized', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
+        <div class="col-md-4">
+            <input type="radio" name="is_authorized" value="1" {{$authorized}}>Yes
+            &nbsp;&nbsp;&nbsp;<input type="radio" name="is_authorized" value="0" {{$not_authorized}}>No
         </div>
         <div class="col-md-4">
             {!! Form::button('Save', array('class'=>'btn btn-large btn-primary', 'type'=>'submit')) !!}

@@ -6,7 +6,7 @@
 <div class="titles-masthead mb-4">
   <ul class="list-title-masthead">
     <li>
-      <label>Invoice Number afsd</label>
+      <label>Invoice Number</label>
       <span>
         {!! Form::select('InvoiceNo', ['' => 'Select Invoice Number']+$invoices, isset($data) ? $data->InvoiceNo : null, array('class'=>'form-control form-control-radius invoices', 'id'=>'InvoiceNo', 'disabled' => isset($data) )) !!}
       </span>
@@ -48,7 +48,7 @@
               {!! Form::hidden('InvoiceLine[]', $value1['InvoiceLine']) !!}
               <td><strong>{{$key}}</strong></td>
               <td>
-                {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
+                {!! Form::text($value, number_format((float)$data[$value], 2), array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
               </td>
               <td>
                 {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
@@ -101,7 +101,7 @@
               {!! Form::hidden('InvoiceLine[]', '') !!}
               <td><strong>{{$key}}</strong></td>
               <td>
-                {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
+                {!! Form::text($value, number_format((float)$data[$value],2), array('class'=>'form-control form-control-radius calculate', 'id'=>$value, 'placeholder'=>$key )) !!}
               </td>
               <td>
                 {!! Form::button('Add Line', array('class'=>'btn btn-large btn-primary clone-class calculate-class', 'type'=>'button', 'id' => $value.'_btn' )) !!}
@@ -128,7 +128,7 @@
               <tr>
                 <td><strong>Total Invoice Amount</strong></td>
                 <td>
-                  {!! Form::text($value, $data[$value], array('class'=>'form-control form-control-radius', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
+                  {!! Form::text($value, number_format((float)$data[$value], 2), array('class'=>'form-control form-control-radius', 'id'=>$value, 'placeholder'=>$key, 'readonly' => true )) !!}
                 </td>
                 <td colspan="7"></td>
               </tr>

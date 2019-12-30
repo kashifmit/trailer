@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['verifyUSer']]);
     }
 
     /**
@@ -41,21 +41,25 @@ class HomeController extends Controller
     {
         $allData = DataArrayHelper::getfinancials('', $request);
         $mapData = DataArrayHelper::trailerTracking('', explode(",", $allData['trailerIds']));
-        if (count($mapData)) {
-            Mapper::map($mapData[0]->Latitude, $mapData[0]->Longitude,
+        Mapper::map(39.381266, -97.922211,
                 [
+                    'marker' => false,
+                    'zoom' => 5,
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
+        if (count($mapData)) {
+
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
                 Mapper::informationWindow($value->Latitude, $value->Longitude,$content
                 );
             }    
-        } else {
-            Mapper::map(39.381266, -97.922211, ['marker' => false]);
-        }
+        } 
+        // else {
+        //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
+        // }
         return view('home')
         ->with('allData', $allData)
         ->with('locations', DataArrayHelper::getSites())
@@ -188,6 +192,8 @@ class HomeController extends Controller
                 $user->email = $request->input('email');
                 $user->organization_id = $request->input('organization');
                 $user->Role_id = $request->input('role');
+                $user->is_verified = $request->input('is_verified');
+                $user->is_authorized = $request->input('is_authorized');
                 $user->save();
                 flash('User has been created successfully!')->success();
                 return Redirect::route('create.user');
@@ -250,8 +256,8 @@ class HomeController extends Controller
             $validate = $request->validate([
             'name' => 'required',
             'last_name' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password',
+            // 'password' => 'required',
+            // 'confirm_password' => 'required|same:password',
             'organization' => 'required',
             'role' => 'required',
         ]);
@@ -259,9 +265,13 @@ class HomeController extends Controller
                 $user = User::findOrFail($id);
                 $user->name = $request->input('name');
                 $user->last_name = $request->input('last_name');
-                $user->password = Hash::make($request->input('password'));
+               if (!empty($request->input('password'))) {
+                    $user->password = Hash::make($request->input('password'));
+               }
                 $user->organization_id = $request->input('organization');
                 $user->Role_id = $request->input('role');
+                $user->is_verified = $request->input('is_verified');
+                $user->is_authorized = $request->input('is_authorized');
                 $user->save();
                 flash('User has been updated successfully!')->success();
                 return Redirect::route('edit.user', $id);
@@ -272,5 +282,24 @@ class HomeController extends Controller
             return Redirect::route('home');            
         }
         
+    }
+
+    public function waitingForApproval(Request $request)
+    {
+        return view('not-allowed');
+    }
+
+    public function verifyUSer($token)
+    {
+        $data = User::where('is_verified', 0)->where('verification_token', $token)->first();
+        if ($data) {
+            $data->is_verified = 1;
+            $data->save();
+            flash('Your account is verified. Please login')->success();
+            return Redirect::route('login');
+        } else {
+            flash('Either Token Is Invalid or your account already verified.')->error();
+            return Redirect::route('login');
+        }
     }
 }

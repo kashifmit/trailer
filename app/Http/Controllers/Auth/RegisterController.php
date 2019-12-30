@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Helpers\DataArrayHelper;
 
 class RegisterController extends Controller
 {
@@ -75,6 +76,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'Role_id' => 1,
             'password' => Hash::make($data['password']),
+            'verification_token' => DataArrayHelper::randomString(80),
         ]);
         
     }
@@ -85,8 +87,15 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
+        $link = route('user.verification', $user->verification_token);
+
+        $data = array( 
+            'user' => $user,
+            'verificationLink' => $link
+        );
+        DataArrayHelper::sendverificationMail($user, $data);
         // $this->guard()->login($user);
-        flash('User has been created successfully!')->success();
+        flash('User has been created successfully. Please check your email address for verification')->success();
         return \Redirect::route('register');
         // return $this->registered($request, $user)
         //                 ?: redirect($this->redirectPath());

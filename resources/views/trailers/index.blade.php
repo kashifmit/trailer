@@ -80,13 +80,32 @@
                 method:"get",
             }).done(function (response) {                
                 var data = response.mapData;
+                
+                var map = new google.maps.Map(document.getElementById('map-block'), {
+                  zoom: 5,
+                  center: new google.maps.LatLng(39.381266, -97.922211)
+                });
+                var marker ;
+                var url, content = "";
+                var infowindow = new google.maps.InfoWindow();
                 if (response.success) {
                     $.each(data, function (index, value) {
-                    maps[0].map.setCenter({lat: parseFloat(value.Latitude), lng: parseFloat(value.Longitude)});
-                    });    
-                } else {
-                    maps[0].map.setCenter({lat: parseFloat(0), lng: parseFloat(0)});
-                }
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(value.Latitude, value.Longitude),
+                            map: map
+                        });
+                        url = '<a target="_blank" href="view-trailor/'+value.TrailerNo+'">Trailer N0 '+value.TrailerNo+'</a>';
+                        content = url+' '+value.ClosestLandMark+' '+value.State+' '+value.Country
+                        google.maps.event.addListener(marker, 'click', (function(marker, index) {
+                            return function() {
+                              infowindow.setContent(content);
+                              infowindow.open(map, marker);
+                            }
+                        })(marker, index));
+                    });
+
+                } 
+                
             });
             $("#map-block").fadeIn();
             // $("#trailer_locaton_table").hide();

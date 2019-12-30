@@ -7,6 +7,7 @@ use File;
 use ImgUploader;
 use Auth;
 use DB;
+use Mail;
 use Input;
 use Redirect;
 use Chart;
@@ -101,7 +102,11 @@ class DataArrayHelper {
 	public static function getConditionName($ConditionStatusId)
 	{
 		$data = conditionModel::select('ConditionType')->where('ConditionStatusId', $ConditionStatusId)->first();
-		return $data->ConditionType;
+		if ($data) {
+			return $data->ConditionType;
+		} else {
+			return "";
+		}
 	}
 
 	public static function getState()
@@ -261,7 +266,6 @@ class DataArrayHelper {
         $end_date = date('Y-m-d H:59:59');
         $mapData = [];
         if (!empty($TrailerNo) || !empty($TrailerIds) || !empty($TrailerUnitNo)) {
-        	DB::enableQueryLog();
         	$mapData = SkyBizTrackingModel::select('id','TrailerNo','TrailerUnitNo','Latitude', 'Longitude', 'ClosestLandMark', 'State', 'Country', 'DistanceFromLandmark', 'BatteryStatus', 'Motion_status', 'track_date_time');
      	if (!empty($TrailerNo)) {
      		$mapData = $mapData->where('TrailerNo', $TrailerNo);
@@ -284,4 +288,24 @@ class DataArrayHelper {
 	{
 		return ["inspection_document", "fhwa", "registration", "tracking_installation_sheet"];
 	}
+
+	public static function sendverificationMail($user, $data)
+    {
+        Mail::send('emails.email', $data, function ($m) use ($user) {
+            $m->to($user->email, $user->name);
+            $m->subject('User verification');
+        });
+    }
+
+    public static function randomString($len)
+    {
+        $result = "";
+        $chars = "abcdefghijklmnopqrstuvwxyz0123456789$11";
+        $charArray = str_split($chars);
+        for($i = 0; $i < $len; $i++){
+            $randItem = array_rand($charArray);
+            $result .= "".$charArray[$randItem];
+        }
+        return $result;
+    }
 }

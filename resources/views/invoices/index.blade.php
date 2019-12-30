@@ -75,13 +75,13 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Labor</div>
-                            <div class="col-lg-6 mb-4">{{$totalLabor}}</div>
+                            <div class="col-lg-6 mb-4">{{number_format((float)$totalLabor, 2)}}</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Annual Inspections</div>
-                            <div class="col-lg-6 mb-4">{{$totalAnnualInspection}}</div>
+                            <div class="col-lg-6 mb-4">{{number_format((float)$totalAnnualInspection, 2)}}</div>
                         </div>
                     </div>
                 </div>
@@ -90,13 +90,13 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Parts</div>
-                            <div class="col-lg-6 mb-4">{{$totalParts}}</div>
+                            <div class="col-lg-6 mb-4">{{number_format((float)$totalParts, 2)}}</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Registrations</div>
-                            <div class="col-lg-6 mb-4">{{$totalRegistration}}</div>
+                            <div class="col-lg-6 mb-4">{{number_format((float)$totalRegistration, 2)}}</div>
                         </div>
                     </div>
                 </div>
@@ -105,13 +105,13 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Accessories</div>
-                            <div class="col-lg-6 mb-4">{{$totalAccessories}}</div>
+                            <div class="col-lg-6 mb-4">{{number_format((float)$totalAccessories, 2)}}</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-6">YTD - Total Tax</div>
-                            <div class="col-lg-6">{{$totalTax}}</div>
+                            <div class="col-lg-6">{{number_format((float)$totalTax, 2)}}</div>
                         </div>
                     </div>
                 </div>
@@ -149,13 +149,13 @@
                                         <td>{{$single->InvoiceNo}}</td>
                                         <td>{{date('m/d/Y', strtotime($single->InvoiceDate))}}</td>
                                         <td>{{$single->VendorName}}</td>
-                                        <td>{{$single->LaborTotal}}</td>
-                                        <td>{{$single->PartsTotal}}</td>
-                                        <td>{{$single->AccessoriesTotal}}</td>
-                                        <td>{{$single->AnnualInspectionTotal}}</td>
-                                        <td>{{$single->RegistrationTotal}}</td>
-                                        <td>{{$single->SalesTax}}</td>
-                                        <td>{{$single->TotalPrice}}</td>
+                                        <td>{{number_format((float)$single->LaborTotal, 2)}}</td>
+                                        <td>{{number_format((float)$single->PartsTotal, 2)}}</td>
+                                        <td>{{number_format((float)$single->AccessoriesTotal, 2)}}</td>
+                                        <td>{{number_format((float)$single->AnnualInspectionTotal, 2)}}</td>
+                                        <td>{{number_format((float)$single->RegistrationTotal, 2)}}</td>
+                                        <td>{{number_format((float)$single->SalesTax, 2)}}</td>
+                                        <td>{{number_format((float)$single->TotalPrice, 2)}}</td>
                                     </tr>
                                 @endforeach
                             @else
