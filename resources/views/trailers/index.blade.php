@@ -90,13 +90,11 @@
                 var infowindow = new google.maps.InfoWindow();
                 if (response.success) {
                     $.each(data, function (index, value) {
-                        console.log(index);
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(value.Latitude, value.Longitude),
                             map: map
                         });
                         url = '<a target="_blank" href="view-trailor/'+value.TrailerNo+'">Trailer N0 '+value.TrailerNo+'</a>';
-                        console.log(url);
                         content = url+' '+value.ClosestLandMark+' '+value.State+' '+value.Country
                         google.maps.event.addListener(marker, 'click', (function(marker, index) {
                             return function() {
@@ -105,7 +103,6 @@
                             }
                         })(marker, index));
                     });
-                    // console.log("<<<>>>>",marker);
 
                 } 
                 
