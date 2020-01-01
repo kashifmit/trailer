@@ -22,6 +22,7 @@
 		                <th>Battery Status</th>
 		                <th>Motion</th>
 		                <th>Date Time</th>
+		                <th>Tracking Date</th>
 		            </tr>
 	        	</thead>
 	        	<tbody>
@@ -41,6 +42,7 @@
 	        			<td>{{$data->BatteryStatus}}</td>
 	        			<td>{{$data->Motion_status}}</td>
 	        			<td>{{date('m/d/Y H:i:s', strtotime($data->track_date_time))}}</td>
+	        			<td>{{date('m/d/Y H:i:s', strtotime($data->created_at))}}</td>
 	        		</tr>
 	        		@endforeach
 	        		@else
