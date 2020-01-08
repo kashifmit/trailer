@@ -40,7 +40,7 @@ class SkybizApiCall extends Command
      */
     public function handle()
     {
-        try{
+        // try{
             $response = Curl::to('https://xml.skybitz.com:9443/QueryPositions?assetid=ALL&customer=MauserXmL&password=XmL467&version=1.0&sortby=1')->get();
             $xml = simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA);
             $json = json_encode($xml);
@@ -81,13 +81,13 @@ class SkybizApiCall extends Command
                     }
                 }    
             }
-        } catch(\Exception $e) {
-            $errorLog = new SkyBizErrorLogModel();
-            $errorLog->error_detail = $e->getMessage();
-            $errorLog->save();
-            \Artisan::call('track:trailer');
-            dd($e->getMessage());
-        }
+        // } catch(\Exception $e) {
+        //     $errorLog = new SkyBizErrorLogModel();
+        //     $errorLog->error_detail = $e->getMessage();
+        //     $errorLog->save();
+        //     \Artisan::call('track:trailer');
+        //     dd($e->getMessage());
+        // }
         
     }
 }
