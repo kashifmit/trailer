@@ -58,8 +58,8 @@ class SkybizApiCall extends Command
                             isset($value['time'])
 
                         ) {
-                        $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->count();
-                        if ($checkdata >= 90) {
+                        $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->get();
+                        if (count($checkdata) >= 90) {
                             SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->delete();
                         } else {
                             $skyBizData = new SkyBizTrackingModel();
