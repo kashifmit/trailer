@@ -61,7 +61,7 @@
                                 <li class="{{Route::currentRouteName() == 'register' ? 'active' : ''}}">
                                     <a href="{{ route('register') }}">
                                         <i class="fas fa-user-plus"></i>
-                                        <span>{{ __('Create Account') }}</span>
+                                        <span>{{ __('Create Account') }} {{date('Y-m-d H:i:s')}}</span>
                                     </a>
                                 </li>
                             @endif
