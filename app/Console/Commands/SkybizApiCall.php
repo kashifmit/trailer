@@ -44,9 +44,13 @@ class SkybizApiCall extends Command
             $response = Curl::to('https://xml.skybitz.com:9443/QueryPositions?assetid=ALL&customer=MauserXmL&password=XmL467&version=1.0&sortby=1')->get();
             $xml = simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA);
             $json = json_encode($xml);
+            sleep(3);
             $dataArray = json_decode($json,TRUE);
-            if ($dataArray['error'] == 0) {
+            sleep(3);
+            \Log::info('Data Log:'.$json);
+            if ($dataArray['error'] == 0 && !empty($dataArray['gls'])) {
                 // SkyBizTrackingModel::truncate();
+
                 foreach ($dataArray['gls'] as $key => $value) {
                     if (isset($value['latitude']) && isset($value['longitude']) &&
                         isset($value['mtsn']) && (isset($value['landmark']) && isset($value['landmark']['geoname'])) && 
@@ -80,11 +84,15 @@ class SkybizApiCall extends Command
                         
                     }
                 }    
+            } else {
+                \Artisan::call('track:trailer');
             }
+
         } catch(\Exception $e) {
             $errorLog = new SkyBizErrorLogModel();
             $errorLog->error_detail = $e->getMessage();
             $errorLog->save();
+            sleep(2);
             \Artisan::call('track:trailer');
             echo $e->getMessage();
         }
