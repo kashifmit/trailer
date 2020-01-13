@@ -47,7 +47,7 @@ class SkybizApiCall extends Command
             sleep(3);
             $dataArray = json_decode($json,TRUE);
             sleep(3);
-            \Log::info('Data Log:'.$json);
+            // \Log::info('Data Log:'.$json);
             if ($dataArray['error'] == 0 && !empty($dataArray['gls'])) {
                 // SkyBizTrackingModel::truncate();
 
@@ -64,7 +64,7 @@ class SkybizApiCall extends Command
                     //     ) {
                         $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->get();
                         if (count($checkdata) >= 90) {
-                            SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->delete();
+                            SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->orderBy('id')->limit(1)->delete();
                         } else {
                             $skyBizData = new SkyBizTrackingModel();
                             $skyBizData->TrailerNo = isset($value['assetid']) ? $value['assetid'] : NULL;

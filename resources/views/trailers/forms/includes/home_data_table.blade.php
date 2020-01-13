@@ -24,14 +24,14 @@
                     </a>    
                     </td>
                 <td>{{$data->SiteName}}</td>
-                <td>{{$data->business ? $data->business : '--'}}</td>
+                <td>{{$data->Division ? $data->Division : '--'}}</td>
                 <td>{{$data->MakeName}}</td>
                 <td>{{$data->VehicleId_VIN}}</td>
                 <th>{{$data->ModelYear}}</th>
                 <th>{{$data->PlateNo}}</th>
                 <th>{{date('m/d/Y', strtotime($data->ExpireDate))}}</th>
                 <td>
-                    <a class="text-primary text-underline" href="{{route('edit.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
+                    <a class="text-primary text-underline" href="{{route('view.trailer', ['TrailerSerialNo' => $data->TrailerSerialNo])}}">
                         {{$data->TrackingId}}
                     </a>    
                 </td>
