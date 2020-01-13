@@ -24,7 +24,7 @@
                     </a>    
                     </td>
                 <td>{{$data->SiteName}}</td>
-                <td>{{$data->business ? $data->business : '--'}}</td>
+                <td>{{$data->Division ? $data->Division : '--'}}</td>
                 <td>{{$data->MakeName}}</td>
                 <td>{{$data->VehicleId_VIN}}</td>
                 <th>{{$data->ModelYear}}</th>
