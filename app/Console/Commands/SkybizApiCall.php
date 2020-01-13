@@ -52,16 +52,16 @@ class SkybizApiCall extends Command
                 // SkyBizTrackingModel::truncate();
 
                 foreach ($dataArray['gls'] as $key => $value) {
-                    if (isset($value['latitude']) && isset($value['longitude']) &&
-                        isset($value['mtsn']) && (isset($value['landmark']) && isset($value['landmark']['geoname'])) && 
-                            ( isset($value['landmark']) && isset($value['landmark']['state']) ) &&
-                            ( isset($value['landmark']) && isset($value['landmark']['country']) ) &&
-                            ( isset($value['landmark']) && isset($value['landmark']['distance']) ) &&
-                            isset($value['battery']) &&
-                            ( isset($value['serial']) && isset($value['serial']['serialdata']) ) &&
-                            isset($value['time'])
+                    // if (isset($value['latitude']) && isset($value['longitude']) &&
+                    //     isset($value['mtsn']) && (isset($value['landmark']) && isset($value['landmark']['geoname'])) && 
+                    //         ( isset($value['landmark']) && isset($value['landmark']['state']) ) &&
+                    //         ( isset($value['landmark']) && isset($value['landmark']['country']) ) &&
+                    //         ( isset($value['landmark']) && isset($value['landmark']['distance']) ) &&
+                    //         isset($value['battery']) &&
+                    //         ( isset($value['serial']) && isset($value['serial']['serialdata']) ) &&
+                    //         isset($value['time'])
 
-                        ) {
+                    //     ) {
                         $checkdata = SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->get();
                         if (count($checkdata) >= 90) {
                             SkyBizTrackingModel::where('TrailerNo', $value['assetid'])->delete();
@@ -82,7 +82,7 @@ class SkybizApiCall extends Command
                             $skyBizData->save();
                         }
                         
-                    }
+                    // }
                 }    
             } else {
                 \Artisan::call('track:trailer');
