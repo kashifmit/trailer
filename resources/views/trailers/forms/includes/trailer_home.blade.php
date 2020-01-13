@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                {!! Form::button('Find', array('class'=>'search-by-trailer-number btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
+                {!! Form::button('Find', array('class'=>'search-by-trailer-number btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'submit')) !!}
             </div>
         </div>
         {!! Form::hidden('search', 'search') !!}
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-            {!! Form::button('Find', array('class'=>'search-by-vin-number btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
+            {!! Form::button('Find', array('class'=>'search-by-vin-number btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'submit')) !!}
             </div>
         </div>
         {!! Form::hidden('search', 'search') !!}
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-            {!! Form::button('Find', array('class'=>'search-by-tracking-id btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
+            {!! Form::button('Find', array('class'=>'search-by-tracking-id btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'submit')) !!}
             </div>
         </div>
         {!! Form::hidden('search', 'search') !!}
@@ -60,7 +60,7 @@
                 {!! Form::select('SiteId', ['' => '--All Locations--']+$locations, \Request::get('SiteId') ? \Request::get('SiteId') : null, array('class'=>'form-control form-control-radius mb-2 mb-lg-0', 'id'=>'SiteId')) !!}
             </div>
             <div class="col-md-4">
-                {!! Form::button('Find', array('class'=>'search-by-business-location btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'button')) !!}
+                {!! Form::button('Find', array('class'=>'search-by-business-location btn btn-min-md btn-primary', 'type'=> Route::currentRouteName() == 'trailer.list' ? 'submit' : 'submit')) !!}
             </div>
         </div>
         {!! Form::hidden('search', 'search') !!}

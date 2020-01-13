@@ -126,8 +126,14 @@ class DataArrayHelper {
 
 	public static function getTrackingsystemName($ETrackId)
 	{
-		$data = TrackingSystemModel::select('ETrackDescription')->where('ETrackId', $ETrackId)->first();
-		return $data->ETrackDescription;
+		if (!empty($ETrackId)) {
+			$data = TrackingSystemModel::select('ETrackDescription')->where('ETrackId', $ETrackId)->first();	
+			$etrackDescription = $data->ETrackDescription;
+		} 
+		else {
+			$etrackDescription = "UNKNOWN";
+		}
+		return $etrackDescription;
 	}
 
 
