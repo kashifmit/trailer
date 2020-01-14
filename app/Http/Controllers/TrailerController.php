@@ -65,7 +65,7 @@ class TrailerController extends Controller
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
-                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                Mapper::informationWindow(!empty($value->Latitude) ? $value->Latitude : 0, !empty($value->Longitude) ? $value->Longitude : 0,$content
                 );
             }    
         } 
@@ -118,7 +118,7 @@ class TrailerController extends Controller
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
-                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                Mapper::informationWindow(!empty($value->Latitude) ? $value->Latitude : 0, !empty($value->Longitude) ? $value->Longitude : 0,$content
                 );
             }    
         } 
@@ -212,7 +212,7 @@ class TrailerController extends Controller
         if (count($mapData)) {
             $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
             $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
-                Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
+                Mapper::informationWindow(!empty($mapData[0]->Latitude) ? $mapData[0]->Latitude : 0, !empty($mapData[0]->Longitude) ? $mapData[0]->Longitude : 0,$content
                 );    
         }
     	$getTrailerDetails = $this->getTrailerById($TrailerSerialNo, $request);
@@ -257,7 +257,7 @@ class TrailerController extends Controller
         if (count($mapData)) {
             $trailerInfo = 'Trailer No '.$mapData[0]->TrailerNo;
             $content = $trailerInfo.' '.$mapData[0]->ClosestLandMark.' '.$mapData[0]->State.' '.$mapData[0]->Country;
-                Mapper::informationWindow($mapData[0]->Latitude, $mapData[0]->Longitude,$content
+                Mapper::informationWindow(!empty($mapData[0]->Latitude) ? $mapData[0]->Latitude : 0, !empty($mapData[0]->Longitude) ? $mapData[0]->Longitude : 0,$content
                 );    
         } 
         // else {

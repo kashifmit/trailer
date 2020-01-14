@@ -91,7 +91,7 @@
                 if (response.success) {
                     $.each(data, function (index, value) {
                         marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(value.Latitude, value.Longitude),
+                            position: new google.maps.LatLng(value.Latitude == null ? 0 : value.Latitude, value.Longitude == null ? 0 : value.Longitude),
                             map: map
                         });
                         url = '<a target="_blank" href="view-trailor/'+value.TrailerNo+'">Trailer N0 '+value.TrailerNo+'</a>';

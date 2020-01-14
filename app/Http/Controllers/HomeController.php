@@ -53,7 +53,7 @@ class HomeController extends Controller
             foreach ($mapData as $key => $value) {
                 $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
                 $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
-                Mapper::informationWindow($value->Latitude, $value->Longitude,$content
+                Mapper::informationWindow(!empty($value->Latitude) ? $value->Latitude : 0, !empty($value->Longitude) ? $value->Longitude : 0,$content
                 );
             }    
         } 
