@@ -21,6 +21,7 @@ use App\TrailerRentedViaModel;
 use App\RentalModel;
 use App\rentedViaModel;
 use App\modelYearModel;
+use App\DuplicateTrailerModel;
 use Carbon\Carbon;
 use App\Helpers\DataArrayHelper;
 use Illuminate\Http\Request;
@@ -45,25 +46,28 @@ class TrailerController extends Controller
         $i = 1;
         foreach ($data->toArray() as $key => $value) {
             $findTrailer = EquipmentModel::where('TrailerSerialNo', $value['unit_no._shipped'])->first();
-            if (!$findTrailer) {
+            $findreg = RegistrationModel::where('VehicleId_VIN', $value['vin'])->first();
+            if (!$findTrailer && !$findreg) {
 
 
                 $equipmentData = new EquipmentModel();
                 $equipmentData->TrailerSerialNo = $value['unit_no._shipped'];
                 $equipmentData->SiteId = $value['siteid'];
                 $equipmentData->ModelYear = $this->getModelYear($value['year']);
-                if ($value['skybitz']) {
+                // if ($value['skybitz']) {
                     $equipmentData->etrack_id = 1;
-                }
+                // }
                 $equipmentData->ManufacturerId = $this->getMakingName($value['make']);
                 $equipmentData->save();
-                $registration = new RegistrationModel();
-                $registration->VehicleId_VIN = $value['vin'];
-                $registration->PlateNo = $value['plate'];
-                $registration->TrailerSerialNo = $value['unit_no._shipped'];
-                $registration->Owner = $value['organizationid'];
-                $registration->StateAbbreviation = $value['plate_state'];
-                $registration->save();
+                    $registration = new RegistrationModel();
+                    $registration->VehicleId_VIN = $value['vin'];
+                    $registration->PlateNo = $value['plate'];
+                    $registration->TrailerSerialNo = $value['unit_no._shipped'];
+                    $registration->Owner = $value['organizationid'];
+                    $registration->StateAbbreviation = $value['plate_state'];
+                    $registration->save();
+                
+
                 if ($value['skybitz']) { 
                     $tracking = new EquipmentTrackingModel();
                     $tracking->TrackingId = $value['skybitz'];
@@ -79,7 +83,7 @@ class TrailerController extends Controller
                 $rental->save();
 
                 $trailerRentedVia = new TrailerRentedViaModel();
-                $trailerRentedVia->Price = $value['monthly_rent'];
+                $trailerRentedVia->Price = empty($value['monthly_rent']) ? 0 : $value['monthly_rent'];
                 $trailerRentedVia->RentalStartDate = date('Y-m-d', strtotime($value['lease_acceptance_date']));
                 $trailerRentedVia->RentalEndDate = date('Y-m-d', strtotime($value['lease_end_date']));
                 $trailerRentedVia->RentalTransId = $rental->RentalTransId;
@@ -91,6 +95,10 @@ class TrailerController extends Controller
                 $rentedVia->RentalTransId = $trailerRentedVia->RentalTransId;
                 $rentedVia->save();
                 $i++;
+            } else {
+                $duplicate = new DuplicateTrailerModel();
+                $duplicate->TrailerSerialNo = $value['unit_no._shipped'];
+                $duplicate->save();
             }
 
         }
