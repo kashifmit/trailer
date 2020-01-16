@@ -69,18 +69,26 @@ class TrailerController extends Controller
                 
 
                 if ($value['skybitz']) { 
-                    $tracking = new EquipmentTrackingModel();
-                    $tracking->TrackingId = $value['skybitz'];
-                    $tracking->TrailerSerialNo = $value['unit_no._shipped'];
-                    $tracking->trackingProvider = 1;
-                    $tracking->save();
+                    $checkTracking = EquipmentTrackingModel::where('TrackingId', $value['skybitz'])->first(); 
+                    if (!$checkTracking) {
+                        $tracking = new EquipmentTrackingModel();
+                        $tracking->TrackingId = $value['skybitz'];
+                        $tracking->TrailerSerialNo = $value['unit_no._shipped'];
+                        $tracking->trackingProvider = 1;
+                        $tracking->save();    
+                    }
+                    
                 }
 
+                $rentalCheck = RentalModel::where('RentalTransId', $i)->first();
                 $rental = new RentalModel();
-                $rental->RentalTransId = $i;
-                $rental->VendorId = $value['vendorid'];
-                $rental->SiteId = $value['siteid'];
-                $rental->save();
+                if (!$rentalCheck) {
+                    $rental->RentalTransId = $i;
+                    $rental->VendorId = $value['vendorid'];
+                    $rental->SiteId = $value['siteid'];
+                    $rental->save();    
+                
+                
 
                 $trailerRentedVia = new TrailerRentedViaModel();
                 $trailerRentedVia->Price = empty($value['monthly_rent']) ? 0 : $value['monthly_rent'];
@@ -94,6 +102,7 @@ class TrailerController extends Controller
                 $rentedVia->TrailerSerialNo = $value['unit_no._shipped'];
                 $rentedVia->RentalTransId = $trailerRentedVia->RentalTransId;
                 $rentedVia->save();
+                }
                 $i++;
             } else {
                 $duplicate = new DuplicateTrailerModel();
