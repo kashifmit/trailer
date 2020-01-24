@@ -266,7 +266,7 @@ class DataArrayHelper {
 	    ->display();
 	    return $chart1;
 	}
-	public static function trailerTracking($TrailerNo='', $TrailerIds= '', $TrailerUnitNo= '')
+	public static function trailerTracking($TrailerNo='', $TrailerIds= '', $TrailerUnitNo= '', $groupBy = true)
 	{
 		$start_date = date('Y-m-d H:00:00');
         $end_date = date('Y-m-d H:59:59');
@@ -284,9 +284,12 @@ class DataArrayHelper {
      		$mapData = $mapData->whereIn('TrailerNo', $TrailerIds);
      		// ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date);
      		}
-     	 $mapData = $mapData->orderBy('id', 'ASC')->get();
+     	 $mapData = $mapData->orderBy('id', 'DESC');
+     	 if ($groupBy) {
+     	 	$mapData = $mapData->groupBy('TrailerNo');
+     	 }
+     	 $mapData = $mapData->get();
         }
-        
         return $mapData;
 	}
 
