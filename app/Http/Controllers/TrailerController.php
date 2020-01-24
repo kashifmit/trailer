@@ -61,14 +61,14 @@ class TrailerController extends Controller
                     'clusters' => ['size' => 20, 'center' => true, 'zoom' => 10]
                 ]
             );
-        // if (count($mapData)) {
-        //     foreach ($mapData as $key => $value) {
-        //         $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
-        //         $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
-        //         Mapper::informationWindow(!empty($value->Latitude) ? $value->Latitude : 0, !empty($value->Longitude) ? $value->Longitude : 0,$content
-        //         );
-        //     }    
-        // } 
+        if (count($mapData)) {
+            foreach ($mapData as $key => $value) {
+                $trailerInfo = '<a target="_blank" href='.route('view.trailer', $value->TrailerNo).'>Trailer No '.$value->TrailerNo.'</a>';
+                $content = $trailerInfo.' '.$value->ClosestLandMark.' '.$value->State.' '.$value->Country;
+                Mapper::informationWindow(!empty($value->Latitude) ? $value->Latitude : 0, !empty($value->Longitude) ? $value->Longitude : 0,$content
+                );
+            }    
+        } 
         // else {
         //     Mapper::map(39.381266, -97.922211, ['marker' => false]);
         // }
@@ -94,7 +94,7 @@ class TrailerController extends Controller
         ->with('getTrackingsystems', DataArrayHelper::getTrackingsystems())
         ->with('getTrackingUnits', DataArrayHelper::getTrackingUnits())
         ->with('displayTable', true)
-        ->with('mapData', [])
+        ->with('mapData', $mapData)
         ->with('invoices', isset($invoices) ? $invoices : [])
         ->with('requestData', $requestData)
         ->with('data', isset($getTrailerDetails['data']) ? $getTrailerDetails['data'] : '')
