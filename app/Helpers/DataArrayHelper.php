@@ -290,7 +290,6 @@ class DataArrayHelper {
      	 }
      	 $mapData = $mapData->get();
         }
-        dd(count($mapData));
         return $mapData;
 	}
 
