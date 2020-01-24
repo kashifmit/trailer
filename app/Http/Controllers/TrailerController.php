@@ -202,6 +202,7 @@ class TrailerController extends Controller
     public function editTrailer($TrailerSerialNo, Request $request)
     {
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
+        $tableData = DataArrayHelper::trailerTracking($TrailerSerialNo, '', '', false);
         Mapper::map(39.381266, -97.922211,
                 [
                     'marker' => false,
@@ -238,7 +239,7 @@ class TrailerController extends Controller
         ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
         ->with('requestData', true)
         ->with('displayTable', true)
-        ->with('mapData', $mapData)
+        ->with('mapData', $tableData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
         ->with('TotalMaintenanceExpense', $getTrailerDetails['TotalMaintenanceExpense'])
         ->with('TrailerLeasedCountAndOwned', $getTrailerDetails['TrailerLeasedCountAndOwned']);
@@ -247,6 +248,7 @@ class TrailerController extends Controller
     public function viewTrailer($TrailerSerialNo, Request $request)
     {
         $mapData = DataArrayHelper::trailerTracking($TrailerSerialNo, '');
+        $tableData = DataArrayHelper::trailerTracking($TrailerSerialNo, '', '', false);
         Mapper::map(39.381266, -97.922211,
             [
                 'marker' => false,
@@ -279,7 +281,7 @@ class TrailerController extends Controller
         ->with('displayTable', true)
         ->with('invoices', $getTrailerDetails['data']->TrailerInvoices ? $getTrailerDetails['data']->TrailerInvoices : [])
         ->with('requestData', true)
-        ->with('mapData', $mapData)
+        ->with('mapData', $tableData)
         ->with('leaseExpenseChart', $getTrailerDetails['leaseExpenseChart'])
         ->with('TotalMaintenanceExpense', $getTrailerDetails['TotalMaintenanceExpense'])
         ->with('TrailerLeasedCountAndOwned', $getTrailerDetails['TrailerLeasedCountAndOwned']);
